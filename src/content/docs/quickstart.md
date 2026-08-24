@@ -78,8 +78,15 @@ Errors use:
 }
 ```
 
+See [Errors](/api/errors/) for the canonical failure model and [Rate limits](/api/rate-limits/) for retry guidance.
+
 ## SDKs
 
 Official JavaScript/TypeScript and Python clients are implemented in the Gapwise repository and target version `0.1.0`. Registry publication is a separate release step; until a package is visible on its public registry, use the HTTPS examples above rather than assuming an install command is available.
+
+- [JavaScript & TypeScript SDK](/sdk/javascript/)
+- [Python SDK](/sdk/python/)
+
+For common integration patterns, continue to [Recipes](/guides/recipes/).
 
 The authoritative machine-readable contract is `https://api.gapwise.ca/openapi.json`.
