@@ -22,7 +22,10 @@ from gapwise import Gapwise
 
 with Gapwise() as gapwise:
     buildings = gapwise.buildings.list(q="instructional")
-    route = gapwise.routes.calculate(from_="MN", to="IB")
+    route = gapwise.routes.calculate(
+        from_building="MN",
+        to_building="IB",
+    )
 ```
 
 ## Async client
@@ -33,8 +36,8 @@ from gapwise import AsyncGapwise
 async with AsyncGapwise() as gapwise:
     places = await gapwise.places.list(building="HM")
     plan = await gapwise.gaps.plan(
-        from_="MN",
-        to="IB",
+        from_building="MN",
+        to_building="IB",
         term="Fall",
         weekday="Wednesday",
         start_time=660,
