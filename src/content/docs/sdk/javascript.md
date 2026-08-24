@@ -54,13 +54,15 @@ Availability is `open`, `closed`, or `unknown`. Treat `unknown` as an explicit s
 const route = await gapwise.routes.calculate({
   from: "MN",
   to: "IB",
-  mode: "fastest",
+  preferences: {
+    mode: "fastest",
+  },
 });
 
 console.log(route.status, route.accuracy);
 ```
 
-Supported route modes are `fastest`, `prefer-indoor`, and `step-free`. A successful HTTP request can still describe an approximate or unavailable route; inspect the route result instead of assuming complete coverage.
+Supported route modes are `fastest`, `prefer-indoor`, and `step-free`. Route preferences live under the `preferences` object. A successful HTTP request can still describe an approximate or unavailable route; inspect the route result instead of assuming complete coverage.
 
 ## Gap planning
 
