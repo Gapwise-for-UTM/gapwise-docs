@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "verify:brand": "node scripts/verify-brand.mjs",
+    "build": "npm run verify:brand && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "npm run verify:brand && astro check"
   },
   "dependencies": {
     "@astrojs/starlight": "latest",
