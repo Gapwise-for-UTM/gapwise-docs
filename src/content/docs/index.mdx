@@ -1,0 +1,41 @@
+---
+title: Gapwise Developers
+description: Official developer documentation for the Gapwise campus intelligence platform.
+template: splash
+hero:
+  title: Build with Gapwise
+  tagline: Deterministic UTM campus intelligence for buildings, places, routing, and gap planning.
+  actions:
+    - text: Get started
+      link: /quickstart/
+      icon: right-arrow
+    - text: API overview
+      link: /api/
+      variant: minimal
+    - text: View on GitHub
+      link: https://github.com/andrewmuratov/gapwise
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Deterministic by design" icon="seti:json">
+    Routing and gap calculations use explicit campus data and deterministic rules, not generated guesses.
+  </Card>
+  <Card title="Privacy-first" icon="lock">
+    Public campus APIs require no timetable, student record, or private account data.
+  </Card>
+  <Card title="Uncertainty is explicit" icon="warning">
+    Missing or unverified campus facts stay unknown instead of silently becoming confident answers.
+  </Card>
+  <Card title="Built for developers" icon="rocket">
+    Use standard HTTP today. Official JavaScript and Python SDKs are planned on top of the same versioned contract.
+  </Card>
+</CardGrid>
+
+## Current public surface
+
+Gapwise currently exposes canonical UTM building and place data, deterministic building-to-building routing, and route-aware gap assessment. The API is evolving toward a stable versioned `v1` surface at `api.gapwise.ca`.
+
+> Gapwise is an independent project and is not an official University of Toronto service unless explicitly stated otherwise.
