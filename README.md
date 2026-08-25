@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/favicon.svg" width="116" alt="Gapwise deer mark in white with black outline" />
+<img src="public/logo-mark-white.svg" width="116" alt="Gapwise deer mark" />
 
 # Gapwise Developer Documentation
 
@@ -58,7 +58,12 @@ The docs deliberately preserve uncertainty. Unknown campus facts remain unknown 
 
 ## Brand
 
-`public/favicon.svg` is the documentation mark: the official Gapwise deer rendered in **white with a black outline**. Starlight is configured to use it globally, and `npm run verify:brand` checks both the global favicon configuration and the monochrome mark during builds.
+The documentation uses the canonical Gapwise deer geometry from the main repository with separate presentation assets:
+
+- `public/logo-mark-white.svg` — clean white README hero mark;
+- `public/favicon.svg` — canonical Gapwise blue (`#4EA7FE`) for Starlight/site favicon branding.
+
+Both assets use the same mirrored deer paths as the main Gapwise mark with no outline, stroke, morphology filter, or rendering workaround. `npm run verify:brand` checks the global favicon configuration, canonical geometry, intended colors, README asset reference, and absence of seam-producing SVG effects.
 
 ---
 
