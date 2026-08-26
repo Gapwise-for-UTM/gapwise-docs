@@ -1,17 +1,17 @@
 ---
 title: Gapwise Developers
-description: Official developer documentation for the Gapwise campus intelligence platform.
+description: Official developer documentation for the Gapwise public campus platform and permissioned AI/MCP integration.
 template: splash
 hero:
   title: Build with Gapwise
-  tagline: Deterministic UTM campus intelligence for buildings, places, routing, and gap planning.
+  tagline: Deterministic UTM campus intelligence through a public API and SDKs, plus a separate permissioned AI/MCP integration for delegated student context.
   actions:
-    - text: Get started
-      link: /quickstart/
+    - text: Public API quickstart
+      link: /quickstart/#public-api-quickstart
       icon: right-arrow
-    - text: API overview
-      link: /api/
-      variant: minimal
+    - text: AI & MCP
+      link: /ai/
+      icon: right-arrow
     - text: View on GitHub
       link: https://github.com/andrewmuratov/gapwise
       variant: minimal
@@ -19,29 +19,64 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
+## Choose your integration
+
+Gapwise has **two intentionally separate developer surfaces**. Pick the one that matches the data and trust boundary your product actually needs.
+
+<CardGrid>
+  <Card title="Public API & SDKs" icon="seti:json">
+    Use the unauthenticated public platform for canonical UTM buildings and places, deterministic routing, and route-aware gap planning. It never exposes a student's timetable, account, friends, private sync state, or precise live location.
+
+    **[Start with the public API →](/quickstart/#public-api-quickstart)**
+  </Card>
+  <Card title="Gapwise AI & MCP" icon="rocket">
+    Connect a compatible remote MCP client to explicitly delegated Gapwise context and bounded actions. Private access is OAuth-protected, permissioned, minimized, revision-aware, and revocable.
+
+    **[Explore AI & MCP →](/ai/)** · **[Connect a client →](/ai/connect/)**
+  </Card>
+</CardGrid>
+
+## Why build on Gapwise
+
 <CardGrid>
   <Card title="Deterministic by design" icon="seti:json">
     Routing and gap calculations use explicit campus data and deterministic rules, not generated guesses.
   </Card>
   <Card title="Privacy-first" icon="padlock">
-    Public campus APIs require no timetable, student record, private account, friend graph, or precise live-location data.
+    Public campus APIs require no timetable or account. Private AI access is a separate, explicit delegation boundary rather than an extension of the public API.
   </Card>
   <Card title="Uncertainty is explicit" icon="warning">
     Missing or unverified campus facts stay unknown instead of silently becoming confident answers.
   </Card>
-  <Card title="Versioned for developers" icon="rocket">
-    Build against the canonical unauthenticated v1 API at `https://api.gapwise.ca/v1` and its authoritative OpenAPI 3.1 contract.
+  <Card title="One source of truth" icon="rocket">
+    The API, SDKs, and AI integration consume Gapwise's canonical deterministic facts instead of reimplementing campus or schedule logic independently.
   </Card>
 </CardGrid>
 
-## Production developer surface
+## Production developer surfaces
 
-Gapwise exposes a stable `v1` surface for canonical UTM buildings and places, deterministic building-to-building routing, and route-aware assessment of an explicitly supplied free interval. Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID.
+### Public campus platform
 
-Official JavaScript/TypeScript and Python SDK source is release-ready in the Gapwise repository and uses the same v1 contract. Registry publication is handled separately from the API deployment, so raw HTTPS remains the universal integration path.
+The canonical public API exposes versioned UTM buildings and places, deterministic building-to-building routing, and route-aware assessment of an explicitly supplied free interval.
 
 - API base: `https://api.gapwise.ca/v1`
-- OpenAPI: `https://api.gapwise.ca/openapi.json`
+- OpenAPI 3.1: `https://api.gapwise.ca/openapi.json`
+- Public developer hub: `https://gapwise.ca/developers`
 - Source: `https://github.com/andrewmuratov/gapwise`
+
+Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Official JavaScript/TypeScript and Python SDK source targets the same v1 contract. Registry publication is validated separately, so raw HTTPS remains the universal integration path until registry installs are explicitly documented as available.
+
+### Permissioned Gapwise AI / MCP
+
+Gapwise AI is a separate provider-neutral remote MCP service. The client supplies the model and reasoning layer; Gapwise supplies permissioned tools and deterministic facts.
+
+- MCP resource: `https://ai.gapwise.ca/api/mcp`
+- OAuth protected-resource metadata: `https://ai.gapwise.ca/.well-known/oauth-protected-resource`
+- AI service: `https://ai.gapwise.ca`
+- Source: `https://github.com/andrewmuratov/gapwise-ai`
+
+The live handler currently exposes **13 permissioned tools** for delegated reads, planning, status, and bounded queued writes. Academic meetings remain read-only. Four stateless public-campus MCP tool definitions exist in source but are intentionally **not registered** in the live handler; the public campus API remains their canonical public path.
+
+Broad named-client compatibility is still a release gate. These docs do not claim ChatGPT, Claude, or another named client as fully verified until the production OAuth/read/write/revoke matrices are complete. See [Client compatibility](/ai/compatibility/).
 
 > Gapwise is an independent project and is not an official University of Toronto service unless explicitly stated otherwise.

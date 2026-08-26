@@ -6,7 +6,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Gapwise Developers",
-      description: "Official developer documentation for the Gapwise campus intelligence platform.",
+      description:
+        "Official developer documentation for the Gapwise campus intelligence platform and permissioned AI/MCP integration.",
       favicon: "/favicon.svg",
       logo: {
         light: "./src/assets/logo-mark-blue.svg",
@@ -25,7 +26,21 @@ export default defineConfig({
           label: "Start",
           items: [
             { label: "Overview", slug: "" },
-            { label: "Quickstart", slug: "quickstart" },
+            { label: "Choose an integration", slug: "quickstart" },
+          ],
+        },
+        {
+          label: "AI & MCP",
+          items: [
+            { label: "AI & MCP overview", slug: "ai" },
+            { label: "Connect an AI client", slug: "ai/connect" },
+            { label: "Authentication & delegation", slug: "ai/authentication" },
+            { label: "Tools", slug: "ai/tools" },
+            { label: "Permissions & writes", slug: "ai/permissions" },
+            { label: "Privacy & security", slug: "ai/privacy" },
+            { label: "Client compatibility", slug: "ai/compatibility" },
+            { label: "Examples", slug: "ai/examples" },
+            { label: "Limitations & troubleshooting", slug: "ai/limitations" },
           ],
         },
         {
@@ -50,20 +65,6 @@ export default defineConfig({
         {
           label: "Guides",
           items: [{ label: "Recipes", slug: "guides/recipes" }],
-        },
-        {
-          label: "AI & MCP",
-          items: [
-            { label: "Overview", slug: "ai" },
-            { label: "Connect an AI client", slug: "ai/connect" },
-            { label: "Authentication & delegation", slug: "ai/authentication" },
-            { label: "Tools", slug: "ai/tools" },
-            { label: "Permissions & writes", slug: "ai/permissions" },
-            { label: "Privacy & security", slug: "ai/privacy" },
-            { label: "Client compatibility", slug: "ai/compatibility" },
-            { label: "Examples", slug: "ai/examples" },
-            { label: "Limitations & troubleshooting", slug: "ai/limitations" },
-          ],
         },
         {
           label: "Platform",
