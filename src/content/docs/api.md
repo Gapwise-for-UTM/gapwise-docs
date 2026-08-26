@@ -5,6 +5,19 @@ description: The public Gapwise campus intelligence API v1.
 
 Gapwise exposes public UTM campus primitives over HTTPS. The canonical production base URL is `https://api.gapwise.ca/v1`. The API is intentionally unauthenticated and preserves provenance, verification state, and uncertainty instead of fabricating missing facts.
 
+## Public API or AI & MCP?
+
+Use this API when you need **public campus intelligence**: buildings, places, deterministic routes, or route-aware assessment of an explicit free interval your application already knows.
+
+If a compatible AI client needs **private student context or bounded personal actions**, use the separate [Gapwise AI & MCP](/ai/) integration. That boundary is OAuth-protected, explicitly delegated, permissioned, and revocable.
+
+The two surfaces are intentionally separate:
+
+- the public API never exposes student timetables, accounts, friends, private sync state, credentials, or precise live location;
+- Gapwise AI does not replace the deterministic campus engine with model-generated routing or schedule math.
+
+[Connect an AI client →](/ai/connect/) · [Review AI privacy & security →](/ai/privacy/)
+
 ## Canonical v1 endpoints
 
 | Method | Endpoint | Purpose |
