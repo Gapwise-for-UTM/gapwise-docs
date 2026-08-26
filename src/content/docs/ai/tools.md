@@ -18,7 +18,7 @@ Academic meetings remain source-backed and read-only. Tool handlers do not accep
 | `get_my_ai_preferences` | Return only planning/routing preferences explicitly delegated to AI. |
 | `get_my_decision_context` | Return compact term-level planning context: hard schedule load, fixed personal constraints, Gapwise gap opportunities, route uncertainty, revision/freshness, and permitted preferences. |
 | `find_my_available_windows` | Find source-backed free windows for one date or term weekday. Without explicit bounds, it does not invent wake/sleep or edge-of-day availability. |
-| `find_my_weekly_opportunities` | Search Monday–Friday for usable planning windows while respecting delegated Gapwise activity budgets and route state. |
+| `find_my_weekly_opportunities` | Search all seven weekdays (Monday–Sunday) for usable planning windows while respecting delegated Gapwise activity budgets and route state. |
 | `check_my_plan_feasibility` | Check a proposed personal block against delegated hard conflicts and, when applicable, the authoritative activity envelope/transition state for a delegated Gapwise gap. |
 
 ## Bounded write tools
