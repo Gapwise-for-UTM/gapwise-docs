@@ -8,6 +8,11 @@ export default defineConfig({
       title: "Gapwise Developers",
       description: "Official developer documentation for the Gapwise campus intelligence platform.",
       favicon: "/favicon.svg",
+      logo: {
+        light: "./src/assets/logo-mark-blue.svg",
+        dark: "./src/assets/logo-mark-white.svg",
+        alt: "Gapwise",
+      },
       customCss: ["./src/styles/custom.css"],
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/andrewmuratov/gapwise" },
