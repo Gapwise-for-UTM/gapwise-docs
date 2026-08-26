@@ -52,6 +52,20 @@ export default defineConfig({
           items: [{ label: "Recipes", slug: "guides/recipes" }],
         },
         {
+          label: "AI & MCP",
+          items: [
+            { label: "Overview", slug: "ai" },
+            { label: "Connect an AI client", slug: "ai/connect" },
+            { label: "Authentication & delegation", slug: "ai/authentication" },
+            { label: "Tools", slug: "ai/tools" },
+            { label: "Permissions & writes", slug: "ai/permissions" },
+            { label: "Privacy & security", slug: "ai/privacy" },
+            { label: "Client compatibility", slug: "ai/compatibility" },
+            { label: "Examples", slug: "ai/examples" },
+            { label: "Limitations & troubleshooting", slug: "ai/limitations" },
+          ],
+        },
+        {
           label: "Platform",
           items: [
             { label: "Data & provenance", slug: "platform/provenance" },
