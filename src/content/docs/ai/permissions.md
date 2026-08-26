@@ -1,26 +1,48 @@
 ---
 title: Permissions & writes
-description: Least-authority access, read-only academic meetings, and safe mutations.
+description: Least-authority access, read-only academic meetings, and revision-bound queued mutations.
 ---
 
-Permissions bound what an integration may do; a natural-language request does not expand them. Request the smallest useful delegation and keep read access separate from write access.
+Permissions bound what an integration may do; a natural-language request does not expand them. OAuth identifies and authorizes the client to call the protected resource, while the student's Gapwise AI delegation separately controls which schedule, planning, preference, and write capabilities are available.
 
 ## What cannot be changed
 
-Academic timetable meetings are read-only through Gapwise AI. They represent authoritative academic schedule data rather than assistant-owned content. Preventing an AI integration from editing them protects schedule truth and avoids turning a conversational mistake into a changed class record.
+Academic timetable meetings are read-only through Gapwise AI. They remain source-backed academic facts owned by Gapwise rather than assistant-owned content. No live MCP tool creates, edits, or deletes an imported academic meeting.
 
 ## Bounded writes
 
-Where the currently registered tools and delegation allow it, writes are limited to supported personal items or preferences. A safe client:
+The current live write surface is deliberately small:
 
-1. reads the relevant object and its current revision;
+- `create_personal_item`
+- `update_personal_item`
+- `delete_personal_item`
+- `update_gap_preferences`
+
+Each write requires its relevant explicit delegation and the current `expectedRevision`. Personal-item creates and updates are typed, and fixed items are independently revalidated by the service against delegated hard timetable conflicts and known Gapwise transition/activity-envelope violations before the action can be queued.
+
+A safe client:
+
+1. reads the relevant current state and revision;
 2. explains the proposed change;
-3. obtains confirmation when the client experience requires it;
-4. submits only the bounded change with the expected revision;
-5. reports the stored result rather than assuming success.
+3. obtains any confirmation required by the client experience;
+4. submits only the bounded change with the current `expectedRevision`;
+5. reports that Gapwise AI **queued** the action when the call succeeds;
+6. reads again before making a dependent change.
 
-## Stale writes and queues
+## Queued does not mean applied
 
-The expected revision is the boundary against overwriting newer state. If state changed after a client read it, the mutation must fail as stale; the client should read again and ask the student to reconsider the updated state.
+MCP write tools do not directly rewrite Gapwise's canonical encrypted private payload. A successful write creates a typed queued action for the first-party Gapwise application to apply against canonical state. After application, Gapwise republishes a newer delegated snapshot.
 
-If a client queues a mutation, it must retain and revalidate the revision and authority under which the change was prepared. Revocation invalidates that authority, and reauthorization must not cause an old queued mutation to run silently under a new grant.
+This means an assistant must not tell the student “your timetable has been updated” merely because the MCP write returned successfully. The accurate statement is that the requested personal/preference change was queued for Gapwise.
+
+## Stale writes and exact retries
+
+`expectedRevision` prevents a client from silently overwriting newer delegated state. If the snapshot changed after the client read it, the mutation fails as stale; read current state again and reconsider the proposed change.
+
+Write tools may accept a bounded idempotency key. Reusing the same key for the exact same requested change makes retries safe; it must not be repurposed for a different mutation.
+
+## Revocation and reauthorization
+
+Revocation removes delegated state/actions and later private access fails closed. Reauthorization is a fresh grant. A client must use the new authorization and current snapshot; old queued intent must not be silently replayed under the new authority.
+
+See [Tools](/ai/tools/) for the live write catalog and [Authentication & delegation](/ai/authentication/) for the authorization boundary.
