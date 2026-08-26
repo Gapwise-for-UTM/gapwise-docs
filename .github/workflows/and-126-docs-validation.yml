@@ -21,8 +21,7 @@ jobs:
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
+      - run: npm install
       - run: npm run verify:brand
       - run: npm run check
       - run: npm run build
@@ -71,7 +70,6 @@ jobs:
                   path = parsed.path
                   if path.startswith("//"):
                       continue
-                  candidates = []
                   if path == "/":
                       candidates = [dist / "index.html"]
                   elif path.endswith("/"):
