@@ -97,6 +97,7 @@ npm run preview
 - OpenAPI 3.1 is authoritative for the public HTTP contract.
 - The main Gapwise repository is authoritative for public campus API implementation behavior and SDK source.
 - The `gapwise-ai` live MCP handler and its security/delegation source are authoritative for AI endpoint, tool, permission, and mutation behavior.
+- `gapwise-mobile` consumes canonical Gapwise contracts and should not become a separate source of timetable, routing, or campus truth.
 - Public AI docs must distinguish registered live tools from implemented-but-unregistered definitions.
 - Named AI clients are not described as verified until end-to-end production evidence exists.
 - Documentation examples must match released/live signatures and semantics.
@@ -105,6 +106,21 @@ npm run preview
 - Provenance, freshness, and uncertainty should remain visible wherever they affect interpretation.
 
 SDK source is production-validated in the main repository. Registry availability should be verified before telling developers that `npm install @gapwise/sdk` or `pip install gapwise` is publicly available.
+
+---
+
+## Gapwise ecosystem
+
+The first-party repositories are separate deployment surfaces with one product identity, trust model, and source-of-truth hierarchy:
+
+| Repository | Role | Primary surface |
+| --- | --- | --- |
+| **[`gapwise`](https://github.com/andrewmuratov/gapwise)** | Core web/PWA product, canonical student-state behavior, deterministic UTM campus intelligence, public API, OpenAPI contract, and SDK source | [gapwise.ca](https://gapwise.ca) / [api.gapwise.ca](https://api.gapwise.ca/v1) |
+| **[`gapwise-mobile`](https://github.com/andrewmuratov/gapwise-mobile)** | Native iOS and Android client consuming canonical Gapwise contracts and product semantics | Native mobile app |
+| **[`gapwise-ai`](https://github.com/andrewmuratov/gapwise-ai)** | Permissioned OAuth/MCP layer for explicitly delegated student context and bounded AI actions | [ai.gapwise.ca](https://ai.gapwise.ca/api/mcp) |
+| **[`gapwise-docs`](https://github.com/andrewmuratov/gapwise-docs)** | Public developer documentation for the API, SDKs, platform behavior, and AI/MCP integration | [docs.gapwise.ca](https://docs.gapwise.ca) |
+
+`gapwise` remains authoritative for deterministic timetable, gap, campus, routing, and primary student-state semantics. `gapwise-mobile` and `gapwise-ai` consume those contracts in their own execution environments, while this repository documents released public behavior. Cross-repository links, terminology, trust boundaries, and branding should remain consistent.
 
 ---
 
