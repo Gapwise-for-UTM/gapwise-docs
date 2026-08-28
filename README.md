@@ -52,6 +52,7 @@ The public API exposes campus intelligence only. It does not expose student time
 | **Guides** | Integration recipes and common workflows |
 | **AI & MCP** | AI-client connection, OAuth/delegation, the live tool surface, permissions, privacy, and compatibility |
 | **Platform** | Provenance, uncertainty, privacy, versioning, and changelog |
+| **Security** | Evidence-classified security overview, trust boundaries, architecture, data flows, and validation limits |
 
 The docs deliberately preserve uncertainty. Unknown campus facts remain unknown rather than being rewritten as confident guesses, and routing/accessibility limitations are documented as part of the contract.
 
