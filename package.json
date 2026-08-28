@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "verify:brand": "node scripts/verify-brand.mjs",
+    "verify:mcp-contract": "node scripts/verify-mcp-contract.mjs",
     "audit:deployment-security": "node scripts/audit-deployment-security.mjs",
-    "build": "npm run verify:brand && astro build",
+    "build": "npm run verify:brand && npm run verify:mcp-contract && astro build",
     "preview": "astro preview",
-    "check": "npm run verify:brand && astro check"
+    "check": "npm run verify:brand && npm run verify:mcp-contract && astro check"
   },
   "dependencies": {
     "@astrojs/starlight": "0.41.9",

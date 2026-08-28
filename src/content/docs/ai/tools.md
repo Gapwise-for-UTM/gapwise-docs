@@ -5,6 +5,8 @@ description: The 13 tools currently registered by the Gapwise AI MCP handler.
 
 The current `gapwise-ai` production handler registers **13 permissioned tools**: nine read/status/planning tools and four bounded write tools. Tool discovery is provider-neutral, but private calls require a verified OAuth caller and the relevant non-revoked Gapwise AI delegation permissions.
 
+This catalog is checked in CI against the repository's [machine-readable live-surface manifest](https://github.com/andrewmuratov/gapwise-docs/blob/main/contracts/mcp-live-surface.json). The `gapwise-ai` handler remains authoritative for the schemas returned at runtime; the manifest makes the released names, registration boundary, and write invariants available for cross-repository drift checks without claiming that conceptual examples replace MCP discovery.
+
 Academic meetings remain source-backed and read-only. Tool handlers do not accept arbitrary SQL, JavaScript, URLs, graph nodes, or generic execute instructions.
 
 ## Read, status, and planning tools

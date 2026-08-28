@@ -1,0 +1,35 @@
+{
+  "contractVersion": 1,
+  "registeredToolCount": 13,
+  "registeredTools": {
+    "read": [
+      "get_ai_delegation_status",
+      "get_my_day",
+      "get_my_week",
+      "get_my_gap_plan",
+      "get_my_ai_preferences",
+      "get_my_decision_context",
+      "find_my_available_windows",
+      "find_my_weekly_opportunities",
+      "check_my_plan_feasibility"
+    ],
+    "write": [
+      "create_personal_item",
+      "update_personal_item",
+      "delete_personal_item",
+      "update_gap_preferences"
+    ]
+  },
+  "unregisteredPublicCampusDefinitions": [
+    "list_utm_buildings",
+    "get_utm_building",
+    "route_between_utm_buildings",
+    "plan_utm_gap_window"
+  ],
+  "writeContract": {
+    "resultSemantics": "queued_for_gapwise",
+    "requiresExpectedRevision": true,
+    "supportsBoundedIdempotencyKey": true,
+    "academicMeetingMutationAllowed": false
+  }
+}
