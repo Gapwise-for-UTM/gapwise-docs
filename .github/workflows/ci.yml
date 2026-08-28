@@ -28,6 +28,8 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Validate docs content and types
         run: npm run check
+      - name: Verify deployment security headers
+        run: npm run audit:deployment-security
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
       - name: Build production documentation
