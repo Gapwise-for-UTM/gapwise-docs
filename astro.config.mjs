@@ -69,6 +69,8 @@ export default defineConfig({
         {
           label: "Platform",
           items: [
+            { label: "Security overview", slug: "platform/security" },
+            { label: "Architecture & data flow", slug: "platform/architecture" },
             { label: "Data & provenance", slug: "platform/provenance" },
             { label: "Accuracy & uncertainty", slug: "platform/accuracy" },
             { label: "Privacy", slug: "platform/privacy" },
