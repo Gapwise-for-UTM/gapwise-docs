@@ -6,18 +6,19 @@
   "scripts": {
     "dev": "astro dev",
     "verify:brand": "node scripts/verify-brand.mjs",
+    "audit:deployment-security": "node scripts/audit-deployment-security.mjs",
     "build": "npm run verify:brand && astro build",
     "preview": "astro preview",
     "check": "npm run verify:brand && astro check"
   },
   "dependencies": {
-    "@astrojs/starlight": "latest",
-    "astro": "latest",
-    "sharp": "latest"
+    "@astrojs/starlight": "0.41.9",
+    "astro": "7.2.9",
+    "sharp": "0.35.4"
   },
   "devDependencies": {
-    "@astrojs/check": "latest",
-    "typescript": "latest"
+    "@astrojs/check": "0.9.10",
+    "typescript": "6.0.3"
   },
   "engines": {
     "node": ">=22"
