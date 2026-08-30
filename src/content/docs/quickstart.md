@@ -114,7 +114,13 @@ See [Errors](/api/errors/) for the canonical failure model and [Rate limits](/ap
 
 ### SDKs
 
-Official JavaScript/TypeScript and Python clients are implemented in the Gapwise repository and target version `0.1.0`. Registry publication is a separate release step; until a package is visible on its public registry, use the HTTPS examples above rather than assuming an install command is available.
+`@gapwise/sdk@0.1.0` is published on npm with provenance and can be installed now:
+
+```bash
+npm install @gapwise/sdk@0.1.0
+```
+
+The Python `gapwise` client is implemented at version `0.1.0` but is still awaiting its first verified PyPI release. Until that release and clean-install verification complete, use the public HTTPS API or the Python client directly from the Gapwise repository rather than assuming `pip install gapwise` is available.
 
 - [JavaScript & TypeScript SDK](/sdk/javascript/)
 - [Python SDK](/sdk/python/)
