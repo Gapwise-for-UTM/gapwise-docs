@@ -5,12 +5,12 @@ description: Use the typed Gapwise client in browsers and Node.js.
 
 The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract.
 
-> Registry status: the source is release-ready at version `0.1.0`. Use the npm install command below only after `@gapwise/sdk` is visible on npm.
+> Registry status: `@gapwise/sdk@0.1.0` is published on npm with provenance.
 
 ## Install
 
 ```bash
-npm install @gapwise/sdk
+npm install @gapwise/sdk@0.1.0
 ```
 
 ## Create a client
