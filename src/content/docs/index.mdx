@@ -64,7 +64,7 @@ The canonical public API exposes versioned UTM buildings and places, determinist
 - Public developer hub: `https://gapwise.ca/developers`
 - Source: `https://github.com/andrewmuratov/gapwise`
 
-Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Official JavaScript/TypeScript and Python SDK source targets the same v1 contract. Registry publication is validated separately, so raw HTTPS remains the universal integration path until registry installs are explicitly documented as available.
+Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. `@gapwise/sdk@0.1.0` is published on npm with provenance and targets the same v1 contract. The Python SDK source also targets v1, but its first verified PyPI release is still pending, so raw HTTPS remains the universal integration path when a registry package is not available.
 
 ### Permissioned Gapwise AI / MCP
 
