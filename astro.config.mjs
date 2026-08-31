@@ -26,6 +26,7 @@ export default defineConfig({
           label: "Start",
           items: [
             { label: "Overview", slug: "" },
+            { label: "Service status", slug: "status" },
             { label: "Choose an integration", slug: "quickstart" },
           ],
         },
