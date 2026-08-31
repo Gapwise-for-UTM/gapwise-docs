@@ -1,4 +1,17 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/status",
+      "has": [
+        {
+          "type": "host",
+          "value": "status.gapwise.ca"
+        }
+      ]
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
