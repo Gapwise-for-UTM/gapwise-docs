@@ -106,7 +106,7 @@ npm run preview
 - The docs must not invent a fixed global quota; clients should handle `429` defensively.
 - Provenance, freshness, and uncertainty should remain visible wherever they affect interpretation.
 
-SDK source is production-validated in the main repository. Registry availability should be verified before telling developers that `npm install @gapwise/sdk` or `pip install gapwise` is publicly available.
+SDK source is production-validated in the main repository. The verified registry state is intentionally package-specific: `@gapwise/sdk@0.1.0` is available from npm, while the Python `gapwise` package is not yet published to PyPI. Do not advertise `pip install gapwise` as a released install path until the first PyPI release and clean-consumer verification are complete.
 
 ---
 
