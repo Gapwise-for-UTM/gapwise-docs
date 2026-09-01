@@ -19,7 +19,7 @@ const statusIssueEndpoint =
   </div>
 
   <div class="status-meta" aria-label="Status freshness">
-    <span class="status-live-dot" aria-hidden="true"></span>
+    <span class="status-live-dot" data-status-live-dot aria-hidden="true"></span>
     <span data-last-updated>Hourly checks · waiting for latest result</span>
   </div>
 
@@ -118,7 +118,7 @@ const statusIssueEndpoint =
   };
 
   const formatTimestamp = (value) => {
-    if (!value) return "No automated check has completed yet";
+    if (!value) return "Waiting for first automated check";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return "Latest check time unavailable";
     return `Last checked ${new Intl.DateTimeFormat(undefined, {
@@ -137,6 +137,7 @@ const statusIssueEndpoint =
     const summaryTitle = root.querySelector("[data-summary-title]");
     const summaryMessage = root.querySelector("[data-summary-message]");
     const lastUpdated = root.querySelector("[data-last-updated]");
+    const liveDot = root.querySelector("[data-status-live-dot]");
     const groupsRoot = root.querySelector("[data-status-groups]");
     const incident = root.querySelector("[data-active-incident]");
     const incidentLabel = root.querySelector("[data-incident-label]");
@@ -156,19 +157,32 @@ const statusIssueEndpoint =
       if (!data || !Array.isArray(data.groups)) throw new Error("Status payload is missing");
 
       const currentStatus = normalizeStatus(data.summary?.status);
+      const hasCompletedCheck = Boolean(data.generatedAt);
       summary.className = `status-summary status-summary--${currentStatus}`;
       summaryIcon.textContent = statusIcon(currentStatus);
-      summaryTitle.textContent =
-        currentStatus === "operational"
-          ? "All monitored systems are operational"
-          : currentStatus === "degraded"
-            ? "We’re currently experiencing issues"
-            : currentStatus === "outage"
-              ? "A Gapwise service is currently unavailable"
-              : "Current status is temporarily unavailable";
-      summaryMessage.textContent =
-        data.summary?.message || "See the service list below for the latest check results.";
+      liveDot.className = `status-live-dot status-live-dot--${currentStatus}`;
+
+      if (!hasCompletedCheck && currentStatus === "unknown") {
+        summaryTitle.textContent = "Waiting for the first production check";
+        summaryMessage.textContent =
+          data.summary?.message || "The hourly monitor is initializing.";
+      } else {
+        summaryTitle.textContent =
+          currentStatus === "operational"
+            ? "All monitored systems are operational"
+            : currentStatus === "degraded"
+              ? "We’re currently experiencing issues"
+              : currentStatus === "outage"
+                ? "A Gapwise service is currently unavailable"
+                : "Current status is temporarily unavailable";
+        summaryMessage.textContent =
+          data.summary?.message || "See the service list below for the latest check results.";
+      }
+
       lastUpdated.textContent = `${formatTimestamp(data.generatedAt)} · updates hourly`;
+
+      incident.hidden = true;
+      incident.classList.remove("status-incident--degraded", "status-incident--outage");
 
       const affected = [];
       for (const group of data.groups) {
@@ -203,7 +217,7 @@ const statusIssueEndpoint =
         .map((group) => {
           const services = Array.isArray(group.services) ? group.services : [];
           const rollup = groupStatus(services);
-          const shouldOpen = rollup !== "operational";
+          const shouldOpen = ["degraded", "outage"].includes(rollup);
           return `
             <details class="status-group" ${shouldOpen ? "open" : ""}>
               <summary class="status-group__summary">
@@ -237,6 +251,8 @@ const statusIssueEndpoint =
     } catch (error) {
       summary.className = "status-summary status-summary--unknown";
       summaryIcon.textContent = "?";
+      liveDot.className = "status-live-dot";
+      incident.hidden = true;
       summaryTitle.textContent = "Live status data is temporarily unavailable";
       summaryMessage.textContent =
         "The documentation site is online, but the latest hourly status record could not be loaded.";
