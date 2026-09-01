@@ -14,7 +14,7 @@ export default defineConfig({
         dark: "./src/assets/logo-mark-white.svg",
         alt: "Gapwise",
       },
-      customCss: ["./src/styles/custom.css"],
+      customCss: ["./src/styles/custom.css", "./src/styles/status-dashboard-fixes.css"],
       routeMiddleware: "./src/routeData.ts",
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/andrewmuratov/gapwise" },
