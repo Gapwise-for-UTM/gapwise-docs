@@ -145,36 +145,72 @@ async function probeService(check) {
   return { status, detail, attempts };
 }
 
+function singleServiceSummary(service, status) {
+  if (service.monitoring === "manual") {
+    if (status === "outage") {
+      return `${service.name} is marked unavailable by the Gapwise operator.`;
+    }
+    if (status === "degraded") {
+      return `${service.name} is marked degraded by the Gapwise operator.`;
+    }
+    return `${service.name} has not been confirmed by the Gapwise operator.`;
+  }
+
+  if (status === "outage") {
+    return `${service.name} did not pass the latest production checks.`;
+  }
+  if (status === "degraded") {
+    return `${service.name} returned intermittent results in the latest check.`;
+  }
+  return `${service.name} could not be determined in the latest production check.`;
+}
+
+function multiServiceSummary(services, status) {
+  const manualCount = services.filter((service) => service.monitoring === "manual").length;
+  const automaticCount = services.length - manualCount;
+
+  if (manualCount > 0 && automaticCount > 0) {
+    if (status === "outage") {
+      return `${services.length} services are unavailable or failing production checks.`;
+    }
+    if (status === "degraded") {
+      return `${services.length} services are degraded or returning intermittent production results.`;
+    }
+    return `${services.length} service states are currently unconfirmed.`;
+  }
+
+  if (manualCount === services.length) {
+    if (status === "outage") {
+      return `${services.length} operator-maintained services are marked unavailable.`;
+    }
+    if (status === "degraded") {
+      return `${services.length} operator-maintained services are marked degraded.`;
+    }
+    return `${services.length} operator-maintained service states are not confirmed.`;
+  }
+
+  if (status === "outage") {
+    return `${services.length} services did not pass the latest production checks.`;
+  }
+  if (status === "degraded") {
+    return `${services.length} services returned intermittent results in the latest check.`;
+  }
+  return `${services.length} service states could not be determined in the latest production checks.`;
+}
+
 function summaryFor(data) {
   const services = Array.from(flattenServices(data).values());
-  const outage = services.filter((service) => service.status === "outage");
-  const degraded = services.filter((service) => service.status === "degraded");
-  const unknown = services.filter((service) => service.status === "unknown");
 
-  if (outage.length > 0) {
+  for (const status of ["outage", "degraded", "unknown"]) {
+    const affected = services.filter((service) => service.status === status);
+    if (affected.length === 0) continue;
+
     return {
-      status: "outage",
+      status,
       message:
-        outage.length === 1
-          ? `${outage[0].name} did not pass the latest production checks.`
-          : `${outage.length} services did not pass the latest production checks.`,
-    };
-  }
-
-  if (degraded.length > 0) {
-    return {
-      status: "degraded",
-      message:
-        degraded.length === 1
-          ? `${degraded[0].name} returned intermittent results in the latest check.`
-          : `${degraded.length} services returned intermittent results in the latest check.`,
-    };
-  }
-
-  if (unknown.length > 0) {
-    return {
-      status: "unknown",
-      message: "One or more service states could not be determined.",
+        affected.length === 1
+          ? singleServiceSummary(affected[0], status)
+          : multiServiceSummary(affected, status),
     };
   }
 
@@ -187,7 +223,7 @@ function summaryFor(data) {
 function statusIssueBody(data) {
   return `This issue is a machine-managed public data source for \`status.gapwise.ca\`.
 
-The hourly status workflow updates the JSON block below. Status-history transitions are recorded as comments. Do not use this issue for vulnerability reports or support requests.
+The hourly status workflow updates automatic checks, while the operator workflow updates operator-maintained services. Status-history transitions are recorded as comments. Do not use this issue for vulnerability reports or support requests.
 
 ${STATUS_MARKER_START}
 ${JSON.stringify(data, null, 2)}
@@ -215,6 +251,7 @@ async function publishTransition(service, from, to, at) {
     serviceName: service.name,
     from,
     to,
+    source: "automatic",
     message: transitionMessage(service, from, to),
   };
 
@@ -283,6 +320,7 @@ console.log(
         id: service.id,
         status: service.status,
         monitoring: service.monitoring,
+        checkedAt: service.checkedAt || null,
         detail: service.detail || null,
       })),
     },
