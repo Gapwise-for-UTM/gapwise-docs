@@ -9,7 +9,9 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: gapwise-hourly-status-monitor
+  # The hourly and operator workflows both update issue #17. Serialize them so
+  # a manual incident update cannot be overwritten by a simultaneous probe run.
+  group: gapwise-status-publisher
   cancel-in-progress: false
 
 permissions:

@@ -69,9 +69,8 @@ const statusIssueEndpoint =
         other upstream services remain outside Gapwise's control.
       </p>
       <p>
-        If a user-facing problem persists after a retry, contact
-        <a href="mailto:support@gapwise.ca">support@gapwise.ca</a>. Suspected vulnerabilities should
-        be reported privately to <a href="mailto:security@gapwise.ca">security@gapwise.ca</a>.
+        If a user-facing problem persists after a retry, email{" "}<a href="mailto:support@gapwise.ca">support@gapwise.ca</a>.
+        Suspected vulnerabilities should be reported privately to{" "}<a href="mailto:security@gapwise.ca">security@gapwise.ca</a>.
       </p>
     </div>
   </details>
@@ -120,6 +119,12 @@ const statusIssueEndpoint =
       return STATUS_RANK[candidate] > STATUS_RANK[worst] ? candidate : worst;
     }, "operational");
 
+  const worstStatus = (services, fallback = "operational") =>
+    services.reduce((worst, service) => {
+      const candidate = normalizeStatus(service.status);
+      return STATUS_RANK[candidate] > STATUS_RANK[worst] ? candidate : worst;
+    }, fallback);
+
   const extractStatusData = (body) => {
     const start = body.indexOf(STATUS_MARKER_START);
     const end = body.indexOf(STATUS_MARKER_END);
@@ -144,6 +149,17 @@ const statusIssueEndpoint =
       minute: "2-digit",
       timeZoneName: "short",
     }).format(date)}`;
+  };
+
+  const formatServiceTimestamp = (value) => {
+    const date = parseCheckTime(value);
+    if (!date) return null;
+    return new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(date);
   };
 
   document.querySelectorAll("[data-gapwise-status]").forEach(async (root) => {
@@ -173,11 +189,21 @@ const statusIssueEndpoint =
       const data = extractStatusData(issue.body ?? "");
       if (!data || !Array.isArray(data.groups)) throw new Error("Status payload is missing");
 
+      const services = data.groups.flatMap((group) =>
+        Array.isArray(group.services) ? group.services : [],
+      );
       const recordedStatus = normalizeStatus(data.summary?.status);
       const checkedAt = parseCheckTime(data.generatedAt);
       const hasCompletedCheck = Boolean(checkedAt);
       const isStale = Boolean(checkedAt && Date.now() - checkedAt.getTime() > STATUS_STALE_AFTER_MS);
-      const presentationStatus = isStale ? "unknown" : recordedStatus;
+      const manualAffected = services.filter(
+        (service) =>
+          service.monitoring === "manual" &&
+          ["degraded", "outage"].includes(normalizeStatus(service.status)),
+      );
+      const manualIncidentStatus =
+        manualAffected.length > 0 ? worstStatus(manualAffected, "degraded") : null;
+      const presentationStatus = manualIncidentStatus || (isStale ? "unknown" : recordedStatus);
 
       summary.className = `status-summary status-summary--${presentationStatus}`;
       summaryIcon.textContent = statusIcon(presentationStatus);
@@ -187,7 +213,20 @@ const statusIssueEndpoint =
         : "status-hourly-badge";
       hourlyBadge.textContent = isStale ? "Monitoring delayed" : "Checked hourly";
 
-      if (!hasCompletedCheck) {
+      if (manualIncidentStatus && (!hasCompletedCheck || isStale)) {
+        summaryTitle.textContent =
+          manualIncidentStatus === "outage"
+            ? "A Gapwise service is currently unavailable"
+            : "We’re currently experiencing issues";
+        const suffix = isStale
+          ? " Automated monitoring is also delayed."
+          : " Automated monitoring has not completed yet.";
+        summaryMessage.textContent =
+          `${data.summary?.message || "An operator-maintained service is reporting an incident."}${suffix}`;
+        lastUpdated.textContent = hasCompletedCheck
+          ? `${formatTimestamp(data.generatedAt)} · monitoring delayed`
+          : "No completed automated check yet · operator incident active";
+      } else if (!hasCompletedCheck) {
         summaryTitle.textContent = "Waiting for the first production check";
         summaryMessage.textContent =
           data.summary?.message || "The hourly monitor is initializing.";
@@ -214,42 +253,49 @@ const statusIssueEndpoint =
       incident.hidden = true;
       incident.classList.remove("status-incident--degraded", "status-incident--outage");
 
-      const affected = [];
-      if (!isStale) {
-        for (const group of data.groups) {
-          for (const service of group.services ?? []) {
-            if (["degraded", "outage"].includes(normalizeStatus(service.status))) {
-              affected.push(service);
-            }
-          }
-        }
-      }
+      const affected = services.filter((service) => {
+        const serviceStatus = normalizeStatus(service.status);
+        if (!["degraded", "outage"].includes(serviceStatus)) return false;
+        return service.monitoring === "manual" || !isStale;
+      });
 
       if (affected.length > 0) {
         incident.hidden = false;
-        const worst = affected.reduce(
-          (value, service) =>
-            STATUS_RANK[normalizeStatus(service.status)] > STATUS_RANK[value]
-              ? normalizeStatus(service.status)
-              : value,
-          "degraded",
-        );
+        const worst = worstStatus(affected, "degraded");
+        const manualCount = affected.filter((service) => service.monitoring === "manual").length;
+        const automaticCount = affected.length - manualCount;
+
         incident.classList.add(`status-incident--${worst}`);
         incidentLabel.textContent = worst === "outage" ? "Service outage" : "Service incident";
         incidentTitle.textContent =
           affected.length === 1
             ? `${affected[0].name} is reporting issues`
             : `${affected.length} services are reporting issues`;
-        incidentMessage.textContent =
-          "The latest hourly production probes did not pass cleanly. We’ll continue checking and update this page when the result changes.";
+
+        if (manualCount > 0 && automaticCount === 0) {
+          incidentMessage.textContent =
+            "This state was reported by the Gapwise operator. Automated probes continue independently.";
+        } else if (manualCount > 0) {
+          incidentMessage.textContent =
+            "The latest status includes operator-reported and automated issues. We’ll continue checking and update this page when the state changes.";
+        } else {
+          incidentMessage.textContent =
+            "The latest hourly production probes did not pass cleanly. We’ll continue checking and update this page when the result changes.";
+        }
         incidentMeta.textContent = `Affects ${affected.map((service) => service.name).join(", ")}`;
       }
 
       groupsRoot.innerHTML = data.groups
         .map((group) => {
-          const services = Array.isArray(group.services) ? group.services : [];
-          const rollup = groupStatus(services);
-          const shouldOpen = !isStale && ["degraded", "outage"].includes(rollup);
+          const groupServices = Array.isArray(group.services) ? group.services : [];
+          const rollup = groupStatus(groupServices);
+          const shouldOpen = groupServices.some((service) => {
+            const serviceStatus = normalizeStatus(service.status);
+            return (
+              ["degraded", "outage"].includes(serviceStatus) &&
+              (service.monitoring === "manual" || !isStale)
+            );
+          });
           return `
             <details class="status-group" ${shouldOpen ? "open" : ""}>
               <summary class="status-group__summary">
@@ -259,15 +305,18 @@ const statusIssueEndpoint =
                 <span class="status-chevron" aria-hidden="true">⌄</span>
               </summary>
               <div class="status-service-list">
-                ${services
+                ${groupServices
                   .map((service) => {
                     const serviceStatus = normalizeStatus(service.status);
-                    const monitoring =
-                      service.monitoring === "automatic"
-                        ? isStale
-                          ? "Last known hourly probe"
-                          : "Hourly probe"
-                        : "Operator-maintained";
+                    let monitoring;
+                    if (service.monitoring === "automatic") {
+                      monitoring = isStale ? "Last known hourly probe" : "Hourly probe";
+                    } else {
+                      const operatorTime = formatServiceTimestamp(service.checkedAt);
+                      monitoring = operatorTime
+                        ? `Operator updated ${operatorTime}`
+                        : "Operator-maintained · confirmation time unavailable";
+                    }
                     const detail = service.detail ? ` · ${escapeHtml(service.detail)}` : "";
                     return `
                       <div class="status-service-row">

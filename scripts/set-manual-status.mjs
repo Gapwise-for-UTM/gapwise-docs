@@ -2,9 +2,24 @@ const owner = "andrewmuratov";
 const repo = "gapwise-docs";
 const issueNumber = Number(process.env.STATUS_ISSUE_NUMBER || "17");
 const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+const serviceId = String(process.env.STATUS_SERVICE_ID || "").trim();
+const requestedStatus = String(process.env.STATUS_VALUE || "").trim();
+const operatorMessage = String(process.env.STATUS_MESSAGE || "").trim();
+const actor = String(process.env.GITHUB_ACTOR || "Gapwise operator").trim();
 
 if (!token) {
   throw new Error("GH_TOKEN or GITHUB_TOKEN is required to publish status data.");
+}
+
+if (!serviceId) {
+  throw new Error("STATUS_SERVICE_ID is required.");
+}
+
+const allowedStatuses = new Set(["operational", "degraded", "outage", "unknown"]);
+if (!allowedStatuses.has(requestedStatus)) {
+  throw new Error(
+    `STATUS_VALUE must be one of ${Array.from(allowedStatuses).join(", ")}.`,
+  );
 }
 
 const STATUS_MARKER_START = "<!-- GAPWISE_STATUS_JSON_START -->";
@@ -12,42 +27,11 @@ const STATUS_MARKER_END = "<!-- GAPWISE_STATUS_JSON_END -->";
 const EVENT_MARKER_START = "<!-- GAPWISE_STATUS_EVENT_START -->";
 const EVENT_MARKER_END = "<!-- GAPWISE_STATUS_EVENT_END -->";
 
-const automaticChecks = new Map([
-  [
-    "web",
-    {
-      url: "https://gapwise.ca/",
-      expected: (status) => status >= 200 && status < 400,
-    },
-  ],
-  [
-    "public-api",
-    {
-      url: "https://api.gapwise.ca/v1",
-      expected: (status) => status >= 200 && status < 300,
-    },
-  ],
-  [
-    "ai-health",
-    {
-      url: "https://ai.gapwise.ca/api/health",
-      expected: (status) => status >= 200 && status < 300,
-    },
-  ],
-  [
-    "docs",
-    {
-      url: "https://docs.gapwise.ca/",
-      expected: (status) => status >= 200 && status < 400,
-    },
-  ],
-]);
-
 const githubHeaders = {
   Accept: "application/vnd.github+json",
   Authorization: `Bearer ${token}`,
   "X-GitHub-Api-Version": "2022-11-28",
-  "User-Agent": "gapwise-status-monitor",
+  "User-Agent": "gapwise-status-operator",
 };
 
 async function github(path, options = {}) {
@@ -83,66 +67,6 @@ function flattenServices(data) {
       (group.services || []).map((service) => [service.id, service]),
     ),
   );
-}
-
-async function oneProbe(url, expected) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10_000);
-  const started = performance.now();
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      redirect: "follow",
-      cache: "no-store",
-      signal: controller.signal,
-      headers: {
-        Accept: "*/*",
-        "User-Agent": "GapwiseStatusMonitor/1.0 (+https://status.gapwise.ca)",
-      },
-    });
-
-    const durationMs = Math.round(performance.now() - started);
-    return {
-      ok: expected(response.status),
-      statusCode: response.status,
-      durationMs,
-    };
-  } catch (error) {
-    return {
-      ok: false,
-      statusCode: null,
-      durationMs: Math.round(performance.now() - started),
-      error: error instanceof Error ? error.message : String(error),
-    };
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function probeService(check) {
-  const attempts = [];
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    attempts.push(await oneProbe(check.url, check.expected));
-    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 1_000));
-  }
-
-  const successes = attempts.filter((attempt) => attempt.ok).length;
-  const latest = attempts.at(-1);
-  const status = successes === 3 ? "operational" : successes > 0 ? "degraded" : "outage";
-
-  let detail;
-  if (status === "operational") {
-    detail = latest?.statusCode ? `HTTP ${latest.statusCode}` : "Probe passed";
-  } else if (status === "degraded") {
-    detail = `${successes}/3 probes passed`;
-  } else {
-    detail = latest?.statusCode
-      ? `HTTP ${latest.statusCode}; 0/3 probes passed`
-      : "0/3 probes passed";
-  }
-
-  return { status, detail, attempts };
 }
 
 function singleServiceSummary(service, status) {
@@ -230,17 +154,19 @@ ${JSON.stringify(data, null, 2)}
 ${STATUS_MARKER_END}`;
 }
 
+function defaultDetail(status) {
+  if (status === "operational") return "Operator confirmed";
+  if (status === "degraded") return "Operator reported degraded service";
+  if (status === "outage") return "Operator reported service unavailable";
+  return "Awaiting operator confirmation";
+}
+
 function transitionMessage(service, from, to) {
-  if (to === "operational") {
-    return `${service.name} passed all three probes in the latest hourly check and is marked operational again.`;
-  }
-  if (to === "degraded") {
-    return `${service.name} returned inconsistent probe results and is marked degraded.`;
-  }
-  if (to === "outage") {
-    return `${service.name} failed all three probes in the latest hourly check and is marked unavailable.`;
-  }
-  return `${service.name} changed from ${from} to ${to}.`;
+  if (operatorMessage) return operatorMessage;
+  if (to === "operational") return `${service.name} was marked operational by the Gapwise operator.`;
+  if (to === "degraded") return `${service.name} was marked degraded by the Gapwise operator.`;
+  if (to === "outage") return `${service.name} was marked unavailable by the Gapwise operator.`;
+  return `${service.name} was changed from ${from} to unknown by the Gapwise operator.`;
 }
 
 async function publishTransition(service, from, to, at) {
@@ -251,7 +177,8 @@ async function publishTransition(service, from, to, at) {
     serviceName: service.name,
     from,
     to,
-    source: "automatic",
+    source: "operator",
+    actor,
     message: transitionMessage(service, from, to),
   };
 
@@ -268,32 +195,22 @@ ${EVENT_MARKER_END}`;
 
 const issue = await github(`/repos/${owner}/${repo}/issues/${issueNumber}`);
 const previous = extractPayload(issue.body || "");
-const previousServices = flattenServices(previous);
-const now = new Date().toISOString();
-
 const next = structuredClone(previous);
-next.version = 1;
-next.generatedAt = now;
+const now = new Date().toISOString();
+const service = flattenServices(next).get(serviceId);
 
-for (const group of next.groups || []) {
-  for (const service of group.services || []) {
-    if (service.monitoring !== "automatic") continue;
-    const check = automaticChecks.get(service.id);
-    if (!check) {
-      service.status = "unknown";
-      service.detail = "No automated probe is configured";
-      service.checkedAt = now;
-      continue;
-    }
-
-    const result = await probeService(check);
-    service.url = check.url;
-    service.status = result.status;
-    service.detail = result.detail;
-    service.checkedAt = now;
-  }
+if (!service) {
+  throw new Error(`Unknown status service: ${serviceId}`);
 }
 
+if (service.monitoring !== "manual") {
+  throw new Error(`${service.name} is automatically monitored and cannot be changed manually.`);
+}
+
+const previousStatus = service.status || "unknown";
+service.status = requestedStatus;
+service.checkedAt = now;
+service.detail = operatorMessage || defaultDetail(requestedStatus);
 next.summary = summaryFor(next);
 
 await github(`/repos/${owner}/${repo}/issues/${issueNumber}`, {
@@ -302,27 +219,20 @@ await github(`/repos/${owner}/${repo}/issues/${issueNumber}`, {
   body: JSON.stringify({ body: statusIssueBody(next) }),
 });
 
-if (previous.generatedAt) {
-  const nextServices = flattenServices(next);
-  for (const [id, service] of nextServices) {
-    const before = previousServices.get(id);
-    if (!before || before.status === service.status) continue;
-    await publishTransition(service, before.status || "unknown", service.status || "unknown", now);
-  }
+if (previousStatus !== requestedStatus) {
+  await publishTransition(service, previousStatus, requestedStatus, now);
 }
 
 console.log(
   JSON.stringify(
     {
-      generatedAt: now,
+      serviceId: service.id,
+      serviceName: service.name,
+      from: previousStatus,
+      to: requestedStatus,
+      checkedAt: now,
+      historyEventPublished: previousStatus !== requestedStatus,
       summary: next.summary,
-      services: Array.from(flattenServices(next).values()).map((service) => ({
-        id: service.id,
-        status: service.status,
-        monitoring: service.monitoring,
-        checkedAt: service.checkedAt || null,
-        detail: service.detail || null,
-      })),
     },
     null,
     2,
