@@ -13,7 +13,51 @@
       ]
     }
   ],
+  "rewrites": [
+    {
+      "source": "/status/_data/current",
+      "destination": "https://api.github.com/repos/andrewmuratov/gapwise-docs/issues/17"
+    },
+    {
+      "source": "/status/_data/history",
+      "destination": "https://api.github.com/repos/andrewmuratov/gapwise-docs/issues/17/comments"
+    }
+  ],
   "headers": [
+    {
+      "source": "/status/_data/current",
+      "headers": [
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "1"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "max-age=60, stale-while-revalidate=3600, stale-if-error=86400"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=30"
+        }
+      ]
+    },
+    {
+      "source": "/status/_data/history",
+      "headers": [
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "1"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "max-age=300, stale-while-revalidate=3600, stale-if-error=86400"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

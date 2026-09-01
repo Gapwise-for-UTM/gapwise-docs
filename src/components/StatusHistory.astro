@@ -1,12 +1,14 @@
 ---
-const commentsEndpoint =
-  "https://api.github.com/repos/andrewmuratov/gapwise-docs/issues/17/comments?per_page=100";
+const commentsEndpoint = "/status/_data/history";
+const commentsFallbackEndpoint =
+  "https://api.github.com/repos/andrewmuratov/gapwise-docs/issues/17/comments";
 ---
 
 <section
   class="gapwise-status-history"
   data-gapwise-status-history
   data-comments-endpoint={commentsEndpoint}
+  data-comments-fallback-endpoint={commentsFallbackEndpoint}
   aria-live="polite"
 >
   <div class="status-history-toolbar">
@@ -61,22 +63,38 @@ const commentsEndpoint =
     return `${event.serviceName} status changed`;
   };
 
-  const fetchAllComments = async (endpoint) => {
+  const fetchHistoryPage = async (endpoints, page) => {
+    let lastError;
+
+    for (const endpoint of endpoints.filter(Boolean)) {
+      try {
+        const url = new URL(endpoint, window.location.origin);
+        url.searchParams.set("per_page", String(HISTORY_PAGE_SIZE));
+        url.searchParams.set("page", String(page));
+
+        const response = await fetch(url, {
+          headers: { Accept: "application/vnd.github+json" },
+        });
+        if (!response.ok) {
+          throw new Error(`History source returned ${response.status}`);
+        }
+
+        const batch = await response.json();
+        if (!Array.isArray(batch)) throw new Error("History source returned invalid data");
+        return batch;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    throw lastError || new Error("No history source is configured");
+  };
+
+  const fetchAllComments = async (endpoints) => {
     const comments = [];
 
     for (let page = 1; page <= HISTORY_MAX_PAGES; page += 1) {
-      const url = new URL(endpoint);
-      url.searchParams.set("per_page", String(HISTORY_PAGE_SIZE));
-      url.searchParams.set("page", String(page));
-
-      const response = await fetch(url, {
-        headers: { Accept: "application/vnd.github+json" },
-        cache: "no-store",
-      });
-      if (!response.ok) throw new Error(`GitHub history source returned ${response.status}`);
-
-      const batch = await response.json();
-      if (!Array.isArray(batch)) throw new Error("GitHub history source returned invalid data");
+      const batch = await fetchHistoryPage(endpoints, page);
       comments.push(...batch);
 
       if (batch.length < HISTORY_PAGE_SIZE) return comments;
@@ -89,11 +107,11 @@ const commentsEndpoint =
   };
 
   document.querySelectorAll("[data-gapwise-status-history]").forEach(async (root) => {
-    const endpoint = root.dataset.commentsEndpoint;
+    const endpoints = [root.dataset.commentsEndpoint, root.dataset.commentsFallbackEndpoint];
     const list = root.querySelector("[data-history-list]");
 
     try {
-      const comments = await fetchAllComments(endpoint);
+      const comments = await fetchAllComments(endpoints);
       const events = comments
         .map((comment) => {
           try {
@@ -111,7 +129,7 @@ const commentsEndpoint =
             <span class="status-icon status-icon--operational" aria-hidden="true">✓</span>
             <div>
               <h2>No recorded incidents yet</h2>
-              <p>No hourly monitored service has entered a degraded or outage state since automated history began.</p>
+              <p>No monitored service has entered a degraded or outage state since status history began.</p>
             </div>
           </div>`;
         return;
