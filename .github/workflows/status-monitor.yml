@@ -1,6 +1,8 @@
 name: Hourly status monitor
 
 on:
+  push:
+    branches: [main]
   schedule:
     # Avoid the top of the hour, when GitHub schedules are more likely to queue.
     - cron: "17 * * * *"
