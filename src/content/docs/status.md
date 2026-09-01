@@ -12,8 +12,11 @@ description: Current operational status and incident-reporting information for G
 | Gapwise web app (`gapwise.ca`) | Operational |
 | Public API (`api.gapwise.ca`) | Operational |
 | Authentication and sync | Operational |
+| Gapwise AI (`ai.gapwise.ca`) | Operational |
 | Developer documentation (`docs.gapwise.ca`) | Operational |
 | Transactional auth email (`auth.gapwise.ca`) | Operational |
+
+These statuses are maintained by the Gapwise operator from current production checks. This page is **not** a continuous synthetic monitor, historical uptime record, or contractual SLA, and an “Operational” entry should not be read as proof that no brief or unobserved interruption occurred.
 
 This page is intentionally hosted with the documentation deployment rather than the main Gapwise application, so it remains a separate place to publish incident information when an app deployment is unhealthy.
 
