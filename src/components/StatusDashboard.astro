@@ -1,0 +1,251 @@
+---
+const statusIssueEndpoint =
+  "https://api.github.com/repos/andrewmuratov/gapwise-docs/issues/17";
+---
+
+<section
+  class="gapwise-status"
+  data-gapwise-status
+  data-status-endpoint={statusIssueEndpoint}
+  aria-live="polite"
+>
+  <div class="status-summary status-summary--unknown" data-status-summary>
+    <div class="status-summary__icon" data-summary-icon aria-hidden="true">●</div>
+    <div>
+      <p class="status-summary__eyebrow">Gapwise status</p>
+      <h2 data-summary-title>Loading current status…</h2>
+      <p data-summary-message>Fetching the latest hourly production check.</p>
+    </div>
+  </div>
+
+  <div class="status-meta" aria-label="Status freshness">
+    <span class="status-live-dot" aria-hidden="true"></span>
+    <span data-last-updated>Hourly checks · waiting for latest result</span>
+  </div>
+
+  <section class="status-incident" data-active-incident hidden>
+    <div class="status-incident__bar" aria-hidden="true"></div>
+    <div class="status-incident__body">
+      <div class="status-incident__label" data-incident-label>Service incident</div>
+      <h3 data-incident-title>Service disruption detected</h3>
+      <p data-incident-message></p>
+      <p class="status-incident__meta" data-incident-meta></p>
+    </div>
+  </section>
+
+  <section class="status-system-card" aria-labelledby="system-status-heading">
+    <div class="status-system-card__header">
+      <div>
+        <p class="status-section-kicker">Production</p>
+        <h2 id="system-status-heading">System status</h2>
+      </div>
+      <span class="status-hourly-badge">Checked hourly</span>
+    </div>
+    <div class="status-groups" data-status-groups>
+      <div class="status-loading-row">Loading service checks…</div>
+    </div>
+  </section>
+
+  <div class="status-actions">
+    <a class="status-history-button" href="/status/history/">
+      <span aria-hidden="true">◷</span>
+      View history
+    </a>
+  </div>
+
+  <div class="status-disclaimer">
+    <p>
+      Automated checks run approximately once per hour from GitHub-hosted infrastructure.
+      Authentication/sync and transactional email remain operator-maintained because a
+      simple public HTTP probe cannot verify those end-to-end paths.
+    </p>
+    <p>
+      This is not continuous synthetic monitoring, a historical uptime guarantee, or a
+      contractual SLA. A successful probe does not prove that no brief or user-specific
+      interruption occurred.
+    </p>
+  </div>
+</section>
+
+<script is:inline>
+  const STATUS_MARKER_START = "<!-- GAPWISE_STATUS_JSON_START -->";
+  const STATUS_MARKER_END = "<!-- GAPWISE_STATUS_JSON_END -->";
+  const STATUS_RANK = { operational: 0, unknown: 1, degraded: 2, outage: 3 };
+
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  const normalizeStatus = (value) =>
+    Object.hasOwn(STATUS_RANK, value) ? value : "unknown";
+
+  const statusLabel = (status) => {
+    const labels = {
+      operational: "Operational",
+      degraded: "Degraded performance",
+      outage: "Outage",
+      unknown: "Unknown",
+    };
+    return labels[normalizeStatus(status)];
+  };
+
+  const statusIcon = (status) => {
+    const icons = {
+      operational: "✓",
+      degraded: "!",
+      outage: "×",
+      unknown: "?",
+    };
+    return icons[normalizeStatus(status)];
+  };
+
+  const groupStatus = (services) =>
+    services.reduce((worst, service) => {
+      const candidate = normalizeStatus(service.status);
+      return STATUS_RANK[candidate] > STATUS_RANK[worst] ? candidate : worst;
+    }, "operational");
+
+  const extractStatusData = (body) => {
+    const start = body.indexOf(STATUS_MARKER_START);
+    const end = body.indexOf(STATUS_MARKER_END);
+    if (start === -1 || end === -1 || end <= start) return null;
+    const json = body.slice(start + STATUS_MARKER_START.length, end).trim();
+    return JSON.parse(json);
+  };
+
+  const formatTimestamp = (value) => {
+    if (!value) return "No automated check has completed yet";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Latest check time unavailable";
+    return `Last checked ${new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZoneName: "short",
+    }).format(date)}`;
+  };
+
+  document.querySelectorAll("[data-gapwise-status]").forEach(async (root) => {
+    const endpoint = root.dataset.statusEndpoint;
+    const summary = root.querySelector("[data-status-summary]");
+    const summaryIcon = root.querySelector("[data-summary-icon]");
+    const summaryTitle = root.querySelector("[data-summary-title]");
+    const summaryMessage = root.querySelector("[data-summary-message]");
+    const lastUpdated = root.querySelector("[data-last-updated]");
+    const groupsRoot = root.querySelector("[data-status-groups]");
+    const incident = root.querySelector("[data-active-incident]");
+    const incidentLabel = root.querySelector("[data-incident-label]");
+    const incidentTitle = root.querySelector("[data-incident-title]");
+    const incidentMessage = root.querySelector("[data-incident-message]");
+    const incidentMeta = root.querySelector("[data-incident-meta]");
+
+    try {
+      const response = await fetch(endpoint, {
+        headers: { Accept: "application/vnd.github+json" },
+        cache: "no-store",
+      });
+      if (!response.ok) throw new Error(`GitHub status source returned ${response.status}`);
+
+      const issue = await response.json();
+      const data = extractStatusData(issue.body ?? "");
+      if (!data || !Array.isArray(data.groups)) throw new Error("Status payload is missing");
+
+      const currentStatus = normalizeStatus(data.summary?.status);
+      summary.className = `status-summary status-summary--${currentStatus}`;
+      summaryIcon.textContent = statusIcon(currentStatus);
+      summaryTitle.textContent =
+        currentStatus === "operational"
+          ? "All monitored systems are operational"
+          : currentStatus === "degraded"
+            ? "We’re currently experiencing issues"
+            : currentStatus === "outage"
+              ? "A Gapwise service is currently unavailable"
+              : "Current status is temporarily unavailable";
+      summaryMessage.textContent =
+        data.summary?.message || "See the service list below for the latest check results.";
+      lastUpdated.textContent = `${formatTimestamp(data.generatedAt)} · updates hourly`;
+
+      const affected = [];
+      for (const group of data.groups) {
+        for (const service of group.services ?? []) {
+          if (["degraded", "outage"].includes(normalizeStatus(service.status))) {
+            affected.push(service);
+          }
+        }
+      }
+
+      if (affected.length > 0) {
+        incident.hidden = false;
+        const worst = affected.reduce(
+          (value, service) =>
+            STATUS_RANK[normalizeStatus(service.status)] > STATUS_RANK[value]
+              ? normalizeStatus(service.status)
+              : value,
+          "degraded",
+        );
+        incident.classList.add(`status-incident--${worst}`);
+        incidentLabel.textContent = worst === "outage" ? "Service outage" : "Service incident";
+        incidentTitle.textContent =
+          affected.length === 1
+            ? `${affected[0].name} is reporting issues`
+            : `${affected.length} services are reporting issues`;
+        incidentMessage.textContent =
+          "The latest hourly production probes did not pass cleanly. We’ll continue checking and update this page when the result changes.";
+        incidentMeta.textContent = `Affects ${affected.map((service) => service.name).join(", ")}`;
+      }
+
+      groupsRoot.innerHTML = data.groups
+        .map((group) => {
+          const services = Array.isArray(group.services) ? group.services : [];
+          const rollup = groupStatus(services);
+          const shouldOpen = rollup !== "operational";
+          return `
+            <details class="status-group" ${shouldOpen ? "open" : ""}>
+              <summary class="status-group__summary">
+                <span class="status-icon status-icon--${escapeHtml(rollup)}" aria-hidden="true">${statusIcon(rollup)}</span>
+                <span class="status-group__name">${escapeHtml(group.name)}</span>
+                <span class="status-group__state">${escapeHtml(statusLabel(rollup))}</span>
+                <span class="status-chevron" aria-hidden="true">⌄</span>
+              </summary>
+              <div class="status-service-list">
+                ${services
+                  .map((service) => {
+                    const serviceStatus = normalizeStatus(service.status);
+                    const monitoring =
+                      service.monitoring === "automatic" ? "Hourly probe" : "Operator-maintained";
+                    const detail = service.detail ? ` · ${escapeHtml(service.detail)}` : "";
+                    return `
+                      <div class="status-service-row">
+                        <span class="status-icon status-icon--${escapeHtml(serviceStatus)}" aria-hidden="true">${statusIcon(serviceStatus)}</span>
+                        <div class="status-service-row__main">
+                          <span class="status-service-row__name">${escapeHtml(service.name)}</span>
+                          <span class="status-service-row__meta">${escapeHtml(monitoring)}${detail}</span>
+                        </div>
+                        <span class="status-service-row__state">${escapeHtml(statusLabel(serviceStatus))}</span>
+                      </div>`;
+                  })
+                  .join("")}
+              </div>
+            </details>`;
+        })
+        .join("");
+    } catch (error) {
+      summary.className = "status-summary status-summary--unknown";
+      summaryIcon.textContent = "?";
+      summaryTitle.textContent = "Live status data is temporarily unavailable";
+      summaryMessage.textContent =
+        "The documentation site is online, but the latest hourly status record could not be loaded.";
+      lastUpdated.textContent = "Status source unavailable · retry shortly";
+      groupsRoot.innerHTML = `
+        <div class="status-loading-row status-loading-row--error">
+          Could not load the current service record. This does not by itself mean Gapwise is down.
+        </div>`;
+      console.error("Gapwise status dashboard:", error);
+    }
+  });
+</script>
