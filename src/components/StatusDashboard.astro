@@ -67,7 +67,7 @@ const statusIssueEndpoint =
   </div>
 </section>
 
-<script>
+<script is:inline>
   const STATUS_MARKER_START = "<!-- GAPWISE_STATUS_JSON_START -->";
   const STATUS_MARKER_END = "<!-- GAPWISE_STATUS_JSON_END -->";
   const STATUS_RANK = { operational: 0, unknown: 1, degraded: 2, outage: 3 };
@@ -181,11 +181,13 @@ const statusIssueEndpoint =
 
       if (affected.length > 0) {
         incident.hidden = false;
-        const worst = affected.reduce((value, service) =>
-          STATUS_RANK[normalizeStatus(service.status)] > STATUS_RANK[value]
-            ? normalizeStatus(service.status)
-            : value,
-        "degraded");
+        const worst = affected.reduce(
+          (value, service) =>
+            STATUS_RANK[normalizeStatus(service.status)] > STATUS_RANK[value]
+              ? normalizeStatus(service.status)
+              : value,
+          "degraded",
+        );
         incident.classList.add(`status-incident--${worst}`);
         incidentLabel.textContent = worst === "outage" ? "Service outage" : "Service incident";
         incidentTitle.textContent =
