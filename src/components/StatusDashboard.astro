@@ -39,7 +39,7 @@ const statusIssueEndpoint =
         <p class="status-section-kicker">Production</p>
         <h2 id="system-status-heading">System status</h2>
       </div>
-      <span class="status-hourly-badge">Checked hourly</span>
+      <span class="status-hourly-badge" data-hourly-badge>Checked hourly</span>
     </div>
     <div class="status-groups" data-status-groups>
       <div class="status-loading-row">Loading service checks…</div>
@@ -55,14 +55,8 @@ const statusIssueEndpoint =
 
   <div class="status-disclaimer">
     <p>
-      Automated checks run approximately once per hour from GitHub-hosted infrastructure.
-      Authentication/sync and transactional email remain operator-maintained because a
-      simple public HTTP probe cannot verify those end-to-end paths.
-    </p>
-    <p>
-      This is not continuous synthetic monitoring, a historical uptime guarantee, or a
-      contractual SLA. A successful probe does not prove that no brief or user-specific
-      interruption occurred.
+      Automated probes run approximately hourly. Authentication/sync and transactional email
+      are operator-maintained. This page is not continuous monitoring or a contractual SLA.
     </p>
   </div>
 </section>
@@ -71,6 +65,7 @@ const statusIssueEndpoint =
   const STATUS_MARKER_START = "<!-- GAPWISE_STATUS_JSON_START -->";
   const STATUS_MARKER_END = "<!-- GAPWISE_STATUS_JSON_END -->";
   const STATUS_RANK = { operational: 0, unknown: 1, degraded: 2, outage: 3 };
+  const STATUS_STALE_AFTER_MS = 2.5 * 60 * 60 * 1000;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -117,10 +112,15 @@ const statusIssueEndpoint =
     return JSON.parse(json);
   };
 
-  const formatTimestamp = (value) => {
-    if (!value) return "Waiting for first automated check";
+  const parseCheckTime = (value) => {
+    if (!value) return null;
     const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "Latest check time unavailable";
+    return Number.isNaN(date.getTime()) ? null : date;
+  };
+
+  const formatTimestamp = (value) => {
+    const date = parseCheckTime(value);
+    if (!date) return "Latest check time unavailable";
     return `Last checked ${new Intl.DateTimeFormat(undefined, {
       month: "short",
       day: "numeric",
@@ -138,6 +138,7 @@ const statusIssueEndpoint =
     const summaryMessage = root.querySelector("[data-summary-message]");
     const lastUpdated = root.querySelector("[data-last-updated]");
     const liveDot = root.querySelector("[data-status-live-dot]");
+    const hourlyBadge = root.querySelector("[data-hourly-badge]");
     const groupsRoot = root.querySelector("[data-status-groups]");
     const incident = root.querySelector("[data-active-incident]");
     const incidentLabel = root.querySelector("[data-incident-label]");
@@ -156,39 +157,54 @@ const statusIssueEndpoint =
       const data = extractStatusData(issue.body ?? "");
       if (!data || !Array.isArray(data.groups)) throw new Error("Status payload is missing");
 
-      const currentStatus = normalizeStatus(data.summary?.status);
-      const hasCompletedCheck = Boolean(data.generatedAt);
-      summary.className = `status-summary status-summary--${currentStatus}`;
-      summaryIcon.textContent = statusIcon(currentStatus);
-      liveDot.className = `status-live-dot status-live-dot--${currentStatus}`;
+      const recordedStatus = normalizeStatus(data.summary?.status);
+      const checkedAt = parseCheckTime(data.generatedAt);
+      const hasCompletedCheck = Boolean(checkedAt);
+      const isStale = Boolean(checkedAt && Date.now() - checkedAt.getTime() > STATUS_STALE_AFTER_MS);
+      const presentationStatus = isStale ? "unknown" : recordedStatus;
 
-      if (!hasCompletedCheck && currentStatus === "unknown") {
+      summary.className = `status-summary status-summary--${presentationStatus}`;
+      summaryIcon.textContent = statusIcon(presentationStatus);
+      liveDot.className = `status-live-dot status-live-dot--${presentationStatus}`;
+      hourlyBadge.className = isStale
+        ? "status-hourly-badge status-hourly-badge--warning"
+        : "status-hourly-badge";
+      hourlyBadge.textContent = isStale ? "Monitoring delayed" : "Checked hourly";
+
+      if (!hasCompletedCheck) {
         summaryTitle.textContent = "Waiting for the first production check";
         summaryMessage.textContent =
           data.summary?.message || "The hourly monitor is initializing.";
+        lastUpdated.textContent = "No completed automated check yet · updates hourly";
+      } else if (isStale) {
+        summaryTitle.textContent = "Status monitoring is delayed";
+        summaryMessage.textContent =
+          "The latest automated result is older than expected. Service states below are the last known results.";
+        lastUpdated.textContent = `${formatTimestamp(data.generatedAt)} · monitoring delayed`;
       } else {
         summaryTitle.textContent =
-          currentStatus === "operational"
+          recordedStatus === "operational"
             ? "All monitored systems are operational"
-            : currentStatus === "degraded"
+            : recordedStatus === "degraded"
               ? "We’re currently experiencing issues"
-              : currentStatus === "outage"
+              : recordedStatus === "outage"
                 ? "A Gapwise service is currently unavailable"
                 : "Current status is temporarily unavailable";
         summaryMessage.textContent =
           data.summary?.message || "See the service list below for the latest check results.";
+        lastUpdated.textContent = `${formatTimestamp(data.generatedAt)} · updates hourly`;
       }
-
-      lastUpdated.textContent = `${formatTimestamp(data.generatedAt)} · updates hourly`;
 
       incident.hidden = true;
       incident.classList.remove("status-incident--degraded", "status-incident--outage");
 
       const affected = [];
-      for (const group of data.groups) {
-        for (const service of group.services ?? []) {
-          if (["degraded", "outage"].includes(normalizeStatus(service.status))) {
-            affected.push(service);
+      if (!isStale) {
+        for (const group of data.groups) {
+          for (const service of group.services ?? []) {
+            if (["degraded", "outage"].includes(normalizeStatus(service.status))) {
+              affected.push(service);
+            }
           }
         }
       }
@@ -217,7 +233,7 @@ const statusIssueEndpoint =
         .map((group) => {
           const services = Array.isArray(group.services) ? group.services : [];
           const rollup = groupStatus(services);
-          const shouldOpen = ["degraded", "outage"].includes(rollup);
+          const shouldOpen = !isStale && ["degraded", "outage"].includes(rollup);
           return `
             <details class="status-group" ${shouldOpen ? "open" : ""}>
               <summary class="status-group__summary">
@@ -231,7 +247,11 @@ const statusIssueEndpoint =
                   .map((service) => {
                     const serviceStatus = normalizeStatus(service.status);
                     const monitoring =
-                      service.monitoring === "automatic" ? "Hourly probe" : "Operator-maintained";
+                      service.monitoring === "automatic"
+                        ? isStale
+                          ? "Last known hourly probe"
+                          : "Hourly probe"
+                        : "Operator-maintained";
                     const detail = service.detail ? ` · ${escapeHtml(service.detail)}` : "";
                     return `
                       <div class="status-service-row">
@@ -252,6 +272,8 @@ const statusIssueEndpoint =
       summary.className = "status-summary status-summary--unknown";
       summaryIcon.textContent = "?";
       liveDot.className = "status-live-dot";
+      hourlyBadge.className = "status-hourly-badge status-hourly-badge--warning";
+      hourlyBadge.textContent = "Status unavailable";
       incident.hidden = true;
       summaryTitle.textContent = "Live status data is temporarily unavailable";
       summaryMessage.textContent =
