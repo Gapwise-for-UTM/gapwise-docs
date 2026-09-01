@@ -22,6 +22,12 @@
   box-shadow: 0 0 0 0.2rem var(--gapwise-status-red-bg);
 }
 
+.status-hourly-badge--warning {
+  border-color: color-mix(in srgb, var(--gapwise-status-amber) 55%, var(--gapwise-status-border));
+  color: var(--gapwise-status-amber);
+  background: var(--gapwise-status-amber-bg);
+}
+
 .status-group__summary {
   display: flex;
   grid-template-columns: none;
@@ -61,6 +67,46 @@
 
 .status-chevron {
   flex: 0 0 auto;
+}
+
+.status-about {
+  margin-top: 1.35rem;
+  border: 1px solid var(--gapwise-status-border);
+  border-radius: 0.9rem;
+  background: var(--gapwise-status-surface);
+  overflow: hidden;
+}
+
+.status-about > summary {
+  padding: 0.95rem 1.1rem;
+  color: var(--gapwise-status-muted);
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 680;
+}
+
+.status-about[open] > summary {
+  border-bottom: 1px solid var(--gapwise-status-border);
+  color: inherit;
+}
+
+.status-about__body {
+  padding: 1rem 1.1rem;
+  color: var(--gapwise-status-muted);
+  font-size: 0.86rem;
+}
+
+.status-about__body p {
+  margin: 0;
+}
+
+.status-about__body p + p {
+  margin-top: 0.7rem;
+}
+
+main:has(.gapwise-status) footer,
+main:has(.gapwise-status-history) footer {
+  display: none;
 }
 
 @media (max-width: 40rem) {
@@ -122,5 +168,10 @@
 
   .status-history-empty {
     padding: 1.05rem;
+  }
+
+  .status-about > summary,
+  .status-about__body {
+    padding-inline: 1rem;
   }
 }
