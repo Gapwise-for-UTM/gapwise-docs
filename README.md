@@ -16,7 +16,7 @@
 
 <br />
 
-**[Documentation](https://docs.gapwise.ca)** · **[Developer hub](https://gapwise.ca/developers)** · **[API](https://api.gapwise.ca/v1)** · **[OpenAPI](https://api.gapwise.ca/openapi.json)** · **[Gapwise AI](https://ai.gapwise.ca)** · **[Main repository](https://github.com/andrewmuratov/gapwise)**
+**[Documentation](https://docs.gapwise.ca)** · **[Status](https://status.gapwise.ca)** · **[Developer hub](https://gapwise.ca/developers)** · **[API](https://api.gapwise.ca/v1)** · **[OpenAPI](https://api.gapwise.ca/openapi.json)** · **[Gapwise AI](https://ai.gapwise.ca)** · **[Main repository](https://github.com/andrewmuratov/gapwise)**
 
 </div>
 
@@ -53,8 +53,11 @@ The public API exposes campus intelligence only. It does not expose student time
 | **AI & MCP** | AI-client connection, OAuth/delegation, the live tool surface, permissions, privacy, and compatibility |
 | **Platform** | Provenance, uncertainty, privacy, versioning, and changelog |
 | **Security** | Evidence-classified security overview, trust boundaries, architecture, data flows, and validation limits |
+| **Status** | Manually maintained operational status and incident-reporting information at `status.gapwise.ca` |
 
 The docs deliberately preserve uncertainty. Unknown campus facts remain unknown rather than being rewritten as confident guesses, and routing/accessibility limitations are documented as part of the contract.
+
+The status page is an operator-maintained communication surface, not a continuous synthetic monitor, uptime history, or SLA. It must not be used to infer historical availability that was not actually measured.
 
 ---
 
@@ -105,6 +108,7 @@ npm run preview
 - Public v1 is unauthenticated and must never imply access to private student data.
 - The docs must not invent a fixed global quota; clients should handle `429` defensively.
 - Provenance, freshness, and uncertainty should remain visible wherever they affect interpretation.
+- `status.gapwise.ca` is a communication surface for current operator-reported state; it is not evidence of historical uptime, an independent monitor, or a contractual SLA.
 
 SDK source is production-validated in the main repository. The verified registry state is intentionally package-specific: `@gapwise/sdk@0.1.0` is available from npm, while the Python `gapwise` package is not yet published to PyPI. Do not advertise `pip install gapwise` as a released install path until the first PyPI release and clean-consumer verification are complete.
 
@@ -119,7 +123,7 @@ The first-party repositories are separate deployment surfaces with one product i
 | **[`gapwise`](https://github.com/andrewmuratov/gapwise)** | Core web/PWA product, canonical student-state behavior, deterministic UTM campus intelligence, public API, OpenAPI contract, and SDK source | [gapwise.ca](https://gapwise.ca) / [api.gapwise.ca](https://api.gapwise.ca/v1) |
 | **[`gapwise-mobile`](https://github.com/andrewmuratov/gapwise-mobile)** | Native iOS and Android client consuming canonical Gapwise contracts and product semantics | Native mobile app |
 | **[`gapwise-ai`](https://github.com/andrewmuratov/gapwise-ai)** | Permissioned OAuth/MCP layer for explicitly delegated student context and bounded AI actions | [ai.gapwise.ca](https://ai.gapwise.ca/api/mcp) |
-| **[`gapwise-docs`](https://github.com/andrewmuratov/gapwise-docs)** | Public developer documentation for the API, SDKs, platform behavior, and AI/MCP integration | [docs.gapwise.ca](https://docs.gapwise.ca) |
+| **[`gapwise-docs`](https://github.com/andrewmuratov/gapwise-docs)** | Public developer documentation plus the operator-maintained service-status surface | [docs.gapwise.ca](https://docs.gapwise.ca) / [status.gapwise.ca](https://status.gapwise.ca) |
 
 `gapwise` remains authoritative for deterministic timetable, gap, campus, routing, and primary student-state semantics. `gapwise-mobile` and `gapwise-ai` consume those contracts in their own execution environments, while this repository documents released public behavior. Cross-repository links, terminology, trust boundaries, and branding should remain consistent.
 
@@ -127,6 +131,10 @@ The first-party repositories are separate deployment surfaces with one product i
 
 ## Deployment
 
-`main` is the production documentation branch and deploys to **[docs.gapwise.ca](https://docs.gapwise.ca)** through Vercel.
+`main` is the production documentation branch and deploys through the `gapwise-docs` Vercel project.
+
+- `docs.gapwise.ca` serves the Starlight documentation site.
+- `status.gapwise.ca` is attached to the same independently deployed docs project and host-routes `/` to the dedicated `/status/` page.
+- The status surface remains deployment-separated from the main `gapwise` project, so a main-app deployment failure does not automatically remove the place used to publish incident information.
 
 Keep documentation changes focused and prefer a single validated commit or pull request for related edits so production deployments remain intentional.
