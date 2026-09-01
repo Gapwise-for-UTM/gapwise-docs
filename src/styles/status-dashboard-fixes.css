@@ -25,15 +25,29 @@
 .status-group__summary {
   display: flex;
   grid-template-columns: none;
+  list-style: none !important;
+  list-style-type: none !important;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.status-group__summary::marker {
-  content: "";
-  font-size: 0;
+/* Starlight and iOS Safari can each provide their own disclosure glyph.
+   The dashboard renders its own .status-chevron, so suppress every native/
+   framework marker variant here to guarantee exactly one chevron. */
+.status-group > .status-group__summary::marker {
+  content: "" !important;
+  font-size: 0 !important;
 }
 
-.status-group__summary::-webkit-details-marker {
-  display: none;
+.status-group > .status-group__summary::-webkit-details-marker {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.status-group > .status-group__summary::before {
+  display: none !important;
+  content: none !important;
 }
 
 .status-group__name {
