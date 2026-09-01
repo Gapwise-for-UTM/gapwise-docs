@@ -15,6 +15,7 @@ export default defineConfig({
         alt: "Gapwise",
       },
       customCss: ["./src/styles/custom.css"],
+      routeMiddleware: "./src/routeData.ts",
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/andrewmuratov/gapwise" },
       ],
