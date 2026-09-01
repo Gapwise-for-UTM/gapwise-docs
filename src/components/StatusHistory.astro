@@ -20,9 +20,8 @@ const commentsEndpoint =
 
   <div class="status-disclaimer">
     <p>
-      History is created when an hourly automated probe changes state. It does not capture
-      brief interruptions that begin and recover between checks, and operator-maintained
-      services may be documented manually.
+      History records hourly state changes. Brief interruptions between checks may not appear,
+      and operator-maintained services may be documented manually.
     </p>
   </div>
 </section>
@@ -30,6 +29,8 @@ const commentsEndpoint =
 <script is:inline>
   const EVENT_MARKER_START = "<!-- GAPWISE_STATUS_EVENT_START -->";
   const EVENT_MARKER_END = "<!-- GAPWISE_STATUS_EVENT_END -->";
+  const HISTORY_PAGE_SIZE = 100;
+  const HISTORY_MAX_PAGES = 20;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -60,18 +61,39 @@ const commentsEndpoint =
     return `${event.serviceName} status changed`;
   };
 
-  document.querySelectorAll("[data-gapwise-status-history]").forEach(async (root) => {
-    const endpoint = root.dataset.commentsEndpoint;
-    const list = root.querySelector("[data-history-list]");
+  const fetchAllComments = async (endpoint) => {
+    const comments = [];
 
-    try {
-      const response = await fetch(endpoint, {
+    for (let page = 1; page <= HISTORY_MAX_PAGES; page += 1) {
+      const url = new URL(endpoint);
+      url.searchParams.set("per_page", String(HISTORY_PAGE_SIZE));
+      url.searchParams.set("page", String(page));
+
+      const response = await fetch(url, {
         headers: { Accept: "application/vnd.github+json" },
         cache: "no-store",
       });
       if (!response.ok) throw new Error(`GitHub history source returned ${response.status}`);
 
-      const comments = await response.json();
+      const batch = await response.json();
+      if (!Array.isArray(batch)) throw new Error("GitHub history source returned invalid data");
+      comments.push(...batch);
+
+      if (batch.length < HISTORY_PAGE_SIZE) return comments;
+    }
+
+    console.warn(
+      `Gapwise status history reached the ${HISTORY_MAX_PAGES * HISTORY_PAGE_SIZE}-event display cap.`,
+    );
+    return comments;
+  };
+
+  document.querySelectorAll("[data-gapwise-status-history]").forEach(async (root) => {
+    const endpoint = root.dataset.commentsEndpoint;
+    const list = root.querySelector("[data-history-list]");
+
+    try {
+      const comments = await fetchAllComments(endpoint);
       const events = comments
         .map((comment) => {
           try {
@@ -89,7 +111,7 @@ const commentsEndpoint =
             <span class="status-icon status-icon--operational" aria-hidden="true">✓</span>
             <div>
               <h2>No recorded incidents yet</h2>
-              <p>No hourly monitored service has changed into a degraded or outage state since automated history began.</p>
+              <p>No hourly monitored service has entered a degraded or outage state since automated history began.</p>
             </div>
           </div>`;
         return;
@@ -108,6 +130,7 @@ const commentsEndpoint =
       const grouped = new Map();
       for (const event of events) {
         const date = new Date(event.at);
+        if (Number.isNaN(date.getTime())) continue;
         const month = monthFormatter.format(date);
         if (!grouped.has(month)) grouped.set(month, []);
         grouped.get(month).push({ ...event, date });
