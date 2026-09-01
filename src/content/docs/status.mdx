@@ -8,10 +8,18 @@ import StatusDashboard from "../../components/StatusDashboard.astro";
 
 <StatusDashboard />
 
-## If something looks broken
-
-Retry once after a short delay for a transient upstream or network failure. If the problem persists, report user-facing problems to [support@gapwise.ca](mailto:support@gapwise.ca). Suspected vulnerabilities should be reported privately to [security@gapwise.ca](mailto:security@gapwise.ca), not through the public status-data issue.
-
-## Scope
-
-The status surface covers Gapwise-owned application surfaces and direct production dependencies that can be checked safely from outside the private user context. University of Toronto systems and other upstream services remain outside Gapwise's control; when practical, incident notes distinguish upstream degradation from a Gapwise-originated incident.
+<details class="status-about">
+  <summary>About this status page</summary>
+  <div class="status-about__body">
+    <p>
+      Automated checks cover Gapwise-owned application surfaces and direct production dependencies
+      that can be tested safely outside a private user session. University of Toronto systems and
+      other upstream services remain outside Gapwise's control.
+    </p>
+    <p>
+      If a user-facing problem persists after a retry, contact
+      <a href="mailto:support@gapwise.ca">support@gapwise.ca</a>. Suspected vulnerabilities should
+      be reported privately to <a href="mailto:security@gapwise.ca">security@gapwise.ca</a>.
+    </p>
+  </div>
+</details>
