@@ -30,7 +30,7 @@ for (const token of requiredConfigTokens) {
 }
 
 for (const [name, svg, fill] of [
-  ["favicon", favicon, 'fill="#4EA7FE"'],
+  ["favicon", favicon, 'fill="#fff"'],
   ["README logo", readmeLogo, 'fill="#fff"'],
   ["light navigation logo", navLightLogo, 'fill="#4EA7FE"'],
   ["dark navigation logo", navDarkLogo, 'fill="#fff"'],
