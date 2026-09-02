@@ -11,10 +11,10 @@ export default defineConfig({
       favicon: "/favicon.svg",
       logo: {
         light: "./src/assets/logo-mark-blue.svg",
-        dark: "./src/assets/logo-mark-white.svg",
+        dark: "./src/assets/logo-mark-blue.svg",
         alt: "Gapwise",
       },
-      customCss: ["./src/styles/custom.css"],
+      customCss: ["./src/styles/custom.css", "./src/styles/gapwise-core-theme.css"],
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/andrewmuratov/gapwise" },
       ],
