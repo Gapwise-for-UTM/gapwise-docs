@@ -11,7 +11,7 @@ export default defineConfig({
       favicon: "/favicon.svg",
       logo: {
         light: "./src/assets/logo-mark-blue.svg",
-        dark: "./src/assets/logo-mark-blue.svg",
+        dark: "./src/assets/logo-mark-white.svg",
         alt: "Gapwise",
       },
       customCss: ["./src/styles/custom.css", "./src/styles/gapwise-core-theme.css"],
