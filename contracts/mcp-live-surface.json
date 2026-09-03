@@ -1,8 +1,14 @@
 {
-  "contractVersion": 1,
-  "registeredToolCount": 13,
+  "contractVersion": 2,
+  "registeredToolCount": 17,
   "registeredTools": {
-    "read": [
+    "publicRead": [
+      "list_utm_buildings",
+      "get_utm_building",
+      "route_between_utm_buildings",
+      "plan_utm_gap_window"
+    ],
+    "privateRead": [
       "get_ai_delegation_status",
       "get_my_day",
       "get_my_week",
@@ -13,19 +19,18 @@
       "find_my_weekly_opportunities",
       "check_my_plan_feasibility"
     ],
-    "write": [
+    "privateWrite": [
       "create_personal_item",
       "update_personal_item",
       "delete_personal_item",
       "update_gap_preferences"
     ]
   },
-  "unregisteredPublicCampusDefinitions": [
-    "list_utm_buildings",
-    "get_utm_building",
-    "route_between_utm_buildings",
-    "plan_utm_gap_window"
-  ],
+  "publicToolContract": {
+    "requiresGapwiseAccount": false,
+    "readsPrivateStudentState": false,
+    "statelessCampusIntelligence": true
+  },
   "writeContract": {
     "resultSemantics": "queued_for_gapwise",
     "requiresExpectedRevision": true,
