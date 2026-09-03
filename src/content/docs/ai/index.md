@@ -1,9 +1,9 @@
 ---
 title: Gapwise AI & MCP
-description: Connect AI clients to permissioned Gapwise context without turning deterministic campus or schedule facts into model guesses.
+description: Connect AI clients to public UTM campus intelligence and explicitly delegated Gapwise context without turning deterministic facts into model guesses.
 ---
 
-Gapwise AI is the **remote Model Context Protocol (MCP) integration boundary** between an AI client and Gapwise. It lets a compatible client request narrowly defined Gapwise capabilities without receiving unrestricted access to a student's account.
+Gapwise AI is the **remote Model Context Protocol (MCP) integration boundary** between an AI client and Gapwise. It exposes stateless public UTM campus intelligence plus narrowly permissioned private student context without giving a client unrestricted account access.
 
 The client supplies the model and reasoning layer. **Gapwise supplies the canonical facts, permissions, and bounded actions.**
 
@@ -18,7 +18,7 @@ The client supplies the model and reasoning layer. **Gapwise supplies the canoni
 | Review the data boundary | [Privacy & security](/ai/privacy/) |
 | Check ChatGPT / Claude / other client status | [Client compatibility](/ai/compatibility/) |
 | See realistic requests | [Examples](/ai/examples/) |
-| Diagnose unsupported or failed flows | [Limitations & troubleshooting](/ai/limitations/) |
+| Diagnose unsupported or failed flows | [Support & troubleshooting](/ai/support/) |
 
 ## Canonical service endpoints
 
@@ -28,7 +28,7 @@ Remote MCP resource:
 https://ai.gapwise.ca/api/mcp
 ```
 
-OAuth protected-resource metadata:
+OAuth protected-resource metadata for private tools:
 
 ```text
 https://ai.gapwise.ca/.well-known/oauth-protected-resource
@@ -44,23 +44,27 @@ Implementation source: [github.com/andrewmuratov/gapwise-ai](https://github.com/
 
 ## Current live surface
 
-The production handler currently registers **13 permissioned tools** for delegated schedule/status/planning reads and bounded queued writes.
+The release surface registers **17 tools**:
+
+- four stateless public UTM campus-intelligence reads;
+- nine OAuth-protected private schedule/status/planning reads; and
+- four bounded OAuth-protected private writes.
 
 Important boundaries:
 
+- Public campus tools do not read a Gapwise account, private timetable, friends, or precise live location.
 - Academic timetable meetings are **read-only** through AI.
 - Personal-item and delegated-preference writes require the corresponding granted permission.
 - Writes are revision-aware; stale state is not silently overwritten.
 - Write success means Gapwise accepted a typed queued action. It does not mean the AI client directly rewrote canonical timetable state.
-- Four stateless public-campus MCP tool definitions exist in source, but they are intentionally **not registered** in the live handler. The public [Gapwise API](/api/) remains the canonical unauthenticated route for those campus capabilities.
 
 ## API or AI & MCP?
 
-Use the **public API / SDKs** when your integration only needs UTM buildings, places, deterministic routes, or gap assessment for an explicit interval you already have. That surface is unauthenticated and contains no private student state.
+Use the **public API / SDKs** when a conventional application integration needs UTM buildings, places, deterministic routes, or gap assessment without an MCP client.
 
-Use **Gapwise AI & MCP** when the user's AI client needs explicitly delegated Gapwise context or bounded personal actions. That surface is OAuth-protected and permissioned.
+Use **Gapwise AI & MCP** when an AI client should access the same public campus intelligence and/or explicitly delegated Gapwise student context through one tool-oriented protocol surface.
 
-Do not route public campus questions through private delegation merely because an AI model is involved. Do not use the public API as a way to infer private schedule state.
+Do not use public campus tools as a way to infer private schedule state. A client can combine private availability with public routing only after private context was independently authorized and returned by a private tool.
 
 ## Two different responsibilities
 
@@ -72,6 +76,7 @@ Gapwise remains the source of truth for schedules and private state.
 
 ## Delegation and safety model
 
+- Public campus intelligence is stateless and does not require private delegation.
 - Private access starts only after the student explicitly delegates authority.
 - The client receives tool results, not Gapwise encryption keys or unrestricted account access.
 - Delegated state excludes the raw ACORN `.ics` file, friend data, precise/live location, account credentials, and Gapwise's primary private-state encryption keys.
