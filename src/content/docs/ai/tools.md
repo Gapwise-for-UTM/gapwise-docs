@@ -1,6 +1,6 @@
 ---
 title: Tools
-description: The 17 tools in the Gapwise AI MCP surface: four public UTM campus tools and thirteen permissioned student-context tools.
+description: "The 17 tools in the Gapwise AI MCP surface: four public UTM campus tools and thirteen permissioned student-context tools."
 ---
 
 The Gapwise AI MCP surface contains **17 tools**: four stateless public UTM campus-intelligence tools, nine permissioned private read/status/planning tools, and four bounded private write tools.
