@@ -6,7 +6,7 @@
 
 ### Build on the deterministic campus-intelligence layer behind Gapwise.
 
-**Official documentation for the Gapwise public UTM campus API, OpenAPI contract, JavaScript/TypeScript and Python SDKs, data/provenance model, security architecture, and permissioned AI/MCP integration.**
+**Official documentation for the Gapwise public UTM campus API, OpenAPI contract, published JavaScript/TypeScript and Python SDKs, data/provenance model, security architecture, and permissioned AI/MCP integration.**
 
 [![Live Docs](https://img.shields.io/badge/Live_Docs-docs.gapwise.ca-111111?style=for-the-badge&logo=vercel&logoColor=white)](https://docs.gapwise.ca)
 [![OpenAPI 3.1](https://img.shields.io/badge/OpenAPI-3.1-6BA539?style=for-the-badge&logo=openapiinitiative&logoColor=white)](https://api.gapwise.ca/openapi.json)
@@ -25,7 +25,7 @@
 
 This repository is the canonical public developer-documentation surface for **Gapwise**, a multi-surface campus-intelligence ecosystem created and engineered by **Andrew Muratov**.
 
-Gapwise is not only a student timetable website. The ecosystem includes the core web/PWA product, native mobile client, deterministic public API and SDKs, open campus-data/provenance portal, permissioned OAuth/MCP AI integration, developer documentation, and an independent operational status service.
+Gapwise is not only a student timetable website. The ecosystem includes the core web/PWA product, native mobile client, deterministic public API and published SDKs, open campus-data/provenance portal, permissioned OAuth/MCP AI integration, developer documentation, and an independent operational status service.
 
 Andrew's work across the ecosystem spans **full-stack software engineering, cybersecurity and privacy engineering, platform architecture, API and SDK design, data engineering, developer infrastructure, mobile engineering, and permissioned AI integration**.
 
@@ -42,6 +42,15 @@ Authoritative machine-readable contract:
 ```text
 https://api.gapwise.ca/openapi.json
 ```
+
+Published SDKs:
+
+```bash
+npm install @gapwise/sdk@0.1.0
+python -m pip install gapwise==0.1.0
+```
+
+The JavaScript package is published on npm with provenance. The Python package is published on PyPI through Trusted Publishing and was independently clean-installed and exercised against the production API.
 
 ---
 
@@ -75,7 +84,7 @@ The public API exposes campus intelligence only. It does not expose student time
 - Named AI clients should not be described as verified until end-to-end production evidence exists.
 - Public v1 must never imply private student-data access.
 
-The JavaScript/TypeScript SDK is published as `@gapwise/sdk`; Python SDK source is maintained in the main repository, and release claims should match actual registry state.
+Both official SDKs are published: JavaScript/TypeScript as `@gapwise/sdk` on npm and Python as `gapwise` on PyPI. Release claims in docs must remain synchronized with actual registry state.
 
 ---
 
