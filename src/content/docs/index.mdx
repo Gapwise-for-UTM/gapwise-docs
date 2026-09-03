@@ -4,7 +4,7 @@ description: Official developer documentation for the Gapwise public campus plat
 template: splash
 hero:
   title: Build with Gapwise
-  tagline: Deterministic UTM campus intelligence through a public API and SDKs, plus a separate permissioned AI/MCP integration for delegated student context.
+  tagline: Deterministic UTM campus intelligence through a public API and published JavaScript/TypeScript and Python SDKs, plus a separate permissioned AI/MCP integration for delegated student context.
   actions:
     - text: Public API quickstart
       link: /quickstart/#public-api-quickstart
@@ -63,8 +63,10 @@ The canonical public API exposes versioned UTM buildings and places, determinist
 - OpenAPI 3.1: `https://api.gapwise.ca/openapi.json`
 - Public developer hub: `https://gapwise.ca/developers`
 - Source: `https://github.com/andrewmuratov/gapwise`
+- JavaScript / TypeScript: `npm install @gapwise/sdk@0.1.0`
+- Python: `python -m pip install gapwise==0.1.0`
 
-Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. `@gapwise/sdk@0.1.0` is published on npm with provenance and targets the same v1 contract. The Python SDK source also targets v1, but its first verified PyPI release is still pending, so raw HTTPS remains the universal integration path when a registry package is not available.
+Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Both official SDKs target the same v1 contract. `@gapwise/sdk@0.1.0` is published on npm with provenance, and `gapwise==0.1.0` is published on PyPI through Trusted Publishing and has been independently clean-installed against the production API.
 
 ### Permissioned Gapwise AI / MCP
 
