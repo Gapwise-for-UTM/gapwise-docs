@@ -14,6 +14,7 @@ Use the public platform when you need canonical UTM campus data or deterministic
 - No API key or Gapwise account is required.
 - Covers buildings, places, routing, and route-aware planning for an explicit free interval you provide.
 - Does **not** expose student timetables, accounts, friends, private sync state, credentials, or precise live location.
+- Official SDKs are published for JavaScript/TypeScript and Python.
 
 **[Start the public API quickstart ↓](#public-api-quickstart)** · [API overview](/api/) · [SDKs](/sdk/javascript/)
 
@@ -114,13 +115,21 @@ See [Errors](/api/errors/) for the canonical failure model and [Rate limits](/ap
 
 ### SDKs
 
-`@gapwise/sdk@0.1.0` is published on npm with provenance and can be installed now:
+Both first-party SDKs are published and target the same canonical v1 contract.
+
+JavaScript / TypeScript:
 
 ```bash
 npm install @gapwise/sdk@0.1.0
 ```
 
-The Python `gapwise` client is implemented at version `0.1.0` but is still awaiting its first verified PyPI release. Until that release and clean-install verification complete, use the public HTTPS API or the Python client directly from the Gapwise repository rather than assuming `pip install gapwise` is available.
+Python:
+
+```bash
+python -m pip install gapwise==0.1.0
+```
+
+The Python release was independently clean-installed and exercised against the production API. Registry publishing uses trusted OIDC workflows rather than long-lived release tokens.
 
 - [JavaScript & TypeScript SDK](/sdk/javascript/)
 - [Python SDK](/sdk/python/)
