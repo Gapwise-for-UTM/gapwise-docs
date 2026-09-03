@@ -18,7 +18,7 @@
 - OpenAPI 3.1: `https://api.gapwise.ca/openapi.json`
 - TypeScript SDK: `@gapwise/sdk`
   - npm `0.1.0` is published with provenance
-  - JSR package `@gapwise/sdk` is reserved and GitHub-linked for OIDC; a JSR version is not documented as released until the registry confirms it
+  - JSR `0.1.0` is published with provenance through GitHub Actions OIDC
   - one TypeScript implementation targets Node, Bun, and Deno portability rather than separate runtime SDKs
 - Python SDK: `gapwise==0.1.0` is published on PyPI through Trusted Publishing
 - Data: `https://data.gapwise.ca`
