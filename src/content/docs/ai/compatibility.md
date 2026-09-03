@@ -13,6 +13,8 @@ Protocol support is not the same as production verification. A client must suppo
 | Protocol-compatible / expected | Remote MCP clients that support protected-resource discovery and the required browser authorization flow; validation is pending |
 | Not supported by this flow | Local-stdio-only clients, clients that require pasted credentials, or clients unable to complete protected-resource authorization |
 
-This table deliberately does not claim verified support for ChatGPT, Claude, or another named product without current end-to-end production evidence. Product documentation and roadmap statements are not substitutes for that evidence.
+The underlying Gapwise AI service now has defense-in-depth cross-account protections at both database and application boundaries: RLS/user ownership, approved OAuth user/client pairs, MCP audience-bound token validation, explicit application owner assertions on returned rows and owner-bearing inserts, and caller-bound encrypted delegated state. These controls reduce the chance that a database-policy or query regression could silently become a cross-account AI read.
 
-Before relying on a client, test connection, tool discovery, a delegated read, refusal of an ungranted write, stale-revision handling, and behavior after revocation.
+That is still not the same as proving a named external client end to end. This table deliberately does not claim verified support for ChatGPT, Claude, or another named product without current production-equivalent evidence.
+
+Before relying on a named client, the release matrix must cover connection and reauthorization, tool discovery, delegated reads, cross-account refusal, refusal of ungranted writes, stale-revision handling, academic-meeting immutability, revocation, and post-revocation failure. Product documentation and roadmap statements are not substitutes for that evidence.

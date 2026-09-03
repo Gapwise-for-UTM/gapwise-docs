@@ -28,6 +28,18 @@ Gapwise AI's protected resource requires a valid third-party OAuth credential fo
 
 Fine-grained authority lives in the student's explicit Gapwise AI delegation. A client can therefore be correctly OAuth-authenticated and still be refused a schedule read or write that the student did not delegate.
 
+## Cross-account isolation
+
+Private AI access is intentionally protected by overlapping controls rather than one database rule.
+
+- Supabase RLS binds AI rows to `auth.uid()` and separately restricts OAuth-client access to explicitly approved user/client pairs.
+- The MCP resource server verifies the Supabase token, subject, issuer, expiry, OAuth client identity, protected-resource audience, and required scope before a private tool runs.
+- Gapwise AI independently checks returned delegation, pending-action, and approved-client rows and rejects any row whose `user_id` does not exactly match the cryptographically verified caller.
+- Delegation and action inserts are rejected if application code attempts to use an owner ID different from the authenticated caller.
+- Delegated snapshots/actions are cryptographically bound to the caller identity in their separate encryption domain.
+
+The application ownership assertion is defense in depth: it does not replace RLS or OAuth policy. Its purpose is to make a hypothetical upstream/RLS regression fail closed before another user's row can be consumed by the AI service.
+
 ## Read and write authority
 
 Read and write access are separate. A read grant does not imply write access. The current bounded writes cover supported personal items and gap preferences; imported academic timetable meetings remain read-only.
@@ -43,5 +55,9 @@ The MCP transport allows unauthenticated initialization and tool discovery so a 
 Revoking delegation removes the student's delegated snapshot/actions and later private access fails closed. A previously authorized client cannot treat its old authority as still valid for Gapwise private data.
 
 Reauthorization is a fresh decision. The student reviews permissions again, and the integration must use the newly issued authority and current state. Old queued intent must not be silently replayed under the new grant.
+
+## Verification status
+
+The code/database isolation boundary has automated cross-account and ownership regression coverage. Named external clients are a separate evidence gate: ChatGPT, Claude, or another product is not described as fully verified until its real OAuth/read/write/revoke, cross-account refusal, stale-write, and re-auth matrix has completed against the release state.
 
 The [`gapwise-ai` authentication documentation](https://github.com/andrewmuratov/gapwise-ai/blob/main/docs/AUTH.md) contains deeper resource-server and token-validation details for maintainers and security review.
