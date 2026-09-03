@@ -1,17 +1,33 @@
 ---
 title: JavaScript & TypeScript SDK
-description: Use the typed Gapwise client in browsers and Node.js.
+description: Use the portable typed Gapwise client across Node.js, Bun, Deno, browsers, and compatible runtimes.
 ---
 
-The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract.
+The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract. It is one portable TypeScript implementation, not separate Node, Bun, and Deno SDKs.
 
-> Registry status: `@gapwise/sdk@0.1.0` is published on npm with provenance.
+> Registry status: `@gapwise/sdk@0.1.0` is published on npm with provenance. The matching `@gapwise/sdk` package is reserved on JSR and linked to `andrewmuratov/gapwise` for GitHub Actions OIDC publishing; do not treat a JSR version as released until it appears on the registry.
 
-## Install
+Python is an equal first-party SDK implementation of the same public v1 semantics. See [Python SDK](/sdk/python/).
+
+## Distribution and runtimes
+
+| Target | Distribution | Status |
+| --- | --- | --- |
+| Node.js | npm `@gapwise/sdk` | first-party supported package target; Node 20+ |
+| Bun | npm/portable source | first-party test/runtime target |
+| Deno | JSR/portable TypeScript source | first-party portability target; JSR release follows shared verification |
+| Browser bundlers | npm | dependency-free client using Web `fetch` semantics |
+| Other edge-style runtimes | npm/JSR where compatible | compatibility should be claimed only after environment-specific evidence |
+
+JSR publishes the TypeScript source entry point directly. npm continues to publish the compiled package artifact. Both distribution channels represent the same SDK API and version line.
+
+## Install from npm
 
 ```bash
 npm install @gapwise/sdk@0.1.0
 ```
+
+After a JSR version is actually released, JSR/Deno installation guidance should be added using the exact registry-supported form shown by JSR for that version rather than pre-documenting an unverified command.
 
 ## Create a client
 
@@ -81,7 +97,19 @@ The public client plans only the explicit interval you provide. It does not read
 
 ## Client options
 
-The client supports a custom base URL, custom `fetch`, request timeout, request headers, and `AbortSignal`. This makes it usable in browsers, Node, tests, proxies, and controlled server environments without changing the API surface.
+The client supports a custom base URL, custom `fetch`, request timeout, request headers, and `AbortSignal`. This makes it usable in browsers, Node, Bun, Deno-compatible environments, tests, proxies, and controlled server environments without changing the API surface.
+
+## Release verification
+
+The shared SDK release gate validates the TypeScript package before registry publication with:
+
+- Bun build/tests and npm package inspection;
+- clean npm consumer installation and import under Node;
+- JSR `publish --dry-run` validation of the TypeScript module graph/package contents;
+- Deno type/runtime checks against the TypeScript source;
+- repository contract checks that keep OpenAPI, TypeScript, Python, and maintained docs aligned.
+
+npm and JSR publishing use GitHub Actions OIDC rather than long-lived registry credentials.
 
 ## Errors
 
