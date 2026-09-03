@@ -5,7 +5,7 @@ description: Use the portable typed Gapwise client across Node.js, Bun, Deno, br
 
 The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract. It is one portable TypeScript implementation, not separate Node, Bun, and Deno SDKs.
 
-> Registry status: `@gapwise/sdk@0.1.0` is published on npm with provenance. The matching `@gapwise/sdk` package is reserved on JSR and linked to `andrewmuratov/gapwise` for GitHub Actions OIDC publishing; do not treat a JSR version as released until it appears on the registry.
+> Registry status: `@gapwise/sdk@0.1.0` is published on both npm and JSR with provenance. npm and JSR are two distribution channels for the same first-party TypeScript implementation and version line.
 
 Python is an equal first-party SDK implementation of the same public v1 semantics. See [Python SDK](/sdk/python/).
 
@@ -15,7 +15,7 @@ Python is an equal first-party SDK implementation of the same public v1 semantic
 | --- | --- | --- |
 | Node.js | npm `@gapwise/sdk` | first-party supported package target; Node 20+ |
 | Bun | npm/portable source | first-party test/runtime target |
-| Deno | JSR/portable TypeScript source | first-party portability target; JSR release follows shared verification |
+| Deno | JSR `@gapwise/sdk` | first-party JSR/runtime target verified by the shared release gate |
 | Browser bundlers | npm | dependency-free client using Web `fetch` semantics |
 | Other edge-style runtimes | npm/JSR where compatible | compatibility should be claimed only after environment-specific evidence |
 
@@ -27,7 +27,17 @@ JSR publishes the TypeScript source entry point directly. npm continues to publi
 npm install @gapwise/sdk@0.1.0
 ```
 
-After a JSR version is actually released, JSR/Deno installation guidance should be added using the exact registry-supported form shown by JSR for that version rather than pre-documenting an unverified command.
+## Install from JSR / Deno
+
+```bash
+deno add jsr:@gapwise/sdk@0.1.0
+```
+
+You can also import the exact released JSR version directly:
+
+```ts
+import { Gapwise } from "jsr:@gapwise/sdk@0.1.0";
+```
 
 ## Create a client
 
