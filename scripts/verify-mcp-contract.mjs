@@ -10,8 +10,6 @@ const permissionsDoc = await readFile(
   new URL("src/content/docs/ai/permissions.md", root),
   "utf8",
 );
-const overviewDoc = await readFile(new URL("src/content/docs/ai/index.md", root), "utf8");
-const connectDoc = await readFile(new URL("src/content/docs/ai/connect.md", root), "utf8");
 
 const section = (document, heading, nextHeading) => {
   const start = document.indexOf(heading);
@@ -25,9 +23,10 @@ const tableTools = (markdown) =>
 const bulletTools = (markdown) =>
   [...markdown.matchAll(/^- `([^`]+)`$/gm)].map((match) => match[1]);
 
-const readTools = contract.registeredTools.read;
-const writeTools = contract.registeredTools.write;
-const allRegisteredTools = [...readTools, ...writeTools];
+const publicReadTools = contract.registeredTools.publicRead;
+const privateReadTools = contract.registeredTools.privateRead;
+const privateWriteTools = contract.registeredTools.privateWrite;
+const allRegisteredTools = [...publicReadTools, ...privateReadTools, ...privateWriteTools];
 const uniqueRegisteredTools = new Set(allRegisteredTools);
 
 assert.equal(
@@ -42,40 +41,35 @@ assert.equal(
 );
 
 assert.deepEqual(
-  tableTools(
-    section(toolsDoc, "## Read, status, and planning tools", "## Bounded write tools"),
-  ),
-  readTools,
-  "The documented read-tool table drifted from the MCP contract manifest",
+  tableTools(section(toolsDoc, "## Public campus intelligence", "## Private read, status, and planning tools")),
+  publicReadTools,
+  "The documented public tool table drifted from the MCP contract manifest",
 );
 assert.deepEqual(
-  tableTools(section(toolsDoc, "## Bounded write tools", "## Implemented but not live")),
-  writeTools,
-  "The documented write-tool table drifted from the MCP contract manifest",
+  tableTools(section(toolsDoc, "## Private read, status, and planning tools", "## Bounded private write tools")),
+  privateReadTools,
+  "The documented private read-tool table drifted from the MCP contract manifest",
 );
 assert.deepEqual(
-  bulletTools(section(toolsDoc, "## Implemented but not live")),
-  contract.unregisteredPublicCampusDefinitions,
-  "The documented unregistered public-campus definitions drifted from the manifest",
+  tableTools(section(toolsDoc, "## Bounded private write tools", "## Combining private and public tools")),
+  privateWriteTools,
+  "The documented private write-tool table drifted from the MCP contract manifest",
 );
 assert.deepEqual(
   bulletTools(section(permissionsDoc, "## Bounded writes", "## Queued does not mean applied")),
-  writeTools,
-  "The permission guide's write surface drifted from the registered write tools",
+  privateWriteTools,
+  "The permission guide's write surface drifted from the registered private write tools",
 );
-
-for (const document of [toolsDoc, overviewDoc, connectDoc]) {
-  assert.match(
-    document,
-    new RegExp(`\\b${contract.registeredToolCount} permissioned tools\\b`),
-    "A live-surface overview has a stale registered-tool count",
-  );
-}
 
 assert.match(
   toolsDoc,
-  /Those four definitions are \*\*not registered by the current live MCP handler\*\*/,
-  "The public-campus definitions must remain explicitly unregistered",
+  new RegExp(`\\b${contract.registeredToolCount} tools\\b`),
+  "The tools guide has a stale registered-tool count",
+);
+assert.match(
+  toolsDoc,
+  /Public tools do \*\*not\*\* require a Gapwise account/,
+  "The public/private MCP trust boundary must remain explicit",
 );
 assert.match(
   permissionsDoc,
@@ -99,5 +93,5 @@ assert.match(
 );
 
 console.log(
-  `Verified ${allRegisteredTools.length} registered MCP tools, ${writeTools.length} bounded writes, and ${contract.unregisteredPublicCampusDefinitions.length} unregistered public-campus definitions.`,
+  `Verified ${allRegisteredTools.length} registered MCP tools: ${publicReadTools.length} public reads, ${privateReadTools.length} private reads, and ${privateWriteTools.length} bounded private writes.`,
 );

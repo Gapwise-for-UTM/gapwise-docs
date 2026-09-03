@@ -41,6 +41,7 @@ export default defineConfig({
             { label: "Client compatibility", slug: "ai/compatibility" },
             { label: "Examples", slug: "ai/examples" },
             { label: "Limitations & troubleshooting", slug: "ai/limitations" },
+            { label: "Support & troubleshooting", slug: "ai/support" },
           ],
         },
         {
