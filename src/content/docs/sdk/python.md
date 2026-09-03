@@ -1,11 +1,13 @@
 ---
 title: Python SDK
-description: Use the typed synchronous and asynchronous Gapwise Python clients.
+description: Use the equal first-party synchronous and asynchronous Gapwise Python clients.
 ---
 
-The official Python package lives in `sdk/python` in the Gapwise repository, targets the canonical v1 API, and is published on PyPI as `gapwise`.
+The official Python package lives in `sdk/python` in the Gapwise repository, targets the canonical v1 API, and is published on PyPI as `gapwise`. Python and TypeScript are equal first-party SDK implementations: public API additions should receive equivalent model, example, error, and release-validation coverage in both.
 
-> Registry status: `gapwise==0.1.0` is live on PyPI and was verified from a clean Python 3.14 virtual environment against the production Gapwise API.
+> Registry status: `gapwise==0.1.0` is live on PyPI through Trusted Publishing and was verified from a clean Python environment against the production Gapwise API.
+
+The TypeScript peer is `@gapwise/sdk`: npm `0.1.0` is released, while the matching JSR package is reserved and GitHub-linked for OIDC but must not be described as released until a JSR version actually exists. See [JavaScript & TypeScript SDK](/sdk/javascript/).
 
 ## Install
 
@@ -53,6 +55,12 @@ async with AsyncGapwise() as gapwise:
 
 The sync and async clients expose equivalent resources and typed result models.
 
+## Parity with TypeScript
+
+The Python SDK and `@gapwise/sdk` use language-appropriate naming and transport libraries, but represent the same public v1 capabilities and bounded values. OpenAPI remains the authoritative HTTP contract. A public capability should not be considered SDK-complete until both implementations and their documentation have been reviewed for parity.
+
+Runtime expansion on the TypeScript side (Node, Bun, Deno, browsers/edge environments) does not reduce Python's first-party status or create additional API authority; it is distribution/portability work around the same contract.
+
 ## Typing
 
 The wheel includes `py.typed`, so type checkers can consume the package's inline annotations. Public models use concrete types and literal values for bounded fields such as route status and availability state rather than falling back to unstructured dictionaries.
@@ -68,5 +76,7 @@ API failures raise typed Gapwise exceptions with the status code, API error code
 ## Release and provenance
 
 Python releases are published from reviewed `python-v<version>` Git tags through GitHub Actions and PyPI Trusted Publishing with short-lived OIDC credentials. No long-lived PyPI publishing token is required in the repository.
+
+The shared SDK release verification also checks the TypeScript/npm/JSR side, so release infrastructure keeps both official implementations visible in one platform gate rather than treating Python as a secondary package.
 
 See [Errors](/api/errors/) and [Rate limits](/api/rate-limits/).
