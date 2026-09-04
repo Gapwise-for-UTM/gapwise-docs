@@ -30,7 +30,7 @@ Gapwise has **two intentionally separate developer surfaces**. Pick the one that
     **[Start with the public API →](/quickstart/#public-api-quickstart)**
   </Card>
   <Card title="Gapwise AI & MCP" icon="rocket">
-    Connect a compatible remote MCP client to explicitly delegated Gapwise context and bounded actions. Private access is OAuth-protected, permissioned, minimized, revision-aware, and revocable.
+    Connect a compatible remote MCP client to stateless public campus intelligence or explicitly delegated private Gapwise context and bounded actions. Private access is OAuth-protected, permissioned, minimized, revision-aware, and revocable.
 
     **[Explore AI & MCP →](/ai/)** · **[Connect a client →](/ai/connect/)**
   </Card>
@@ -43,7 +43,7 @@ Gapwise has **two intentionally separate developer surfaces**. Pick the one that
     Routing and gap calculations use explicit campus data and deterministic rules, not generated guesses.
   </Card>
   <Card title="Privacy-first" icon="padlock">
-    Public campus APIs require no timetable or account. Private AI access is a separate, explicit delegation boundary rather than an extension of the public API.
+    Public campus APIs and public MCP campus tools require no timetable or account. Private AI access is a separate, explicit delegation boundary rather than an extension of the public API.
   </Card>
   <Card title="Uncertainty is explicit" icon="warning">
     Missing or unverified campus facts stay unknown instead of silently becoming confident answers.
@@ -63,21 +63,28 @@ The canonical public API exposes versioned UTM buildings and places, determinist
 - OpenAPI 3.1: `https://api.gapwise.ca/openapi.json`
 - Public developer hub: `https://gapwise.ca/developers`
 - Source: `https://github.com/andrewmuratov/gapwise`
-- JavaScript / TypeScript: `npm install @gapwise/sdk@0.1.0`
+- JavaScript / TypeScript (npm): `npm install @gapwise/sdk@0.1.1`
+- JavaScript / TypeScript (JSR): `jsr:@gapwise/sdk@0.1.1`
 - Python: `python -m pip install gapwise==0.1.0`
 
-Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Both official SDKs target the same v1 contract. `@gapwise/sdk@0.1.0` is published on npm with provenance, and `gapwise==0.1.0` is published on PyPI through Trusted Publishing and has been independently clean-installed against the production API.
+Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Both official SDK implementations target the same v1 contract. `@gapwise/sdk@0.1.1` is published on npm and JSR, and `gapwise==0.1.0` is published on PyPI through Trusted Publishing and has been independently clean-installed against the production API.
 
 ### Permissioned Gapwise AI / MCP
 
-Gapwise AI is a separate provider-neutral remote MCP service. The client supplies the model and reasoning layer; Gapwise supplies permissioned tools and deterministic facts.
+Gapwise AI is a separate provider-neutral remote MCP service. The client supplies the model and reasoning layer; Gapwise supplies deterministic public-campus tools plus explicitly delegated private tools and bounded mutation semantics.
 
 - MCP resource: `https://ai.gapwise.ca/api/mcp`
 - OAuth protected-resource metadata: `https://ai.gapwise.ca/.well-known/oauth-protected-resource`
 - AI service: `https://ai.gapwise.ca`
 - Source: `https://github.com/andrewmuratov/gapwise-ai`
 
-The live handler currently exposes **13 permissioned tools** for delegated reads, planning, status, and bounded queued writes. Academic meetings remain read-only. Four stateless public-campus MCP tool definitions exist in source but are intentionally **not registered** in the live handler; the public campus API remains their canonical public path.
+The live release surface exposes **17 tools total**:
+
+- **4 stateless public campus tools** for building lookup, building details, campus routing, and generic gap-window planning;
+- **9 permissioned private reads/planning tools** over explicitly delegated student context;
+- **4 permissioned private write tools** for bounded personal items and selected gap preferences.
+
+Public campus tools do not authenticate or expose a student's private timetable, friends, precise location, or sync state. Private tools require the production Gapwise OAuth/delegation boundary. Academic meetings remain read-only and cannot be created, edited, or deleted by an AI client.
 
 Broad named-client compatibility is still a release gate. These docs do not claim ChatGPT, Claude, or another named client as fully verified until the production OAuth/read/write/revoke matrices are complete. See [Client compatibility](/ai/compatibility/).
 
