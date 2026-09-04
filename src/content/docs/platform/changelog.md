@@ -35,4 +35,4 @@ The public API does not advertise a fabricated fixed global quota. Platform prot
 
 ## SDK registry status
 
-SDK registry publication is tracked separately from the API deployment. Documentation only treats `@gapwise/sdk` or `gapwise` as installable after the corresponding package is visible on npm or PyPI.
+SDK registry publication is tracked separately from the API deployment. Documentation only treats `@gapwise/sdk` or `gapwise` as installable after the corresponding release is independently visible on its claimed registry: npm and JSR for the JavaScript/TypeScript SDK, and PyPI for the Python SDK.
