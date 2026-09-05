@@ -3,7 +3,7 @@ title: Contributing campus data
 description: How to correct or extend canonical UTM campus facts without forking product truth.
 ---
 
-Campus-data changes belong in `andrewmuratov/gapwise-data`, not in a downstream consumer.
+Campus-data changes belong in [`Gapwise-for-UTM/gapwise-data`](https://github.com/Gapwise-for-UTM/gapwise-data), not in a downstream consumer.
 
 ## Good contributions
 
