@@ -5,7 +5,7 @@ description: Use the portable typed Gapwise client across Node.js, Bun, Deno, br
 
 The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract. It is one portable TypeScript implementation, not separate Node, Bun, and Deno SDKs.
 
-> Registry status: `@gapwise/sdk@0.1.1` is published on both npm and JSR with provenance. npm and JSR are two distribution channels for the same first-party TypeScript implementation and version line.
+> Registry status: `@gapwise/sdk@0.1.1` is published on npm and JSR with provenance. The same verified JavaScript SDK is also published as the public, source-adjacent GitHub Packages mirror `@gapwise-for-utm/sdk@0.1.1`. The different GitHub Packages scope is required by the `Gapwise-for-UTM` organization namespace; it is not a separate SDK.
 
 Python is an equal first-party SDK implementation of the same public v1 semantics. See [Python SDK](/sdk/python/).
 
@@ -13,13 +13,14 @@ Python is an equal first-party SDK implementation of the same public v1 semantic
 
 | Target | Distribution | Status |
 | --- | --- | --- |
-| Node.js | npm `@gapwise/sdk` | first-party supported package target; Node 20+ |
+| Node.js | npm `@gapwise/sdk` | primary first-party npm-compatible package target; Node 20+ |
 | Bun | npm/portable source | first-party test/runtime target |
 | Deno | JSR `@gapwise/sdk` | first-party JSR/runtime target verified by the shared release gate |
 | Browser bundlers | npm | dependency-free client using Web `fetch` semantics |
+| GitHub ecosystem | GitHub Packages `@gapwise-for-utm/sdk` | public source-adjacent mirror of the same JavaScript SDK artifact |
 | Other edge-style runtimes | npm/JSR where compatible | compatibility should be claimed only after environment-specific evidence |
 
-JSR publishes the TypeScript source entry point directly. npm continues to publish the compiled package artifact. Both distribution channels represent the same SDK API and version line.
+JSR publishes the TypeScript source entry point directly. npm publishes the compiled package artifact. GitHub Packages mirrors the verified JavaScript SDK under the organization-compatible scope. These distribution channels represent the same SDK API and version line; npm remains the primary npm-compatible installation channel.
 
 ## Install from npm
 
@@ -38,6 +39,12 @@ You can also import the exact released JSR version directly:
 ```ts
 import { Gapwise } from "jsr:@gapwise/sdk@0.1.1";
 ```
+
+## GitHub Packages mirror
+
+The verified `0.1.1` JavaScript artifact is also available from GitHub Packages as `@gapwise-for-utm/sdk@0.1.1`. GitHub requires package scopes to match the owning organization, so the mirror cannot use the canonical `@gapwise/sdk` registry identity.
+
+Consumers choosing GitHub Packages must configure the `@gapwise-for-utm` scope for `https://npm.pkg.github.com` and follow GitHub's npm-registry authentication requirements. Use npm or JSR when you do not specifically need the source-adjacent GitHub registry mirror.
 
 ## Create a client
 
@@ -119,7 +126,7 @@ The shared SDK release gate validates the TypeScript package before registry pub
 - Deno type/runtime checks against the TypeScript source;
 - repository contract checks that keep OpenAPI, TypeScript, Python, and maintained docs aligned.
 
-npm and JSR publishing use GitHub Actions OIDC rather than long-lived registry credentials.
+npm and JSR publishing use GitHub Actions OIDC rather than long-lived registry credentials. The GitHub Packages mirror is a deliberate manual release target that uses the job-scoped `GITHUB_TOKEN` with `packages: write`, checks for an already-published exact version, and does not store a long-lived package token.
 
 ## Errors
 
