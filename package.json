@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "homepage": "https://docs.gapwise.ca",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gapwise-for-UTM/gapwise-docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gapwise-for-UTM/gapwise-docs/issues"
+  },
   "scripts": {
     "dev": "astro dev",
     "verify:brand": "node scripts/verify-brand.mjs",

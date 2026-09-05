@@ -5,16 +5,18 @@ description: How the six Gapwise repositories, public SDKs, data, mobile, AI, do
 
 Gapwise is one product ecosystem across six first-party repositories. Repository boundaries separate deployment, trust, and ownership; they do not create parallel sources of truth.
 
+All canonical repositories are owned by the **Gapwise for UTM** GitHub organization: `https://github.com/Gapwise-for-UTM`. Andrew Muratov remains the creator and primary maintainer.
+
 ## Repository ownership
 
 | Repository | Owns |
 | --- | --- |
-| `andrewmuratov/gapwise` | web/PWA behavior, canonical student-state semantics, deterministic timetable/gap/routing logic, public API v1, OpenAPI, and both official SDK implementations |
-| `andrewmuratov/gapwise-mobile` | native iOS/Android UX, device integration, secure mobile persistence, and mobile distribution |
-| `andrewmuratov/gapwise-ai` | OAuth/MCP delegation, permission checks, minimized delegated snapshots, and bounded AI actions |
-| `andrewmuratov/gapwise-data` | campus-data provenance, evidence, schemas, attribution, transformations, and reuse guidance |
-| `andrewmuratov/gapwise-docs` | canonical public documentation of released first-party contracts |
-| `andrewmuratov/gapwise-status` | independently deployed service health and incident communication |
+| `Gapwise-for-UTM/gapwise` | web/PWA behavior, canonical student-state semantics, deterministic timetable/gap/routing logic, public API v1, OpenAPI, and both official SDK implementations |
+| `Gapwise-for-UTM/gapwise-mobile` | native iOS/Android UX, device integration, secure mobile persistence, and mobile distribution |
+| `Gapwise-for-UTM/gapwise-ai` | OAuth/MCP delegation, permission checks, minimized delegated snapshots, and bounded AI actions |
+| `Gapwise-for-UTM/gapwise-data` | campus-data provenance, evidence, schemas, attribution, transformations, and reuse guidance |
+| `Gapwise-for-UTM/gapwise-docs` | canonical public documentation of released first-party contracts |
+| `Gapwise-for-UTM/gapwise-status` | independently deployed service health and incident communication |
 
 ## Source-of-truth flow
 
@@ -73,6 +75,7 @@ TypeScript and Python are equal first-party SDKs. Language-appropriate naming is
 
 ## Canonical public surfaces
 
+- GitHub: `https://github.com/Gapwise-for-UTM`
 - App: `https://gapwise.ca`
 - API: `https://api.gapwise.ca/v1`
 - OpenAPI: `https://api.gapwise.ca/openapi.json`
