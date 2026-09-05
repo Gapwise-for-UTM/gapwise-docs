@@ -15,7 +15,7 @@
 
 <br />
 
-**[Docs](https://docs.gapwise.ca)** · **[Gapwise](https://gapwise.ca)** · **[API](https://api.gapwise.ca/v1)** · **[Data](https://data.gapwise.ca)** · **[AI](https://ai.gapwise.ca)** · **[Status](https://status.gapwise.ca)** · **[GitHub](https://github.com/andrewmuratov/gapwise)**
+**[Docs](https://docs.gapwise.ca)** · **[Gapwise](https://gapwise.ca)** · **[API](https://api.gapwise.ca/v1)** · **[Data](https://data.gapwise.ca)** · **[AI](https://ai.gapwise.ca)** · **[Status](https://status.gapwise.ca)** · **[GitHub](https://github.com/Gapwise-for-UTM)**
 
 </div>
 
@@ -23,13 +23,13 @@
 
 ## What this repository is
 
-This repository is the canonical public developer-documentation surface for **Gapwise**, a multi-surface campus-intelligence ecosystem created and engineered by **Andrew Muratov**.
+This repository is the canonical public developer-documentation surface for **Gapwise**, a multi-surface campus-intelligence ecosystem created and engineered by **Andrew Muratov** and owned on GitHub by the **Gapwise for UTM** organization (`Gapwise-for-UTM`).
 
 Gapwise is not only a student timetable website. The ecosystem includes the core web/PWA product, native mobile client, deterministic public API and published SDKs, open campus-data/provenance portal, permissioned OAuth/MCP AI integration, developer documentation, and an independent operational status service.
 
 Andrew's work across the ecosystem spans **full-stack software engineering, cybersecurity and privacy engineering, platform architecture, API and SDK design, data engineering, developer infrastructure, mobile engineering, and permissioned AI integration**.
 
-The docs follow released first-party contracts rather than inventing parallel behavior. Public campus API and SDK semantics come from [`andrewmuratov/gapwise`](https://github.com/andrewmuratov/gapwise); AI/MCP behavior comes from [`andrewmuratov/gapwise-ai`](https://github.com/andrewmuratov/gapwise-ai); provenance and dataset explanations are surfaced through [`andrewmuratov/gapwise-data`](https://github.com/andrewmuratov/gapwise-data); operational state belongs to [`andrewmuratov/gapwise-status`](https://github.com/andrewmuratov/gapwise-status).
+The docs follow released first-party contracts rather than inventing parallel behavior. Public campus API and SDK semantics come from [`Gapwise-for-UTM/gapwise`](https://github.com/Gapwise-for-UTM/gapwise); AI/MCP behavior comes from [`Gapwise-for-UTM/gapwise-ai`](https://github.com/Gapwise-for-UTM/gapwise-ai); provenance and dataset explanations are surfaced through [`Gapwise-for-UTM/gapwise-data`](https://github.com/Gapwise-for-UTM/gapwise-data); operational state belongs to [`Gapwise-for-UTM/gapwise-status`](https://github.com/Gapwise-for-UTM/gapwise-status).
 
 Canonical API:
 
@@ -93,12 +93,12 @@ The official JavaScript/TypeScript SDK is published as `@gapwise/sdk@0.1.1` on n
 
 | Repository | Role | Primary surface |
 | --- | --- | --- |
-| **[`gapwise`](https://github.com/andrewmuratov/gapwise)** | Core web/PWA, deterministic student/campus engine, public API, OpenAPI, and SDK source | [gapwise.ca](https://gapwise.ca) / [api.gapwise.ca](https://api.gapwise.ca/v1) |
-| **[`gapwise-mobile`](https://github.com/andrewmuratov/gapwise-mobile)** | Native iOS and Android client | Native mobile app |
-| **[`gapwise-ai`](https://github.com/andrewmuratov/gapwise-ai)** | OAuth/MCP layer for explicitly delegated student context and bounded actions | [ai.gapwise.ca](https://ai.gapwise.ca) |
-| **[`gapwise-data`](https://github.com/andrewmuratov/gapwise-data)** | Open campus-data, provenance, schema, validation, and reuse portal | [data.gapwise.ca](https://data.gapwise.ca) |
-| **[`gapwise-docs`](https://github.com/andrewmuratov/gapwise-docs)** | Canonical developer documentation | [docs.gapwise.ca](https://docs.gapwise.ca) |
-| **[`gapwise-status`](https://github.com/andrewmuratov/gapwise-status)** | Independent service-health monitoring and incident communication | [status.gapwise.ca](https://status.gapwise.ca) |
+| **[`gapwise`](https://github.com/Gapwise-for-UTM/gapwise)** | Core web/PWA, deterministic student/campus engine, public API, OpenAPI, and SDK source | [gapwise.ca](https://gapwise.ca) / [api.gapwise.ca](https://api.gapwise.ca/v1) |
+| **[`gapwise-mobile`](https://github.com/Gapwise-for-UTM/gapwise-mobile)** | Native iOS and Android client | Native mobile app |
+| **[`gapwise-ai`](https://github.com/Gapwise-for-UTM/gapwise-ai)** | OAuth/MCP layer for explicitly delegated student context and bounded actions | [ai.gapwise.ca](https://ai.gapwise.ca) |
+| **[`gapwise-data`](https://github.com/Gapwise-for-UTM/gapwise-data)** | Open campus-data, provenance, schema, validation, and reuse portal | [data.gapwise.ca](https://data.gapwise.ca) |
+| **[`gapwise-docs`](https://github.com/Gapwise-for-UTM/gapwise-docs)** | Canonical developer documentation | [docs.gapwise.ca](https://docs.gapwise.ca) |
+| **[`gapwise-status`](https://github.com/Gapwise-for-UTM/gapwise-status)** | Independent service-health monitoring and incident communication | [status.gapwise.ca](https://status.gapwise.ca) |
 
 All six repositories form one product ecosystem with deliberate separation of concerns, consistent branding, cross-links, trust boundaries, and source-of-truth ownership.
 
@@ -109,7 +109,7 @@ All six repositories form one product ecosystem with deliberate separation of co
 Requires Node.js 22 or newer.
 
 ```bash
-git clone https://github.com/andrewmuratov/gapwise-docs.git
+git clone https://github.com/Gapwise-for-UTM/gapwise-docs.git
 cd gapwise-docs
 npm install
 npm run check
