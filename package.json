@@ -9,9 +9,10 @@
     "verify:mcp-contract": "node scripts/verify-mcp-contract.mjs",
     "verify:privacy-governance": "node scripts/verify-privacy-governance.mjs",
     "audit:deployment-security": "node scripts/audit-deployment-security.mjs",
-    "build": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && astro build",
+    "seo:generate": "node scripts/generate-seo.mjs",
+    "build": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && npm run seo:generate && astro build",
     "preview": "astro preview",
-    "check": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && astro check"
+    "check": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && npm run seo:generate && astro check"
   },
   "dependencies": {
     "@astrojs/starlight": "0.41.9",
