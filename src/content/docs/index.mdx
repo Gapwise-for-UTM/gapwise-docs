@@ -1,16 +1,16 @@
 ---
 title: Gapwise Developers
-description: Official developer documentation for the Gapwise public campus platform and permissioned AI/MCP integration.
+description: Official developer documentation for the Gapwise public campus platform, open campus data, SDKs, and permissioned AI/MCP integration.
 template: splash
 hero:
   title: Build with Gapwise
-  tagline: Deterministic UTM campus intelligence through a public API and published JavaScript/TypeScript and Python SDKs, plus a separate permissioned AI/MCP integration for delegated student context.
+  tagline: Deterministic UTM campus intelligence through a public API and SDKs, canonical open campus data, and a separate permissioned AI/MCP integration for delegated student context.
   actions:
-    - text: Public API quickstart
-      link: /quickstart/#public-api-quickstart
+    - text: Choose an integration
+      link: /quickstart/
       icon: right-arrow
-    - text: AI & MCP
-      link: /ai/
+    - text: Explore campus data
+      link: /data/
       icon: right-arrow
     - text: View on GitHub
       link: https://github.com/andrewmuratov/gapwise
@@ -19,15 +19,20 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Choose your integration
+## One developer platform, three clear surfaces
 
-Gapwise has **two intentionally separate developer surfaces**. Pick the one that matches the data and trust boundary your product actually needs.
+Pick the interface that matches the semantics and trust boundary your project actually needs.
 
 <CardGrid>
   <Card title="Public API & SDKs" icon="seti:json">
     Use the unauthenticated public platform for canonical UTM buildings and places, deterministic routing, and route-aware gap planning. It never exposes a student's timetable, account, friends, private sync state, or precise live location.
 
     **[Start with the public API →](/quickstart/#public-api-quickstart)**
+  </Card>
+  <Card title="Gapwise Data" icon="database">
+    Use canonical raw UTM campus artifacts when you need GeoJSON, building/entrance records, routing graph inputs, provenance, audits, checksums, or your own derivation pipeline. Raw files are distributed from a first-party Gapwise domain.
+
+    **[Explore Gapwise Data →](/data/)** · **[Open the Data portal →](https://data.gapwise.ca)**
   </Card>
   <Card title="Gapwise AI & MCP" icon="rocket">
     Connect a compatible remote MCP client to stateless public campus intelligence or explicitly delegated private Gapwise context and bounded actions. Private access is OAuth-protected, permissioned, minimized, revision-aware, and revocable.
@@ -43,17 +48,28 @@ Gapwise has **two intentionally separate developer surfaces**. Pick the one that
     Routing and gap calculations use explicit campus data and deterministic rules, not generated guesses.
   </Card>
   <Card title="Privacy-first" icon="padlock">
-    Public campus APIs and public MCP campus tools require no timetable or account. Private AI access is a separate, explicit delegation boundary rather than an extension of the public API.
+    Public campus APIs and raw public data require no timetable or account. Private AI access is a separate, explicit delegation boundary rather than an extension of the public API.
   </Card>
   <Card title="Uncertainty is explicit" icon="warning">
     Missing or unverified campus facts stay unknown instead of silently becoming confident answers.
   </Card>
-  <Card title="One source of truth" icon="rocket">
-    The API, SDKs, and AI integration consume Gapwise's canonical deterministic facts instead of reimplementing campus or schedule logic independently.
+  <Card title="One source-of-truth hierarchy" icon="rocket">
+    Data owns campus facts, core owns deterministic behavior and API contracts, Docs explains released semantics, AI delegates private context, and Status observes the public surfaces.
   </Card>
 </CardGrid>
 
 ## Production developer surfaces
+
+| Surface | Canonical URL | Use it for |
+| --- | --- | --- |
+| Developer hub | `https://gapwise.ca/developers` | Choosing the right integration |
+| Documentation | `https://docs.gapwise.ca` | Human-readable contracts, guides, architecture, and security |
+| Public API | `https://api.gapwise.ca/v1` | Stable deterministic campus intelligence |
+| OpenAPI | `https://api.gapwise.ca/openapi.json` | Machine-readable API contract |
+| Gapwise Data | `https://data.gapwise.ca` | Canonical raw campus data, schemas, provenance, and downloads |
+| Raw dataset manifest | `https://data.gapwise.ca/datasets/utm/latest/manifest.json` | Integrity-checkable raw artifact discovery |
+| AI / MCP | `https://ai.gapwise.ca/api/mcp` | Permissioned assistant integration |
+| Status | `https://status.gapwise.ca` | Service health and incidents |
 
 ### Public campus platform
 
@@ -68,6 +84,18 @@ The canonical public API exposes versioned UTM buildings and places, determinist
 - Python: `python -m pip install gapwise==0.1.0`
 
 Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Both official SDK implementations target the same v1 contract. `@gapwise/sdk@0.1.1` is published on npm and JSR, and `gapwise==0.1.0` is published on PyPI through Trusted Publishing and has been independently clean-installed against the production API.
+
+### Canonical open campus data
+
+Gapwise Data is the canonical repository and distribution layer for public UTM campus facts and geometry. It owns building identity, footprints, entrances, routing graph inputs, provenance, evidence state, uncertainty, and generated data audits.
+
+Raw artifacts are published under:
+
+```text
+https://data.gapwise.ca/datasets/utm/latest/
+```
+
+Gapwise web/API builds do **not** live-fetch the Data website. They pin a validated snapshot so a Data-site or GitHub outage cannot break routing for students. See [Gapwise Data](/data/) and [Distribution and versioning](/data/distribution/).
 
 ### Permissioned Gapwise AI / MCP
 
