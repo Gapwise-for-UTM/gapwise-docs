@@ -20,13 +20,15 @@ Use the public platform when you need canonical UTM campus data or deterministic
 
 ### Gapwise AI & MCP
 
-Use Gapwise AI when a compatible remote MCP client needs **explicitly delegated private Gapwise context** or bounded personal actions.
+Use Gapwise AI when a compatible remote MCP client needs deterministic public UTM campus intelligence, **explicitly delegated private Gapwise context**, or bounded personal actions.
 
 - Remote MCP resource: `https://ai.gapwise.ca/api/mcp`
 - OAuth protected-resource metadata: `https://ai.gapwise.ca/.well-known/oauth-protected-resource`
+- Four stateless public campus tools do not require private Gapwise account context.
+- Thirteen private tools require explicit delegation and the relevant permissions.
 - Private access is permissioned, minimized, revision-aware, and revocable.
 - Academic timetable meetings are read-only through the AI boundary.
-- The live service currently exposes **13 permissioned tools**.
+- The live service currently exposes **17 tools total: 4 public + 13 private**.
 
 **[Open the AI & MCP guide →](/ai/)** · **[Connect an AI client →](/ai/connect/)** · [Review privacy & security](/ai/privacy/)
 
@@ -115,12 +117,18 @@ See [Errors](/api/errors/) for the canonical failure model and [Rate limits](/ap
 
 ### SDKs
 
-Both first-party SDKs are published and target the same canonical v1 contract.
+Both first-party SDK implementations are published and target the same canonical v1 contract. The JavaScript/TypeScript implementation is distributed through npm and JSR; Python is distributed through PyPI.
 
-JavaScript / TypeScript:
+JavaScript / TypeScript (npm):
 
 ```bash
-npm install @gapwise/sdk@0.1.0
+npm install @gapwise/sdk@0.1.1
+```
+
+JavaScript / TypeScript (JSR / Deno):
+
+```bash
+deno add jsr:@gapwise/sdk@0.1.1
 ```
 
 Python:
@@ -129,7 +137,7 @@ Python:
 python -m pip install gapwise==0.1.0
 ```
 
-The Python release was independently clean-installed and exercised against the production API. Registry publishing uses trusted OIDC workflows rather than long-lived release tokens.
+The Python release was independently clean-installed and exercised against the production API. Registry publishing uses trusted OIDC workflows rather than long-lived release tokens where supported.
 
 - [JavaScript & TypeScript SDK](/sdk/javascript/)
 - [Python SDK](/sdk/python/)

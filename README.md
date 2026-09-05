@@ -46,11 +46,12 @@ https://api.gapwise.ca/openapi.json
 Published SDKs:
 
 ```bash
-npm install @gapwise/sdk@0.1.0
+npm install @gapwise/sdk@0.1.1
+# JSR: @gapwise/sdk@0.1.1
 python -m pip install gapwise==0.1.0
 ```
 
-The JavaScript package is published on npm with provenance. The Python package is published on PyPI through Trusted Publishing and was independently clean-installed and exercised against the production API.
+The JavaScript/TypeScript package is published on npm and JSR. The Python package is published on PyPI through Trusted Publishing and was independently clean-installed and exercised against the production API.
 
 ---
 
@@ -84,7 +85,7 @@ The public API exposes campus intelligence only. It does not expose student time
 - Named AI clients should not be described as verified until end-to-end production evidence exists.
 - Public v1 must never imply private student-data access.
 
-Both official SDKs are published: JavaScript/TypeScript as `@gapwise/sdk` on npm and Python as `gapwise` on PyPI. Release claims in docs must remain synchronized with actual registry state.
+The official JavaScript/TypeScript SDK is published as `@gapwise/sdk@0.1.1` on npm and JSR; the official Python SDK is published as `gapwise==0.1.0` on PyPI. Release claims in docs must remain synchronized with actual registry state.
 
 ---
 
