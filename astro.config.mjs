@@ -30,6 +30,16 @@ export default defineConfig({
           ],
         },
         {
+          label: "Data",
+          items: [
+            { label: "Data overview", slug: "data" },
+            { label: "Dataset catalog", slug: "data/datasets" },
+            { label: "Distribution & versioning", slug: "data/distribution" },
+            { label: "Provenance & uncertainty", slug: "data/provenance" },
+            { label: "Contributing campus data", slug: "data/contributing" },
+          ],
+        },
+        {
           label: "AI & MCP",
           items: [
             { label: "AI & MCP overview", slug: "ai" },
