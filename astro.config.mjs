@@ -16,10 +16,10 @@ export default defineConfig({
       },
       customCss: ["./src/styles/custom.css", "./src/styles/gapwise-core-theme.css"],
       social: [
-        { icon: "github", label: "GitHub", href: "https://github.com/andrewmuratov/gapwise" },
+        { icon: "github", label: "GitHub", href: "https://github.com/Gapwise-for-UTM" },
       ],
       editLink: {
-        baseUrl: "https://github.com/andrewmuratov/gapwise-docs/edit/main/",
+        baseUrl: "https://github.com/Gapwise-for-UTM/gapwise-docs/edit/main/",
       },
       sidebar: [
         {
