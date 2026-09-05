@@ -1,16 +1,18 @@
 # Gapwise ecosystem integration
 
-`gapwise-docs` is the canonical public documentation surface for the six-repository Gapwise ecosystem. It describes released behavior owned elsewhere; it must not become an independent source of product semantics.
+`gapwise-docs` is the canonical public documentation surface for the six-repository Gapwise ecosystem. It describes released behavior and data owned elsewhere; it must not become an independent source of product semantics or campus facts.
 
 ## Owning repositories
 
 | Repository | Authoritative for |
 | --- | --- |
-| `andrewmuratov/gapwise` | web/PWA behavior, deterministic timetable/gap/routing semantics, public API v1, OpenAPI, TypeScript + Python SDK source and release workflow |
+| `andrewmuratov/gapwise` | web/PWA behavior, student state, deterministic timetable/gap/routing algorithms, public API v1, OpenAPI, TypeScript + Python SDK source and release workflow, map/product presentation |
 | `andrewmuratov/gapwise-mobile` | native iOS/Android implementation and mobile distribution behavior |
 | `andrewmuratov/gapwise-ai` | OAuth/MCP delegation, tool schemas, permissions, bounded mutations, AI compatibility evidence |
-| `andrewmuratov/gapwise-data` | campus-data provenance, schemas, evidence, transformations, attribution, reuse |
+| `andrewmuratov/gapwise-data` | **canonical public UTM campus facts and geometry**, entrances, routing graph data, provenance, schemas, evidence, attribution, validation, and reuse |
 | `andrewmuratov/gapwise-status` | operational health and incident communication |
+
+`gapwise` vendors a validated build-time mirror of `gapwise-data/data/utm` at `src/data/utm`. That local path preserves existing imports and deterministic deployment behavior; it is not a second campus-data authority and does not create a runtime dependency on `data.gapwise.ca` or GitHub.
 
 ## Current developer-platform state
 
@@ -29,17 +31,19 @@ TypeScript and Python are equal first-party SDKs. Documentation should provide c
 
 ## Documentation rules
 
-1. OpenAPI + core implementation own public HTTP behavior.
-2. SDK docs follow released package/source behavior and never invent methods or types.
-3. Registry claims are evidence-based: reserved/configured is not the same as published.
-4. Runtime claims are evidence-based: Node/Bun/Deno support should reflect CI/release verification, not assumptions about ESM portability.
-5. Private AI behavior is documented from `gapwise-ai` and remains separate from the public campus SDKs.
-6. Data provenance/uncertainty statements link back to `gapwise-data` and preserve unknown/inferred states.
-7. Operations/status guidance links to `gapwise-status`; docs do not duplicate live incident state.
-8. Mobile behavior links to `gapwise-mobile` when platform-specific implementation/distribution matters.
+1. OpenAPI + core implementation own public HTTP behavior and deterministic calculations.
+2. `gapwise-data` owns raw public UTM campus facts, geometry, routing graph data, provenance, and evidence.
+3. SDK docs follow released package/source behavior and never invent methods or types.
+4. Registry claims are evidence-based: reserved/configured is not the same as published.
+5. Runtime claims are evidence-based: Node/Bun/Deno support should reflect CI/release verification, not assumptions about ESM portability.
+6. Private AI behavior is documented from `gapwise-ai` and remains separate from the public campus SDKs.
+7. Data provenance/uncertainty statements link back to `gapwise-data` and preserve unknown/inferred states.
+8. Operations/status guidance links to `gapwise-status`; docs do not duplicate live incident state.
+9. Mobile behavior links to `gapwise-mobile` when platform-specific implementation/distribution matters.
+10. Documentation must not imply that core routing performs a runtime fetch from the data portal; deployed core contains the tested snapshot.
 
 ## Change-impact rule
 
-A docs change that alters a contract claim should name the owning repository/evidence. A source change in any owning repository should trigger a docs review when it changes a public API, SDK, data schema, AI tool/permission, mobile integration requirement, or operational surface.
+A docs change that alters a contract or data claim should name the owning repository/evidence. A source change in any owning repository should trigger a docs review when it changes a public API, SDK, data schema, AI tool/permission, mobile integration requirement, or operational surface.
 
 The goal is connected documentation without duplicated authority.
