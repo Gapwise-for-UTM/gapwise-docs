@@ -5,23 +5,35 @@ description: Use the equal first-party synchronous and asynchronous Gapwise Pyth
 
 The official Python package lives in `sdk/python` in the Gapwise repository, targets the canonical v1 API, and is published on PyPI as `gapwise`. Python and TypeScript are equal first-party SDK implementations: public API additions should receive equivalent model, example, error, and release-validation coverage in both.
 
-> Registry status: `gapwise==0.1.0` is live on PyPI through Trusted Publishing and was verified from a clean Python environment against the production Gapwise API.
+> Release status: `gapwise==0.1.0` is live on PyPI through Trusted Publishing and was verified from a clean Python environment against the production Gapwise API. The matching `python-v0.1.0` GitHub Release mirrors the built wheel, source distribution, and SHA-256 checksums for source-adjacent artifact access.
 
-The TypeScript peer is `@gapwise/sdk`: npm `0.1.0` is released, while the matching JSR package is reserved and GitHub-linked for OIDC but must not be described as released until a JSR version actually exists. See [JavaScript & TypeScript SDK](/sdk/javascript/).
+The TypeScript peer is `@gapwise/sdk@0.1.1`, published canonically on npm and JSR. The same JavaScript artifact is also mirrored on GitHub Packages as `@gapwise-for-utm/sdk@0.1.1`. See [JavaScript & TypeScript SDK](/sdk/javascript/).
 
-## Install
+## Install from PyPI
 
 ```bash
 python -m pip install gapwise
 ```
 
-To pin the first release:
+To pin the current release:
 
 ```bash
 python -m pip install gapwise==0.1.0
 ```
 
 Python 3.11 or newer is required.
+
+## GitHub Release mirror
+
+GitHub Packages does not provide a PyPI-compatible Python registry, so Python distribution uses PyPI as the canonical package registry and GitHub Releases as the source-adjacent mirror. The `python-v0.1.0` release contains:
+
+- `gapwise-0.1.0-py3-none-any.whl`
+- `gapwise-0.1.0.tar.gz`
+- `SHA256SUMS.txt`
+
+Normal Python consumers should install from PyPI. The GitHub Release mirror is useful when you need the exact built artifacts or their published checksums alongside the source repository.
+
+Future `python-v<version>` releases are produced from the corresponding reviewed Git tag and mirror the exact release artifacts after the shared SDK verification gate passes.
 
 ## Synchronous client
 
@@ -75,7 +87,7 @@ API failures raise typed Gapwise exceptions with the status code, API error code
 
 ## Release and provenance
 
-Python releases are published from reviewed `python-v<version>` Git tags through GitHub Actions and PyPI Trusted Publishing with short-lived OIDC credentials. No long-lived PyPI publishing token is required in the repository.
+Python releases originate from reviewed `python-v<version>` Git tags. The release workflow builds and verifies the Python distributions, publishes the canonical package to PyPI through Trusted Publishing when appropriate, and mirrors the exact wheel/source artifacts plus checksums on the matching GitHub Release. No long-lived PyPI publishing token is required in the repository.
 
 The shared SDK release verification also checks the TypeScript/npm/JSR side, so release infrastructure keeps both official implementations visible in one platform gate rather than treating Python as a secondary package.
 
