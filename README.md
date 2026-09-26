@@ -70,9 +70,9 @@ Status    https://status.gapwise.ca
 Published SDKs:
 
 ```bash
-npm install @gapwise/sdk@0.1.1
-# JSR: @gapwise/sdk@0.1.1
-python -m pip install gapwise==0.1.0
+npm install @gapwise/sdk@0.1.2
+# JSR: @gapwise/sdk@0.1.2
+python -m pip install gapwise==0.1.1
 ```
 
 The JavaScript/TypeScript package is published on npm and JSR. The Python package is published on PyPI through Trusted Publishing. Registry and runtime claims remain evidence-based and must stay synchronized with actual releases.

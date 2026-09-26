@@ -5,9 +5,9 @@ description: Use the equal first-party synchronous and asynchronous Gapwise Pyth
 
 The official Python package lives in `sdk/python` in the Gapwise repository, targets the canonical v1 API, and is published on PyPI as `gapwise`. Python and TypeScript are equal first-party SDK implementations: public API additions should receive equivalent model, example, error, and release-validation coverage in both.
 
-> Release status: `gapwise==0.1.0` is live on PyPI through Trusted Publishing and was verified from a clean Python environment against the production Gapwise API. The matching `python-v0.1.0` GitHub Release mirrors the built wheel, source distribution, and SHA-256 checksums for source-adjacent artifact access.
+> Release status: `gapwise==0.1.1` is live on PyPI through Trusted Publishing and was verified from a clean Python environment against the production Gapwise API. The matching `python-v0.1.1` GitHub Release mirrors the built wheel, source distribution, and SHA-256 checksums for source-adjacent artifact access.
 
-The TypeScript peer is `@gapwise/sdk@0.1.1`, published canonically on npm and JSR. The same JavaScript artifact is also mirrored on GitHub Packages as `@gapwisehq/sdk` (historical 0.1.1 under `@gapwise-for-uoft/sdk`). See [JavaScript & TypeScript SDK](/sdk/javascript/).
+The TypeScript peer is `@gapwise/sdk@0.1.2`, published canonically on npm and JSR. The same JavaScript artifact is also mirrored on GitHub Packages as `@gapwisehq/sdk` (historical 0.1.1 under `@gapwise-for-uoft/sdk`). See [JavaScript & TypeScript SDK](/sdk/javascript/).
 
 ## Install from PyPI
 
@@ -18,17 +18,17 @@ python -m pip install gapwise
 To pin the current release:
 
 ```bash
-python -m pip install gapwise==0.1.0
+python -m pip install gapwise==0.1.1
 ```
 
 Python 3.11 or newer is required.
 
 ## GitHub Release mirror
 
-GitHub Packages does not provide a PyPI-compatible Python registry, so Python distribution uses PyPI as the canonical package registry and GitHub Releases as the source-adjacent mirror. The `python-v0.1.0` release contains:
+GitHub Packages does not provide a PyPI-compatible Python registry, so Python distribution uses PyPI as the canonical package registry and GitHub Releases as the source-adjacent mirror. The `python-v0.1.1` release contains:
 
-- `gapwise-0.1.0-py3-none-any.whl`
-- `gapwise-0.1.0.tar.gz`
+- `gapwise-0.1.1-py3-none-any.whl`
+- `gapwise-0.1.1.tar.gz`
 - `SHA256SUMS.txt`
 
 Normal Python consumers should install from PyPI. The GitHub Release mirror is useful when you need the exact built artifacts or their published checksums alongside the source repository.
