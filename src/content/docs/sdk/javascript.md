@@ -5,7 +5,7 @@ description: Use the portable typed Gapwise client across Node.js, Bun, Deno, br
 
 The official JavaScript/TypeScript client lives in `sdk/javascript` in the Gapwise repository and targets the canonical `https://api.gapwise.ca/v1` contract. It is one portable TypeScript implementation, not separate Node, Bun, and Deno SDKs.
 
-> Registry status: `@gapwise/sdk@0.1.1` is published on npm and JSR with provenance. The same verified JavaScript SDK is also mirrored on GitHub Packages under `@gapwisehq/sdk` (historically published as `@gapwise-for-uoft/sdk@0.1.1`). The different GitHub Packages scope is required by the `GapwiseHQ` organization namespace; it is not a separate SDK.
+> Registry status: `@gapwise/sdk@0.1.2` is published on npm and JSR with provenance. The same verified JavaScript SDK is also mirrored on GitHub Packages under `@gapwisehq/sdk` (historically published as `@gapwise-for-uoft/sdk@0.1.1`). The different GitHub Packages scope is required by the `GapwiseHQ` organization namespace; it is not a separate SDK.
 
 Python is an equal first-party SDK implementation of the same public v1 semantics. See [Python SDK](/sdk/python/).
 
@@ -25,19 +25,19 @@ JSR publishes the TypeScript source entry point directly. npm publishes the comp
 ## Install from npm
 
 ```bash
-npm install @gapwise/sdk@0.1.1
+npm install @gapwise/sdk@0.1.2
 ```
 
 ## Install from JSR / Deno
 
 ```bash
-deno add jsr:@gapwise/sdk@0.1.1
+deno add jsr:@gapwise/sdk@0.1.2
 ```
 
 You can also import the exact released JSR version directly:
 
 ```ts
-import { Gapwise } from "jsr:@gapwise/sdk@0.1.1";
+import { Gapwise } from "jsr:@gapwise/sdk@0.1.2";
 ```
 
 ## GitHub Packages mirror

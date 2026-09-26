@@ -122,19 +122,19 @@ Both first-party SDK implementations are published and target the same canonical
 JavaScript / TypeScript (npm):
 
 ```bash
-npm install @gapwise/sdk@0.1.1
+npm install @gapwise/sdk@0.1.2
 ```
 
 JavaScript / TypeScript (JSR / Deno):
 
 ```bash
-deno add jsr:@gapwise/sdk@0.1.1
+deno add jsr:@gapwise/sdk@0.1.2
 ```
 
 Python:
 
 ```bash
-python -m pip install gapwise==0.1.0
+python -m pip install gapwise==0.1.1
 ```
 
 The Python release was independently clean-installed and exercised against the production API. Registry publishing uses trusted OIDC workflows rather than long-lived release tokens where supported.

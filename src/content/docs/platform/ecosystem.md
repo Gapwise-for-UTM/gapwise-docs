@@ -67,10 +67,10 @@ public service health -> status repository
 Gapwise maintains **two SDK implementations**, not one SDK per runtime:
 
 - TypeScript: `@gapwise/sdk`
-  - npm `0.1.1` is published with provenance;
-  - JSR `0.1.1` is published with provenance through the core repository's GitHub Actions OIDC publisher;
+  - npm `0.1.2` is published with provenance;
+  - JSR `0.1.2` is published with provenance through the core repository's GitHub Actions OIDC publisher;
   - Node, Bun, and Deno are runtime/portability targets for this same implementation.
-- Python: `gapwise==0.1.0`
+- Python: `gapwise==0.1.1`
   - published on PyPI through Trusted Publishing;
   - synchronous and asynchronous clients expose the same public v1 resources.
 
