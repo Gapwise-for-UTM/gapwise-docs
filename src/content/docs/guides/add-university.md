@@ -12,10 +12,12 @@ Gapwise currently supports 11 universities across Canada: University of Toronto 
 Check out `gapwise`, `data`, and `cli` as sibling repositories. From `cli`:
 
 ```sh
-node bin/gapwise.mjs university create example-university --dry-run
-node bin/gapwise.mjs university create tmu \
-  --name "Toronto Metropolitan University" --short-name TMU
+gapwise university create example-university --dry-run
+gapwise university create example-university \
+  --name "Example University" --short-name Example
 ```
+
+See the [CLI installation and usage guide](/cli/) before running these commands. The `tmu` ID is already registered and cannot be created again.
 
 The command adds one entry to `gapwise/universities.json`, a timetable adapter and failing fixture test, and empty campus/academic snapshots. It creates no product screen or style copy. The new entry has `status: scaffold`, routing disabled, and no invented buildings, entrances, or paths.
 
@@ -30,10 +32,10 @@ The command adds one entry to `gapwise/universities.json`, a timetable adapter a
 ## Verify and deploy
 
 ```sh
-node cli/bin/gapwise.mjs data validate tmu
-node cli/bin/gapwise.mjs university validate tmu
-node cli/bin/gapwise.mjs university test tmu
-node cli/bin/gapwise.mjs university dev tmu
+gapwise data validate example-university
+gapwise university validate example-university
+gapwise university test example-university
+gapwise university dev example-university
 ```
 
 Run the `gapwise` typecheck, lint, unit tests, production build, and browser tests. Check desktop and mobile map selection, timetable import, Today, gap calculations, and route states. The local development URL uses `?university=tmu`; production host resolution uses the manifest. Configure DNS and the hosting provider for `tmu.gapwise.ca`, then verify the preview and live host before announcing support.
