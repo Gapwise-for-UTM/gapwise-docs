@@ -7,7 +7,7 @@ import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
 
 **Document status:** public technical overview · **Reviewed:** 2026-08-28 · **Scope:** Gapwise web/PWA, public API, and optional Gapwise AI/MCP service
 
-This overview is for students, developers, and institutional privacy or security reviewers. It describes controls supported by the current public implementation record without representing Gapwise as independently audited, certified, or endorsed by the University of Toronto.
+This overview is for students, developers, and institutional privacy or security reviewers. It describes controls supported by the current public implementation record without representing Gapwise as independently audited, certified, or endorsed by the University of Toronto or any other supported university.
 
 <Aside type="caution" title="Precise encryption terminology">
 Gapwise is **not described as end-to-end encrypted or zero knowledge**. Private state is encrypted in the browser before sync, but the first-party application and its same-origin JavaScript are inside the trust boundary. The server-side key broker also participates in authorized key release. A compromised authorized runtime could access plaintext while the application is using it.
@@ -126,9 +126,9 @@ The following are deliberately **not claimed**:
 - independent penetration testing or a completed third-party audit;
 - SOC 2, ISO 27001, or another certification;
 - a particular provider data-residency region, backup/recovery objective, or uptime level;
-- University of Toronto or UTM approval, affiliation, procurement acceptance, or endorsement.
+- University of Toronto, UTM, or any other supported university approval, affiliation, procurement acceptance, or endorsement.
 
-Before an institutional decision, a human reviewer should confirm production configuration parity, provider and contractual facts, privileged-access membership, logging/retention settings, incident contacts, recovery evidence, and any independent assessment results. Gapwise is an independent service, not an official University of Toronto service.
+Before an institutional decision, a human reviewer should confirm production configuration parity, provider and contractual facts, privileged-access membership, logging/retention settings, incident contacts, recovery evidence, and any independent assessment results. Gapwise is an independent service, not an official service of the University of Toronto or any other supported university.
 
 ## Evidence map
 

@@ -1,9 +1,9 @@
 ---
 title: Dataset catalog
-description: Major canonical UTM campus datasets published by Gapwise Data.
+description: Canonical campus datasets and raw artifacts published by Gapwise Data.
 ---
 
-The currently published canonical UTM subtree lives under `data/utm`. Production Data builds distribute that validated tree at `https://data.gapwise.ca/datasets/utm/latest/`. Canonical UTSG and UTSC identity and geometry datasets live in their own repository directories but are not yet included in this raw production channel.
+Gapwise Data publishes canonical campus datasets across 11 supported universities (13 campus models). Campus-wide models are maintained under `universities/<id>/campus.json` containing buildings, coordinates, and navigation metadata. In addition, the reviewed UTM subtree lives under `data/utm`, distributed as raw artifacts at `https://data.gapwise.ca/datasets/utm/latest/`. Additional university datasets (such as Carleton, Queen's, Western, Ottawa, McMaster, Laurier, York, Guelph, Brock, UTSG, and UTSC) live in their own canonical directories.
 
 ## Major surfaces
 

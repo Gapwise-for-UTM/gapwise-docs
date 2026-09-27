@@ -1,9 +1,9 @@
 ---
 title: Buildings
-description: Canonical UTM building identity, discovery, pagination, and provenance.
+description: Canonical building identity, discovery, pagination, and provenance across supported universities.
 ---
 
-The v1 building resources expose stable Gapwise identities for recognized UTM buildings. Identity/search coverage does not imply that every entrance, indoor path, floor, or accessibility detail has been surveyed.
+The v1 building resources expose stable Gapwise identities for recognized campus buildings across 11 supported universities. Identity/search coverage does not imply that every entrance, indoor path, floor, or accessibility detail has been surveyed.
 
 ## List and search
 
@@ -15,12 +15,20 @@ Supported query parameters:
 
 | Parameter | Meaning |
 | --- | --- |
+| `university` | Target university identifier (e.g. `carleton`, `uoft`, `tmu`, `mcmaster`, etc.; defaults to `uoft`) |
+| `campus` | Target campus identifier (e.g. `carleton`, `utm`, `st-george`, `scarborough`; defaults to `utm`) |
 | `q` | Case-insensitive substring search across canonical code, name, and aliases |
 | `category` | `academic`, `residence`, or `facility` |
 | `limit` | Page size, 1–100; defaults to 50 |
 | `offset` | Zero-based collection offset |
 
-Example:
+Example for Carleton University:
+
+```bash
+curl 'https://api.gapwise.ca/v1/buildings?university=carleton&limit=20'
+```
+
+Example for U of T Mississauga (default):
 
 ```bash
 curl 'https://api.gapwise.ca/v1/buildings?q=instructional&category=academic&limit=20&offset=0'
@@ -34,7 +42,15 @@ Search normalizes Unicode before matching. Filters combine deterministically, an
 GET https://api.gapwise.ca/v1/buildings/:building
 ```
 
-The identifier may be a canonical Gapwise code, exact canonical name, or recognized alias. Ambiguous identifiers return HTTP `409` with error code `ambiguous_building` and candidate codes in `error.details`.
+The identifier may be a canonical Gapwise code, exact canonical name, or recognized alias. Ambiguous identifiers return HTTP `409` with error code `ambiguous_building` and candidate codes in `error.details`. Supply `university` (and optionally `campus`) as a query parameter if querying a non-default institution.
+
+Carleton University example:
+
+```bash
+curl 'https://api.gapwise.ca/v1/buildings/ML?university=carleton'
+```
+
+UTM example:
 
 ```bash
 curl https://api.gapwise.ca/v1/buildings/MN

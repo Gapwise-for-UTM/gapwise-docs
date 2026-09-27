@@ -33,7 +33,7 @@ Revoke AI access from Gapwise to remove delegated connector state/actions and cl
 
 ## Public campus tools
 
-The UTM building/routing/gap-window tools are stateless public campus intelligence. They do not indicate that a client has access to the user's private timetable or live location.
+The public building, routing, and gap-window tools across supported universities are stateless public campus intelligence. They do not indicate that a client has access to the user's private timetable or live location.
 
 ## Service health
 

@@ -5,9 +5,23 @@ description: How raw Gapwise campus data is published without becoming a runtime
 
 Gapwise separates **canonical ownership**, **public distribution**, and **runtime consumption**.
 
+## Multi-university dataset discovery
+
+To discover available universities and campus models programmatically, use the public API discovery endpoints:
+
+```bash
+# Discover 11 supported universities
+curl https://api.gapwise.ca/v1/universities
+
+# Discover 13 campus models and metadata
+curl https://api.gapwise.ca/v1/campuses
+```
+
+In the canonical `GapwiseHQ/data` repository, each supported university maintains its campus-wide dataset at `universities/<id>/campus.json` (e.g. `universities/carleton/campus.json`), containing canonical building identities, coordinates, and navigation metadata.
+
 ## Raw first-party distribution
 
-The current canonical channel is published under:
+The current canonical raw distribution channel for detailed UTM exterior entrance geometry, routing graphs, and access audits is published under:
 
 ```text
 https://data.gapwise.ca/datasets/utm/latest/

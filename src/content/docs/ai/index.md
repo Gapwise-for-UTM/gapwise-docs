@@ -1,9 +1,9 @@
 ---
 title: Gapwise AI & MCP
-description: Connect AI clients to public UTM campus intelligence and explicitly delegated Gapwise context without turning deterministic facts into model guesses.
+description: Connect AI clients to public campus intelligence across 11 supported universities and explicitly delegated Gapwise context without turning deterministic facts into model guesses.
 ---
 
-Gapwise AI is the **remote Model Context Protocol (MCP) integration boundary** between an AI client and Gapwise. It exposes stateless public UTM campus intelligence plus narrowly permissioned private student context without giving a client unrestricted account access.
+Gapwise AI is the **remote Model Context Protocol (MCP) integration boundary** between an AI client and Gapwise. It exposes stateless public campus intelligence plus narrowly permissioned private student context without giving a client unrestricted account access.
 
 The client supplies the model and reasoning layer. **Gapwise supplies the canonical facts, permissions, and bounded actions.**
 
@@ -44,9 +44,9 @@ Implementation source: [github.com/GapwiseHQ/ai](https://github.com/GapwiseHQ/ai
 
 ## Current live surface
 
-The release surface registers **20 tools**:
+The release surface registers **25 tools**:
 
-- seven stateless public UTM campus-intelligence reads;
+- twelve stateless public campus-intelligence reads (including multi-university discovery, buildings, and routing);
 - twelve OAuth-protected private schedule/status/planning reads; and
 - one bounded OAuth-protected private write.
 
@@ -60,7 +60,7 @@ Important boundaries:
 
 ## API or AI & MCP?
 
-Use the **public API / SDKs** when a conventional application integration needs UTM buildings, places, deterministic routes, or gap assessment without an MCP client.
+Use the **public API / SDKs** when a conventional application integration needs campus buildings, places, deterministic routes, or gap assessment across supported universities without an MCP client.
 
 Use **Gapwise AI & MCP** when an AI client should access the same public campus intelligence and/or explicitly delegated Gapwise student context through one tool-oriented protocol surface.
 

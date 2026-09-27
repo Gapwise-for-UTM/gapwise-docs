@@ -25,12 +25,12 @@ Pick the interface that matches the semantics and trust boundary your project ac
 
 <CardGrid>
   <Card title="Public API & SDKs" icon="seti:json">
-    Use the unauthenticated public platform for canonical UTM buildings and places, deterministic routing, and route-aware gap planning. It never exposes a student's timetable, account, friends, private sync state, or precise live location.
+    Use the unauthenticated public platform for canonical building and place intelligence, deterministic routing, and route-aware gap planning across supported universities. It never exposes a student's timetable, account, friends, private sync state, or precise live location.
 
     **[Start with the public API →](/quickstart/#public-api-quickstart)**
   </Card>
   <Card title="Gapwise Data" icon="database">
-    Use canonical raw UTM campus artifacts when you need GeoJSON, building/entrance records, routing graph inputs, provenance, audits, checksums, or your own derivation pipeline. Raw files are distributed from a first-party Gapwise domain.
+    Use canonical campus data artifacts when you need GeoJSON, building/entrance records, routing graph inputs, provenance, audits, checksums, or your own derivation pipeline across supported universities and campuses. Raw files are distributed from a first-party Gapwise domain.
 
     **[Explore Gapwise Data →](/data/)** · **[Open the Data portal →](https://data.gapwise.ca)**
   </Card>
@@ -73,7 +73,7 @@ Pick the interface that matches the semantics and trust boundary your project ac
 
 ### Public campus platform
 
-The canonical public API exposes versioned UTM buildings and places, deterministic building-to-building routing, and route-aware assessment of an explicitly supplied free interval.
+The canonical public API exposes versioned buildings and places across 11 supported Canadian universities (and 13 campus models), deterministic building-to-building routing, and route-aware assessment of an explicitly supplied free interval.
 
 - API base: `https://api.gapwise.ca/v1`
 - OpenAPI 3.1: `https://api.gapwise.ca/openapi.json`
@@ -88,7 +88,7 @@ Successful responses use `{ data, meta }`; errors use a nested structured error 
 
 ### Canonical open campus data
 
-Gapwise Data is the canonical repository for public University of Toronto campus facts and geometry. It owns campus-scoped building identity and footprints across UTM, UTSG, and UTSC. Its current production distribution adds reviewed UTM entrances, routing graph inputs, provenance, evidence state, uncertainty, and generated data audits.
+Gapwise Data is the canonical repository for public campus facts and geometry across 11 supported universities (13 campus models). It owns university- and campus-scoped building identity, footprints, and metadata. Its production distribution includes reviewed entrances, routing graph inputs, provenance, evidence state, uncertainty, and generated data audits, with specialized raw artifacts for campuses such as UTM.
 
 Raw artifacts are published under:
 
@@ -107,9 +107,9 @@ Gapwise AI is a separate provider-neutral remote MCP service. The client supplie
 - AI service: `https://ai.gapwise.ca`
 - Source: `https://github.com/GapwiseHQ/ai`
 
-The live release surface exposes **20 tools total**:
+The live release surface exposes **25 tools total**:
 
-- **7 stateless public campus reads** for UTM building, place, route, and gap-window context;
+- **12 stateless public campus reads** for multi-university campus discovery, buildings, places, routes, and gap-window context;
 - **12 permissioned private reads/planning tools** over explicitly delegated student context;
 - **1 permissioned private write tool** for a bounded gap-preference update.
 
@@ -117,4 +117,4 @@ Public campus tools do not authenticate or expose a student's private timetable,
 
 Broad named-client compatibility is still a release gate. These docs do not claim ChatGPT, Claude, or another named client as fully verified until the production OAuth/read/write/revoke matrices are complete. See [Client compatibility](/ai/compatibility/).
 
-> Gapwise is an independent student-built project. It is not affiliated with, endorsed by, or an official service of the University of Toronto.
+> Gapwise is an independent student-built project and is not affiliated with, endorsed by, or an official service of any supported university unless explicitly stated otherwise.

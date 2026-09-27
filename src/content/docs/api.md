@@ -3,11 +3,11 @@ title: API overview
 description: The public Gapwise campus intelligence API v1.
 ---
 
-Gapwise exposes public UTM campus primitives over HTTPS. The canonical production base URL is `https://api.gapwise.ca/v1`. The API is intentionally unauthenticated and preserves provenance, verification state, and uncertainty instead of fabricating missing facts.
+Gapwise exposes public campus primitives across 11 supported Canadian universities (and 13 campus models) over HTTPS. The canonical production base URL is `https://api.gapwise.ca/v1`. The API is intentionally unauthenticated and preserves provenance, verification state, and uncertainty instead of fabricating missing facts.
 
 ## Public API or AI & MCP?
 
-Use this API when you need **public campus intelligence**: buildings, places, deterministic routes, or route-aware assessment of an explicit free interval your application already knows.
+Use this API when you need **public campus intelligence**: universities, campuses, buildings, places, deterministic routes, or route-aware assessment of an explicit free interval your application already knows.
 
 If a compatible AI client needs **private student context or bounded personal actions**, use the separate [Gapwise AI & MCP](/ai/) integration. That boundary is OAuth-protected, explicitly delegated, permissioned, and revocable.
 
@@ -23,11 +23,13 @@ The two surfaces are intentionally separate:
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
 | `GET` | `/v1` | API capabilities, versions, and privacy boundary |
-| `GET` | `/v1/buildings` | Search and list canonical UTM buildings |
+| `GET` | `/v1/universities` | Discover all 11 supported universities, editions, and capabilities |
+| `GET` | `/v1/campuses` | Discover all 13 supported campus models and metadata |
+| `GET` | `/v1/buildings` | Search and list canonical buildings for any supported university/campus |
 | `GET` | `/v1/buildings/:building` | Resolve one building by code, exact name, or recognized alias |
 | `GET` | `/v1/places` | Search and list campus places |
 | `GET` | `/v1/places/:placeId` | Resolve one canonical place |
-| `POST` | `/v1/routes` | Calculate a deterministic building-level route |
+| `POST` | `/v1/routes` | Calculate a deterministic building-level route for any supported university |
 | `POST` | `/v1/gaps/plan` | Assess a route-aware explicit free interval |
 
 All canonical endpoints live under `https://api.gapwise.ca`.

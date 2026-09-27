@@ -1,9 +1,9 @@
 ---
 title: Routing
-description: Deterministic UTM building-to-building routing and uncertainty semantics.
+description: Deterministic building-to-building routing and uncertainty semantics across supported universities.
 ---
 
-Gapwise v1 exposes deterministic building-level campus routing. It uses the project's bundled campus graph and source-backed routing facts; it does not ask an LLM to invent paths.
+Gapwise v1 exposes deterministic building-level campus routing. It uses the project's bundled campus graphs and source-backed routing facts; it does not ask an LLM to invent paths.
 
 ## Calculate a route
 
@@ -12,7 +12,17 @@ POST https://api.gapwise.ca/v1/routes
 Content-Type: application/json
 ```
 
-Minimal request:
+Minimal request for Carleton University:
+
+```json
+{
+  "from": "TB",
+  "to": "ML",
+  "university": "carleton"
+}
+```
+
+Request for UTM (default university and campus):
 
 ```json
 {
@@ -21,14 +31,15 @@ Minimal request:
 }
 ```
 
-Optional route preferences can select a supported mode and tune walking/transition assumptions:
+You can explicitly specify `university` (defaults to `uoft`) and `campus` (defaults to `utm`). Optional route preferences can select a supported mode and tune walking/transition assumptions:
 
 ```json
 {
-  "from": "MN",
-  "to": "IB",
+  "from": "TB",
+  "to": "ML",
+  "university": "carleton",
   "preferences": {
-    "mode": "prefer-indoor",
+    "mode": "fastest",
     "walkingSpeedMps": 1.2,
     "transitionBufferMinutes": 2
   }

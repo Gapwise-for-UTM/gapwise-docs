@@ -1,6 +1,6 @@
 {
   "contractVersion": 2,
-  "registeredToolCount": 20,
+  "registeredToolCount": 25,
   "registeredTools": {
     "publicRead": [
       "list_utm_buildings",
@@ -9,7 +9,12 @@
       "search_utm_places",
       "get_utm_place",
       "route_between_utm_buildings",
-      "plan_utm_gap_window"
+      "plan_utm_gap_window",
+      "list_supported_universities",
+      "list_campus_buildings",
+      "search_campus_buildings",
+      "get_campus_building",
+      "route_between_campus_buildings"
     ],
     "privateRead": [
       "get_ai_delegation_status",
