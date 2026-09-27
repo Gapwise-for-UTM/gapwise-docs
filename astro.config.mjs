@@ -120,6 +120,10 @@ export default defineConfig({
           ],
         },
         {
+          label: "CLI",
+          items: [{ label: "Gapwise CLI", slug: "cli" }],
+        },
+        {
           label: "API",
           items: [
             { label: "API overview", slug: "api" },

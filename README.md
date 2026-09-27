@@ -50,7 +50,7 @@ The docs follow released first-party contracts rather than inventing parallel be
 - [`ios`](https://github.com/GapwiseHQ/ios) owns the native iOS implementation;
 - [`ai`](https://github.com/GapwiseHQ/ai) owns live MCP/OAuth delegation behavior;
 - [`data`](https://github.com/GapwiseHQ/data) owns canonical public campus facts and provenance for supported universities;
-- [`cli`](https://github.com/GapwiseHQ/cli) scaffolds new university adapters and campus datasets;
+- [`cli`](https://github.com/GapwiseHQ/cli) discovers public campus data and scaffolds university integrations ([guide](https://docs.gapwise.ca/cli/));
 - [`status`](https://github.com/GapwiseHQ/status) owns operational state and incident communication.
 
 ---

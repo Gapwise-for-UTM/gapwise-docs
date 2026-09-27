@@ -16,7 +16,7 @@ All canonical repositories are owned by the **Gapwise** GitHub organization at `
 | `GapwiseHQ/ios` | native iOS UX, device integration, secure mobile persistence, and iOS distribution |
 | `GapwiseHQ/ai` | OAuth/MCP delegation, permission checks, minimized delegated snapshots, and bounded AI actions |
 | `GapwiseHQ/data` | campus-data provenance, evidence, schemas, attribution, transformations, and reuse guidance |
-| `GapwiseHQ/cli` | repeatable university scaffolding and validation commands |
+| [`GapwiseHQ/cli`](https://github.com/GapwiseHQ/cli) | Public campus discovery and queries, plus repeatable university scaffolding and validation ([guide](/cli/)) |
 | `GapwiseHQ/docs` | canonical public documentation of released first-party contracts |
 | `GapwiseHQ/status` | independently deployed service health and incident communication |
 

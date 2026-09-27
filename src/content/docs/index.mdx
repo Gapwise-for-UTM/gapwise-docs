@@ -66,6 +66,7 @@ Pick the interface that matches the semantics and trust boundary your project ac
 | Documentation | `https://docs.gapwise.ca` | Human-readable contracts, guides, architecture, and security |
 | Public API | `https://api.gapwise.ca/v1` | Stable deterministic campus intelligence |
 | OpenAPI | `https://api.gapwise.ca/openapi.json` | Machine-readable API contract |
+| CLI | `https://docs.gapwise.ca/cli/` | Campus discovery and university integration tooling |
 | Gapwise Data | `https://data.gapwise.ca` | Canonical raw campus data, schemas, provenance, and downloads |
 | Raw dataset manifest | `https://data.gapwise.ca/datasets/utm/latest/manifest.json` | Integrity-checkable raw artifact discovery |
 | AI / MCP | `https://ai.gapwise.ca/api/mcp` | Permissioned assistant integration |
@@ -83,6 +84,7 @@ The canonical public API exposes versioned buildings and places across 11 suppor
 - JavaScript / TypeScript (JSR): `jsr:@gapwise/sdk@0.1.2`
 - JavaScript / TypeScript (GitHub Packages mirror): `@gapwisehq/sdk` (historical 0.1.1 under `@gapwise-for-uoft/sdk`)
 - Python: `python -m pip install gapwise==0.1.1`
+- CLI: [installation and commands](/cli/) · [GapwiseHQ/cli](https://github.com/GapwiseHQ/cli)
 
 Successful responses use `{ data, meta }`; errors use a nested structured error envelope with a request ID. Both official SDK implementations target the same v1 contract. `@gapwise/sdk@0.1.2` is published on npm and JSR, the same JavaScript SDK is mirrored publicly on GitHub Packages as `@gapwisehq/sdk` (historical 0.1.1 under `@gapwise-for-uoft/sdk`), and `gapwise==0.1.1` is published on PyPI through Trusted Publishing and has been independently clean-installed against the production API. The GitHub Packages mirror uses the organization-scoped package name required by GitHub and does not replace the canonical `@gapwise/sdk` identity.
 
