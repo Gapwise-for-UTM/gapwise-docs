@@ -9,10 +9,10 @@ Gapwise has **two developer surfaces with different privacy boundaries**. Start 
 
 ### Public API & SDKs
 
-Use the public platform when you need canonical UTM campus data or deterministic campus calculations without private student context.
+Use the public platform when you need canonical campus data or deterministic campus calculations across supported universities without private student context.
 
 - No API key or Gapwise account is required.
-- Covers buildings, places, routing, and route-aware planning for an explicit free interval you provide.
+- Covers universities, campuses, buildings, places, routing, and route-aware planning for an explicit free interval you provide.
 - Does **not** expose student timetables, accounts, friends, private sync state, credentials, or precise live location.
 - Official SDKs are published for JavaScript/TypeScript and Python.
 
@@ -20,15 +20,15 @@ Use the public platform when you need canonical UTM campus data or deterministic
 
 ### Gapwise AI & MCP
 
-Use Gapwise AI when a compatible remote MCP client needs deterministic public UTM campus intelligence, **explicitly delegated private Gapwise context**, or bounded personal actions.
+Use Gapwise AI when a compatible remote MCP client needs deterministic public campus intelligence across 11 supported universities, **explicitly delegated private Gapwise context**, or bounded personal actions.
 
 - Remote MCP resource: `https://ai.gapwise.ca/api/mcp`
 - OAuth protected-resource metadata: `https://ai.gapwise.ca/.well-known/oauth-protected-resource`
-- Seven stateless public campus tools do not require private Gapwise account context.
+- Twelve stateless public campus tools do not require private Gapwise account context.
 - Thirteen private tools require explicit delegation and the relevant permissions (twelve reads and one write).
 - Private access is permissioned, minimized, revision-aware, and revocable.
 - Academic timetable meetings are read-only through the AI boundary.
-- The live service currently exposes **20 tools total: 7 public + 13 private**.
+- The live service currently exposes **25 tools total: 12 public + 13 private**.
 
 **[Open the AI & MCP guide →](/ai/)** · **[Connect an AI client →](/ai/connect/)** · [Review privacy & security](/ai/privacy/)
 
@@ -48,7 +48,24 @@ curl https://api.gapwise.ca/v1
 
 The root response reports the API version, campus data versions, supported capabilities, authentication mode, and privacy boundary.
 
-### List UTM buildings
+### Discover supported universities & campuses
+
+```bash
+curl https://api.gapwise.ca/v1/universities
+curl https://api.gapwise.ca/v1/campuses
+```
+
+Gapwise supports 11 Canadian universities and 13 campus models. Query parameters `university` (default `uoft`) and `campus` (default `utm`) scope building and routing calls.
+
+### List campus buildings
+
+List buildings for Carleton University:
+
+```bash
+curl 'https://api.gapwise.ca/v1/buildings?university=carleton&limit=10'
+```
+
+Or query UTM (default):
 
 ```bash
 curl 'https://api.gapwise.ca/v1/buildings?q=instructional&category=academic'
@@ -66,10 +83,12 @@ Availability is explicitly `open`, `closed`, or `unknown`. Never treat `unknown`
 
 ### Calculate a route
 
+Calculate a route at Carleton University (from Tory Building to Mackenzie Building):
+
 ```bash
 curl -X POST https://api.gapwise.ca/v1/routes \
   -H 'content-type: application/json' \
-  -d '{"from":"MN","to":"IB"}'
+  -d '{"from":"TB","to":"ML","university":"carleton"}'
 ```
 
 Route results are building-level campus routes. Inspect the returned status, accuracy, verification state, and warnings instead of assuming every requested route is fully verified.

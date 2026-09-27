@@ -41,10 +41,19 @@ Future `python-v<version>` releases are produced from the corresponding reviewed
 from gapwise import Gapwise
 
 with Gapwise() as gapwise:
-    buildings = gapwise.buildings.list(q="instructional")
+    # Discover supported universities and campuses
+    universities = gapwise.universities.list()
+    campuses = gapwise.campuses.list()
+
+    # Query buildings for Carleton University
+    carleton_buildings = gapwise.buildings.list(university="carleton", limit=20)
+    mackenzie = gapwise.buildings.get("ML", university="carleton")
+
+    # Calculate a route at Carleton University
     route = gapwise.routes.calculate(
-        from_building="MN",
-        to_building="IB",
+        from_building="TB",
+        to_building="ML",
+        university="carleton",
     )
 ```
 
@@ -54,6 +63,9 @@ with Gapwise() as gapwise:
 from gapwise import AsyncGapwise
 
 async with AsyncGapwise() as gapwise:
+    # Discover universities asynchronously
+    universities = await gapwise.universities.list()
+
     places = await gapwise.places.list(building="HM")
     plan = await gapwise.gaps.plan(
         from_building="MN",

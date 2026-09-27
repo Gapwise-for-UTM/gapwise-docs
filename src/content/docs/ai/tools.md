@@ -1,9 +1,9 @@
 ---
 title: Tools
-description: "The 20 tools in the Gapwise AI MCP surface: seven public UTM campus tools and thirteen permissioned student-context tools."
+description: "The 25 tools in the Gapwise AI MCP surface: twelve public campus tools and thirteen permissioned student-context tools."
 ---
 
-The Gapwise AI MCP surface contains **20 tools**: seven stateless public UTM campus-intelligence tools, twelve permissioned private read/status/planning tools, and one bounded private write tool.
+The Gapwise AI MCP surface contains **25 tools**: twelve stateless public campus-intelligence tools, twelve permissioned private read/status/planning tools, and one bounded private write tool.
 
 This catalog is checked against a synchronized copy of AI's [machine-readable live-surface manifest](https://github.com/GapwiseHQ/ai/blob/main/contracts/mcp-live-surface.json). The AI runtime remains authoritative for schemas returned by MCP discovery.
 
@@ -22,6 +22,11 @@ Public tools do **not** require a Gapwise account and do not read a student's ti
 | `get_utm_place` | Retrieve a canonical place by stable identifier without inventing missing access or location facts. |
 | `route_between_utm_buildings` | Run Gapwise's deterministic building-to-building routing engine and preserve routed/approximate/unavailable status, verification, time/distance, accessibility state, confidence, and warnings. |
 | `plan_utm_gap_window` | Run Gapwise's deterministic gap-assessment engine for an explicit free window between two UTM buildings and explicit supplied preferences. It does not discover a user's private free time. |
+| `list_supported_universities` | List all supported universities and campus editions across the Gapwise platform with capabilities and status. |
+| `list_campus_buildings` | List canonical buildings for any supported university and campus with coverage and metadata. |
+| `search_campus_buildings` | Search canonical buildings across any supported university and campus by code, official name, or alias. |
+| `get_campus_building` | Resolve a canonical building for any supported university and campus; unknown values fail closed. |
+| `route_between_campus_buildings` | Calculate deterministic building-to-building routes across any supported university and campus with confidence and verification status. |
 
 ## Private read, status, and planning tools
 

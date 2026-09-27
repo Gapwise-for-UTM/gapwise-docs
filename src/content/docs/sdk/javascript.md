@@ -56,7 +56,32 @@ const gapwise = new Gapwise();
 
 No API key is required for the public v1 campus surface.
 
+## Universities and campuses
+
+Discover all supported institutions across Canada:
+
+```ts
+// List all 11 supported universities
+const universities = await gapwise.universities.list();
+
+// List all 13 supported campus models
+const campuses = await gapwise.campuses.list();
+```
+
 ## Buildings
+
+Query buildings for any supported university (such as Carleton University):
+
+```ts
+const carletonBuildings = await gapwise.buildings.list({
+  university: "carleton",
+  limit: 20,
+});
+
+const mackenzie = await gapwise.buildings.get("ML", { university: "carleton" });
+```
+
+Or query UTM (default university and campus):
 
 ```ts
 const page = await gapwise.buildings.list({
@@ -83,16 +108,31 @@ Availability is `open`, `closed`, or `unknown`. Treat `unknown` as an explicit s
 
 ## Routing
 
+Calculate a route at Carleton University (from Tory Building to Mackenzie Building):
+
 ```ts
 const route = await gapwise.routes.calculate({
-  from: "MN",
-  to: "IB",
+  from: "TB",
+  to: "ML",
+  university: "carleton",
   preferences: {
     mode: "fastest",
   },
 });
 
 console.log(route.status, route.accuracy);
+```
+
+Or calculate a route at UTM (default):
+
+```ts
+const utmRoute = await gapwise.routes.calculate({
+  from: "MN",
+  to: "IB",
+  preferences: {
+    mode: "fastest",
+  },
+});
 ```
 
 Supported route modes are `fastest`, `prefer-indoor`, and `step-free`. Route preferences live under the `preferences` object. A successful HTTP request can still describe an approximate or unavailable route; inspect the route result instead of assuming complete coverage.

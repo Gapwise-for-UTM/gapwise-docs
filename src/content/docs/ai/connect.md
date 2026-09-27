@@ -15,7 +15,7 @@ Private student-context tools use OAuth. Protected-resource metadata is publishe
 https://ai.gapwise.ca/.well-known/oauth-protected-resource
 ```
 
-A client can discover and use stateless public UTM campus tools without private Gapwise account access. To use private schedule/planning tools, the client must follow protected-resource discovery, complete browser-based authorization, and retain the resulting authorization securely.
+A client can discover and use stateless public campus tools across supported universities without private Gapwise account access. To use private schedule/planning tools, the client must follow protected-resource discovery, complete browser-based authorization, and retain the resulting authorization securely.
 
 ## Connection workflow
 
@@ -33,6 +33,6 @@ Authorization happens at the Gapwise boundary. A legitimate integration does not
 
 The MCP transport permits unauthenticated initialization and tool discovery. Protected private tool execution remains fail-closed until the caller presents a verified OAuth credential and the student has an active delegation with the required capability.
 
-The service exposes 20 tools: seven stateless public campus reads, twelve permissioned private reads/status/planning tools, and one bounded private write. See [Tools](/ai/tools/) for the catalog and [Authentication & delegation](/ai/authentication/) for the authorization boundaries.
+The service exposes 25 tools: twelve stateless public campus reads, twelve permissioned private reads/status/planning tools, and one bounded private write. See [Tools](/ai/tools/) for the catalog and [Authentication & delegation](/ai/authentication/) for the authorization boundaries.
 
 Before connecting a particular product, check [Client compatibility](/ai/compatibility/). Broad named-client support is not claimed until the real production OAuth/read/write/revoke matrices are complete.
