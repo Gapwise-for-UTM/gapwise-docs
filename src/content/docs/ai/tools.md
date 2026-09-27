@@ -1,9 +1,9 @@
 ---
 title: Tools
-description: "The 25 tools in the Gapwise AI MCP surface: twelve public campus tools and thirteen permissioned student-context tools."
+description: "The 30 tools in the Gapwise AI MCP surface: seventeen public campus tools and thirteen permissioned student-context tools."
 ---
 
-The Gapwise AI MCP surface contains **25 tools**: twelve stateless public campus-intelligence tools, twelve permissioned private read/status/planning tools, and one bounded private write tool.
+The Gapwise AI MCP surface contains **30 tools**: seventeen stateless public campus-intelligence tools (10 canonical multi-university tools and 7 deprecated UTM compatibility aliases), twelve permissioned private read/status/planning tools, and one bounded private write tool.
 
 This catalog is checked against a synchronized copy of AI's [machine-readable live-surface manifest](https://github.com/GapwiseHQ/ai/blob/main/contracts/mcp-live-surface.json). The AI runtime remains authoritative for schemas returned by MCP discovery.
 
@@ -15,18 +15,23 @@ Public tools do **not** require a Gapwise account and do not read a student's ti
 
 | Tool | Purpose |
 | --- | --- |
-| `list_utm_buildings` | List canonical UTM buildings with Gapwise routing/accessibility coverage and provenance. |
-| `search_utm_buildings` | Search canonical buildings by code, official name, or alias with deterministic ranking and match reasons. |
-| `get_utm_building` | Resolve a canonical UTM building by code, official name, or known alias; unknown or ambiguous values fail closed. |
-| `search_utm_places` | Search canonical UTM places with bounded results and explicit provenance. |
-| `get_utm_place` | Retrieve a canonical place by stable identifier without inventing missing access or location facts. |
-| `route_between_utm_buildings` | Run Gapwise's deterministic building-to-building routing engine and preserve routed/approximate/unavailable status, verification, time/distance, accessibility state, confidence, and warnings. |
-| `plan_utm_gap_window` | Run Gapwise's deterministic gap-assessment engine for an explicit free window between two UTM buildings and explicit supplied preferences. It does not discover a user's private free time. |
+| `list_utm_buildings` | [Deprecated: Use `list_campus_buildings`] List canonical UTM buildings with Gapwise routing/accessibility coverage and provenance. |
+| `search_utm_buildings` | [Deprecated: Use `search_campus_buildings`] Search canonical UTM buildings by code, official name, or alias with deterministic ranking and match reasons. |
+| `get_utm_building` | [Deprecated: Use `get_campus_building`] Resolve a canonical UTM building by code, official name, or known alias; unknown or ambiguous values fail closed. |
+| `search_utm_places` | [Deprecated: Use `search_campus_places`] Search canonical UTM places with bounded results and explicit provenance. |
+| `get_utm_place` | [Deprecated: Use `get_campus_place`] Retrieve a canonical UTM place by stable identifier without inventing missing access or location facts. |
+| `route_between_utm_buildings` | [Deprecated: Use `route_between_campus_buildings`] Run Gapwise's deterministic building-to-building routing engine at UTM and preserve routed/approximate/unavailable status, verification, time/distance, accessibility state, confidence, and warnings. |
+| `plan_utm_gap_window` | [Deprecated: Use `plan_campus_gap`] Run Gapwise's deterministic gap-assessment engine for an explicit free window between two UTM buildings and explicit supplied preferences. |
 | `list_supported_universities` | List all supported universities and campus editions across the Gapwise platform with capabilities and status. |
+| `list_supported_campuses` | List campus models supported across Gapwise, including routability and status, with optional university filter. |
 | `list_campus_buildings` | List canonical buildings for any supported university and campus with coverage and metadata. |
 | `search_campus_buildings` | Search canonical buildings across any supported university and campus by code, official name, or alias. |
 | `get_campus_building` | Resolve a canonical building for any supported university and campus; unknown values fail closed. |
+| `list_campus_places` | List source-backed campus places (study spaces, dining, libraries, recreation, amenities) for any supported university and campus. |
+| `search_campus_places` | Search source-backed campus places for any supported university and campus by query or filter. |
+| `get_campus_place` | Retrieve a canonical campus place by stable identifier for any supported university and campus. |
 | `route_between_campus_buildings` | Calculate deterministic building-to-building routes across any supported university and campus with confidence and verification status. |
+| `plan_campus_gap` | Run Gapwise's deterministic gap-assessment engine for an explicit free window between two campus buildings for any supported university and campus. |
 
 ## Private read, status, and planning tools
 
