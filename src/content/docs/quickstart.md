@@ -28,7 +28,7 @@ Use Gapwise AI when a compatible remote MCP client needs deterministic public ca
 - Thirteen private tools require explicit delegation and the relevant permissions (twelve reads and one write).
 - Private access is permissioned, minimized, revision-aware, and revocable.
 - Academic timetable meetings are read-only through the AI boundary.
-- The live service currently exposes **25 tools total: 12 public + 13 private**.
+- The live service currently exposes **30 tools total: 17 public + 13 private**.
 
 **[Open the AI & MCP guide →](/ai/)** · **[Connect an AI client →](/ai/connect/)** · [Review privacy & security](/ai/privacy/)
 
