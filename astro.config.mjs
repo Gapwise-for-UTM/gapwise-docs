@@ -145,6 +145,7 @@ export default defineConfig({
         {
           label: "Platform",
           items: [
+            { label: "Institutional brief", slug: "platform/institutional-brief" },
             { label: "Ecosystem architecture", slug: "platform/ecosystem" },
             { label: "Security overview", slug: "platform/security" },
             { label: "Architecture & data flow", slug: "platform/architecture" },
