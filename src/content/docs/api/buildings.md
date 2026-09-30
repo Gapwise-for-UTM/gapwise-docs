@@ -3,7 +3,7 @@ title: Buildings
 description: Canonical building identity, discovery, pagination, and provenance across supported universities.
 ---
 
-The v1 building resources expose stable Gapwise identities for recognized campus buildings across 11 supported universities. Identity/search coverage does not imply that every entrance, indoor path, floor, or accessibility detail has been surveyed.
+The v1 building resources expose stable Gapwise identities for recognized campus buildings across 13 supported universities. Identity/search coverage does not imply that every entrance, indoor path, floor, or accessibility detail has been surveyed.
 
 ## List and search
 

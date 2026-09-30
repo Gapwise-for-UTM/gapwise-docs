@@ -16,11 +16,12 @@
     "verify:brand": "node scripts/verify-brand.mjs",
     "verify:mcp-contract": "node scripts/verify-mcp-contract.mjs",
     "verify:privacy-governance": "node scripts/verify-privacy-governance.mjs",
+    "verify:universities": "node scripts/verify-university-coverage.mjs",
     "audit:deployment-security": "node scripts/audit-deployment-security.mjs",
     "seo:generate": "node scripts/generate-seo.mjs",
     "build": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && npm run seo:generate && astro build",
     "preview": "astro preview",
-    "check": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && npm run seo:generate && astro check",
+    "check": "npm run verify:brand && npm run verify:mcp-contract && npm run verify:privacy-governance && npm run verify:universities && npm run seo:generate && astro check",
     "mcp-contract:sync": "node scripts/sync-mcp-contract.mjs --write",
     "mcp-contract:check": "node scripts/sync-mcp-contract.mjs --check"
   },

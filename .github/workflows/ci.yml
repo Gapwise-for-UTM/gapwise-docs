@@ -36,6 +36,14 @@ jobs:
           persist-credentials: false
       - name: Verify the Docs consumer against AI
         run: npm run mcp-contract:check -- --source=.canonical-ai/contracts/mcp-live-surface.json
+      - name: Check out the canonical university registry
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: GapwiseHQ/gapwise
+          ref: main
+          path: .canonical-gapwise
+          sparse-checkout: universities.json
+          persist-credentials: false
       - name: Validate docs content and types
         run: npm run check
       - name: Verify deployment security headers

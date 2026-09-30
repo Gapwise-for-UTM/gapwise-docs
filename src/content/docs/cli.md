@@ -7,15 +7,15 @@ The [Gapwise CLI](https://github.com/GapwiseHQ/cli) is an open-source command-li
 
 ## Install and maintain
 
-Use Node.js **22 or newer**. The intended canonical npm identity is [`@gapwise/cli`](https://www.npmjs.com/package/@gapwise/cli). The initial npm publication is pending owner authentication; the public GitHub installation is available now:
+Use Node.js **22 or newer**. Install the current verified [`@gapwise/cli` package from npm](https://www.npmjs.com/package/@gapwise/cli):
 
 ```sh
-npm install -g github:GapwiseHQ/cli
+npm install -g @gapwise/cli@0.2.1
 gapwise --version
 gapwise --help
 ```
 
-Once the registry release is verified, install or upgrade with `npm install -g @gapwise/cli`. To upgrade the GitHub installation, rerun `npm install -g github:GapwiseHQ/cli`. Uninstall with `npm uninstall -g @gapwise/cli`. The [CLI repository](https://github.com/GapwiseHQ/cli) has the MIT license, tests, release workflow, and source history.
+Upgrade with `npm install -g @gapwise/cli@latest`. Uninstall with `npm uninstall -g @gapwise/cli`. The [CLI repository](https://github.com/GapwiseHQ/cli) has the MIT license, tests, release workflow, and source history.
 
 ## Discover universities and campuses
 
@@ -26,7 +26,7 @@ gapwise campuses --university carleton
 gapwise campuses --university york
 ```
 
-Gapwise currently supports 12 universities and 14 campus models. Discovery shows canonical IDs, names, and routing availability. Public campus queries require `--university ID`; otherwise the API's historical U of T default could silently give the wrong edition's data. `--campus` selects one of that university's campus IDs; omitting it uses that university's default campus.
+Gapwise currently supports 13 universities and 15 campus models. Discovery shows canonical IDs, names, and routing availability. Public campus queries require `--university ID`; otherwise the API's historical U of T default could silently give the wrong edition's data. `--campus` selects one of that university's campus IDs; omitting it uses that university's default campus.
 
 ## Query public campus facts
 

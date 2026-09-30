@@ -1,6 +1,6 @@
 # Campus data ownership
 
-Canonical public campus facts and geometry across all 11 supported Canadian universities (13 campus models) live in `GapwiseHQ/data`. University datasets live under their canonical identifiers (e.g. `universities/carleton`, `universities/queens`, etc.); UTM's reviewed entrance/routing dataset lives under `data/utm`, and UTSG and UTSC identities and geometry live in their respective campus directories.
+Canonical public campus facts and geometry across all 13 supported Canadian universities (15 campus models) live in `GapwiseHQ/data`. University datasets live under their canonical identifiers (e.g. `universities/carleton`, `universities/ubc`, and `universities/waterloo`); UTM's reviewed entrance/routing dataset lives under `data/utm`, and UTSG and UTSC identities and geometry live in their respective campus directories.
 
 `gapwise` consumes a validated build-time snapshot and remains authoritative for deterministic routing/gap-planning behavior, the public API/OpenAPI contract, SDK semantics, and product presentation. `docs` documents released contracts; it must not become an independent source of campus facts or product behavior.
 
