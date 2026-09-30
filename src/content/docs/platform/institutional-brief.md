@@ -32,7 +32,7 @@ Gapwise was engineered from day one to demonstrate that student software can be 
 
 ## Platform Scope & University Coverage
 
-Gapwise currently serves 11 Canadian universities across 13 campus models with dedicated, edition-specific web portals:
+Gapwise currently serves 12 Canadian universities across 14 campus models with dedicated, edition-specific web portals:
 
 | University | Campus Model(s) | Status | Edition URL |
 | :--- | :--- | :---: | :--- |
@@ -47,6 +47,7 @@ Gapwise currently serves 11 Canadian universities across 13 campus models with d
 | **University of Guelph** | Guelph Campus | Supported | `guelph.gapwise.ca` |
 | **University of Ottawa** | Downtown Ottawa Campus | Supported | `uottawa.gapwise.ca` |
 | **Brock University** | St. Catharines Campus | Supported | `brock.gapwise.ca` |
+| **University of British Columbia** | Vancouver / Point Grey Campus | Supported | `ubc.gapwise.ca` |
 
 ---
 
