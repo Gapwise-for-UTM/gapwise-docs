@@ -25,7 +25,7 @@
 
 This repository is the canonical public developer-documentation surface for **Gapwise**, a free and open-source multi-university timetable and campus-intelligence platform created and engineered by **Andrew Muratov**.
 
-Gapwise currently supports **twelve universities across Canada**:
+Gapwise currently supports **13 universities across 15 campus models in Canada**:
 
 1. **University of Toronto** (`gapwise.ca`) — Mississauga, St. George, and Scarborough
 2. **Carleton University** (`carleton.gapwise.ca`) — Ottawa campus
@@ -39,6 +39,7 @@ Gapwise currently supports **twelve universities across Canada**:
 10. **University of Ottawa** (`uottawa.gapwise.ca`) — Downtown Ottawa campus
 11. **Brock University** (`brock.gapwise.ca`) — St. Catharines campus
 12. **University of British Columbia** (`ubc.gapwise.ca`) — Vancouver / Point Grey campus
+13. **University of Waterloo** (`waterloo.gapwise.ca`) — Main campus
 
 The documentation describes the multi-university architecture, public campus API, SDKs, data layers, and permissioned AI/MCP integration without presenting Gapwise as a single-institution product.
 
@@ -104,7 +105,7 @@ The public API exposes campus intelligence only. It does not expose student time
 - `android` consumes those semantics for the native Android experience without creating a second product engine.
 - `ios` consumes those semantics for the native iOS experience without creating a second product engine.
 - `ai` is authoritative for the live MCP/OAuth tool, permission, delegation, and bounded-mutation behavior.
-- `data` owns canonical public University of Toronto campus facts, geometry, provenance, evidence, schemas, and distribution.
+- `data` owns canonical public multi-university campus facts, geometry, provenance, evidence, schemas, and distribution.
 - `status` owns current operational monitoring and incident-communication state.
 - `docs` describes released behavior and preserves uncertainty rather than turning unknown facts into confident claims.
 - University-wide timetable support must not be documented as equivalent university-wide campus-routing coverage.
@@ -121,11 +122,11 @@ The public API exposes campus intelligence only. It does not expose student time
 | **[`android`](https://github.com/GapwiseHQ/android)** | Native Kotlin + Jetpack Compose Android client | Android app |
 | **[`ios`](https://github.com/GapwiseHQ/ios)** | Native Swift + SwiftUI iOS client | iOS app |
 | **[`ai`](https://github.com/GapwiseHQ/ai)** | OAuth/MCP layer for explicitly delegated student context and bounded actions | [ai.gapwise.ca](https://ai.gapwise.ca) |
-| **[`data`](https://github.com/GapwiseHQ/data)** | Canonical public University of Toronto campus data, provenance, schemas, validation, and distribution | [data.gapwise.ca](https://data.gapwise.ca) |
+| **[`data`](https://github.com/GapwiseHQ/data)** | Canonical public multi-university campus data, provenance, schemas, validation, and distribution | [data.gapwise.ca](https://data.gapwise.ca) |
 | **[`docs`](https://github.com/GapwiseHQ/docs)** | Canonical public developer documentation | [docs.gapwise.ca](https://docs.gapwise.ca) |
 | **[`status`](https://github.com/GapwiseHQ/status)** | Independent service-health monitoring and incident communication | [status.gapwise.ca](https://status.gapwise.ca) |
 
-These seven first-party product repositories form one ecosystem with deliberate separation of concerns, consistent links, trust boundaries, and source-of-truth ownership. Organization-wide GitHub defaults live separately in [`.github`](https://github.com/GapwiseHQ/.github).
+These first-party product repositories form one ecosystem with deliberate separation of concerns, consistent links, trust boundaries, and source-of-truth ownership. Organization-wide GitHub defaults live separately in [`.github`](https://github.com/GapwiseHQ/.github).
 
 ---
 

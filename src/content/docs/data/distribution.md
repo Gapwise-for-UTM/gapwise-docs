@@ -10,10 +10,10 @@ Gapwise separates **canonical ownership**, **public distribution**, and **runtim
 To discover available universities and campus models programmatically, use the public API discovery endpoints:
 
 ```bash
-# Discover 11 supported universities
+# Discover 13 supported universities
 curl https://api.gapwise.ca/v1/universities
 
-# Discover 13 campus models and metadata
+# Discover 15 campus models and metadata
 curl https://api.gapwise.ca/v1/campuses
 ```
 
