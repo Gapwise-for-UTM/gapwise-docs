@@ -30,7 +30,7 @@ hostname -> universities.json -> university timetable adapter -> shared meetings
 data/universities/<id>/campus.json -> campus catalog + path graph -> shared UI/routing
 ```
 
-Gapwise resolves hostnames dynamically: `gapwise.ca` selects U of T, `carleton.gapwise.ca` selects Carleton, `tmu.gapwise.ca` selects TMU, `queens.gapwise.ca` selects Queen's, `laurier.gapwise.ca` selects Laurier, `york.gapwise.ca` selects York, `mcmaster.gapwise.ca` selects McMaster, `western.gapwise.ca` selects Western, `guelph.gapwise.ca` selects Guelph, `uottawa.gapwise.ca` selects uOttawa, and `brock.gapwise.ca` selects Brock. See [Add a university](/guides/add-university/) for the scaffold, data, testing, and deployment workflow.
+Gapwise resolves hostnames dynamically: `gapwise.ca` selects U of T, `carleton.gapwise.ca` selects Carleton, `tmu.gapwise.ca` selects TMU, `queens.gapwise.ca` selects Queen's, `laurier.gapwise.ca` selects Laurier, `york.gapwise.ca` selects York, `mcmaster.gapwise.ca` selects McMaster, `western.gapwise.ca` selects Western, `guelph.gapwise.ca` selects Guelph, `uottawa.gapwise.ca` selects uOttawa, `brock.gapwise.ca` selects Brock, and `ubc.gapwise.ca` selects UBC Vancouver. See [Add a university](/guides/add-university/) for the scaffold, data, testing, and deployment workflow.
 
 ## Source-of-truth flow
 
