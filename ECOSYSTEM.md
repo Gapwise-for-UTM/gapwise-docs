@@ -12,7 +12,7 @@ All first-party product repositories are owned by the **Gapwise** GitHub organiz
 | `GapwiseHQ/android` | native Android implementation, Android device integration, persistence adapters, and Android distribution behavior |
 | `GapwiseHQ/ios` | native iOS implementation, Apple-platform integration, persistence adapters, and iOS distribution behavior |
 | `GapwiseHQ/ai` | OAuth/MCP delegation, tool schemas, permissions, bounded mutations, AI compatibility evidence |
-| `GapwiseHQ/data` | **canonical public campus facts and geometry across 13 supported universities (15 campus models)**, entrances, routing graph data, provenance, schemas, evidence, attribution, validation, and reuse |
+| `GapwiseHQ/data` | **canonical public campus facts and geometry across 14 supported universities (16 campus models)**, entrances, routing graph data, provenance, schemas, evidence, attribution, validation, and reuse |
 | `GapwiseHQ/docs` | released public developer documentation and documentation information architecture |
 | `GapwiseHQ/status` | operational health and incident communication |
 
@@ -20,7 +20,7 @@ All first-party product repositories are owned by the **Gapwise** GitHub organiz
 
 ## Product scope
 
-Gapwise supports 13 Canadian universities across 15 campus models. The first-party public campus API, reviewed building/entrance and pedestrian route graph, places, and production data support multi-university discovery and campus models. Documentation must preserve specific campus provenance, entrance, and accessibility depth instead of implying identical evidence across all campuses.
+Gapwise supports 14 Canadian universities across 16 campus models. The first-party public campus API, reviewed building/entrance and pedestrian route graph, places, and production data support multi-university discovery and campus models. Documentation must preserve specific campus provenance, entrance, and accessibility depth instead of implying identical evidence across all campuses.
 
 ## Current developer-platform state
 
@@ -43,7 +43,7 @@ TypeScript and Python are equal first-party SDKs. Documentation should provide c
 ## Documentation rules
 
 1. OpenAPI + core implementation own public HTTP behavior and deterministic calculations.
-2. `data` owns raw public campus facts across 13 supported universities, geometry, routing graph data, provenance, and evidence.
+2. `data` owns raw public campus facts across 14 supported universities, geometry, routing graph data, provenance, and evidence.
 3. SDK docs follow released package/source behavior and never invent methods or types.
 4. Registry claims are evidence-based: reserved/configured is not the same as published.
 5. Runtime claims are evidence-based: Node/Bun/Deno/browser support should reflect CI/release verification rather than assumptions.

@@ -26,7 +26,7 @@ gapwise campuses --university carleton
 gapwise campuses --university york
 ```
 
-Gapwise currently supports 13 universities and 15 campus models. Discovery shows canonical IDs, names, and routing availability. Public campus queries require `--university ID`; otherwise the API's historical U of T default could silently give the wrong edition's data. `--campus` selects one of that university's campus IDs; omitting it uses that university's default campus.
+Gapwise currently supports 14 universities and 16 campus models. Discovery shows canonical IDs, names, and routing availability. Public campus queries require `--university ID`; otherwise the API's historical U of T default could silently give the wrong edition's data. `--campus` selects one of that university's campus IDs; omitting it uses that university's default campus.
 
 ## Query public campus facts
 

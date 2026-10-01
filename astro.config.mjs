@@ -140,6 +140,7 @@ export default defineConfig({
           items: [
             { label: "Recipes", slug: "guides/recipes" },
             { label: "Add a university", slug: "guides/add-university" },
+            { label: "McGill University", slug: "guides/mcgill" },
           ],
         },
         {

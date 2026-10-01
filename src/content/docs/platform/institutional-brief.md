@@ -16,7 +16,7 @@ Gapwise is an independent, open-source student platform created by Andrew Murato
 While existing institutional portals typically end at exporting calendar blocks or displaying static PDF campus maps, Gapwise connects student schedules to verified campus geometry:
 - **True Usable Time**: Automatically deducts walking travel time, room transition buffers, and meal periods from raw breaks to show true productive study windows.
 - **Pedestrian Navigation**: Computes outdoor walking routes between verified campus building entrances, including step-free accessibility options.
-- **Multi-University Scale**: Supports **13 Canadian universities and 15 campus models**, mapping academic buildings, source-classified entrances, student places, and 199 university residences.
+- **Multi-University Scale**: Supports **14 Canadian universities and 16 campus models**, mapping academic buildings, source-classified entrances, student places, and 199 university residences.
 
 ---
 
@@ -32,7 +32,7 @@ Gapwise was engineered from day one to demonstrate that student software can be 
 
 ## Platform Scope & University Coverage
 
-Gapwise currently serves 13 Canadian universities across 15 campus models with dedicated, edition-specific web portals:
+Gapwise currently serves 14 Canadian universities across 16 campus models with dedicated, edition-specific web portals:
 
 | University | Campus Model(s) | Status | Edition URL |
 | :--- | :--- | :---: | :--- |
@@ -49,6 +49,7 @@ Gapwise currently serves 13 Canadian universities across 15 campus models with d
 | **Brock University** | St. Catharines Campus | Supported | `brock.gapwise.ca` |
 | **University of British Columbia** | Vancouver / Point Grey Campus | Supported | `ubc.gapwise.ca` |
 | **University of Waterloo** | Main Campus | Supported | `waterloo.gapwise.ca` |
+| **McGill University** | Downtown Montreal Campus | Supported | `mcgill.gapwise.ca` |
 
 ---
 

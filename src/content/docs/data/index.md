@@ -3,7 +3,7 @@ title: Gapwise Data
 description: Canonical multi-university campus data, schemas, provenance, distribution, and reuse.
 ---
 
-Gapwise Data is the canonical public source for campus facts and geometry across 13 supported Canadian universities (15 campus models) used throughout the Gapwise ecosystem. Building identity, footprints, and metadata cover all supported institutions; additional reviewed exterior entrance registries and routing graphs are maintained for institutions like UTM and Carleton.
+Gapwise Data is the canonical public source for campus facts and geometry across 14 supported Canadian universities (16 campus models) used throughout the Gapwise ecosystem. Building identity, footprints, and metadata cover all supported institutions; additional reviewed exterior entrance registries and routing graphs are maintained for institutions like UTM, UBC Vancouver, Waterloo Main, and McGill Downtown.
 
 - **Portal:** `https://data.gapwise.ca`
 - **Entrance contributor (UTM):** `https://data.gapwise.ca/contribute`
