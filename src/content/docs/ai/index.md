@@ -1,6 +1,6 @@
 ---
 title: Gapwise AI & MCP
-description: Connect AI clients to public campus intelligence across 13 supported universities and explicitly delegated Gapwise context without turning deterministic facts into model guesses.
+description: Connect AI clients to public campus intelligence across 14 supported universities and explicitly delegated Gapwise context without turning deterministic facts into model guesses.
 ---
 
 Gapwise AI is the **remote Model Context Protocol (MCP) integration boundary** between an AI client and Gapwise. It exposes stateless public campus intelligence plus narrowly permissioned private student context without giving a client unrestricted account access.

@@ -61,10 +61,10 @@ No API key is required for the public v1 campus surface.
 Discover all supported institutions across Canada:
 
 ```ts
-// List all 13 supported universities
+// List all 14 supported universities
 const universities = await gapwise.universities.list();
 
-// List all 15 supported campus models
+// List all 16 supported campus models
 const campuses = await gapwise.campuses.list();
 ```
 
