@@ -32,24 +32,37 @@ Gapwise was engineered from day one to demonstrate that student software can be 
 
 ## Platform Scope & University Coverage
 
-Gapwise currently serves 14 Canadian universities across 16 campus models with dedicated, edition-specific web portals:
+Gapwise currently serves 27 universities across 67 campus models in Canada and the United States with dedicated, edition-specific web portals:
 
 | University | Campus Model(s) | Status | Edition URL |
 | :--- | :--- | :---: | :--- |
-| **University of Toronto** | Mississauga (UTM), St. George (UTSG), Scarborough (UTSC) | Supported | `gapwise.ca` |
-| **Carleton University** | Ottawa Campus | Supported | `carleton.gapwise.ca` |
-| **Toronto Metropolitan University (TMU)** | Downtown Toronto Campus | Supported | `tmu.gapwise.ca` |
-| **York University** | Keele Campus | Supported | `york.gapwise.ca` |
-| **McMaster University** | Main Hamilton Campus | Supported | `mcmaster.gapwise.ca` |
-| **Queen's University** | Kingston Campus | Supported | `queens.gapwise.ca` |
-| **Western University** | London Campus | Supported | `western.gapwise.ca` |
-| **Wilfrid Laurier University** | Waterloo Campus | Supported | `laurier.gapwise.ca` |
-| **University of Guelph** | Guelph Campus | Supported | `guelph.gapwise.ca` |
-| **University of Ottawa** | Downtown Ottawa Campus | Supported | `uottawa.gapwise.ca` |
-| **Brock University** | St. Catharines Campus | Supported | `brock.gapwise.ca` |
-| **University of British Columbia** | Vancouver / Point Grey Campus | Supported | `ubc.gapwise.ca` |
-| **University of Waterloo** | Main Campus | Supported | `waterloo.gapwise.ca` |
-| **McGill University** | Downtown Montreal Campus | Supported | `mcgill.gapwise.ca` |
+| **University of Toronto** | Mississauga (UTM), St. George (UTSG), Scarborough (UTSC) | Supported | `uoft.gapwise.ca` (`gapwise.ca`) |
+| **Carleton University** | Ottawa Campus, Dominion-Chalmers Centre | Supported | `carleton.gapwise.ca` |
+| **Toronto Metropolitan University** | Downtown Toronto Campus, Brampton Campus | Supported | `tmu.gapwise.ca` |
+| **York University** | Keele Campus, Glendon Campus, Markham Campus | Supported | `york.gapwise.ca` |
+| **McMaster University** | Hamilton Campus, Ron Joyce Centre | Supported | `mcmaster.gapwise.ca` |
+| **Queen's University** | Kingston Campus, West Campus | Supported | `queens.gapwise.ca` |
+| **Western University** | London Campus, Huron University College, King's University College | Supported | `western.gapwise.ca` |
+| **Wilfrid Laurier University** | Waterloo Campus, Brantford Campus, Milton Campus | Supported | `laurier.gapwise.ca` |
+| **University of Guelph** | Main Campus, Ridgetown Campus, Guelph-Humber Campus | Supported | `guelph.gapwise.ca` |
+| **University of Ottawa** | Downtown Campus, Alta Vista Campus | Supported | `uottawa.gapwise.ca` |
+| **Brock University** | St. Catharines Campus, Marilyn I. Walker School | Supported | `brock.gapwise.ca` |
+| **University of British Columbia** | Vancouver Point Grey, Okanagan Campus | Supported | `ubc.gapwise.ca` |
+| **University of Waterloo** | Main Campus, Cambridge Campus, Kitchener Campus, Stratford School | Supported | `waterloo.gapwise.ca` |
+| **McGill University** | Downtown Campus, Macdonald Campus | Supported | `mcgill.gapwise.ca` |
+| **Carnegie Mellon University** | Pittsburgh Campus, Silicon Valley Campus | Supported | `cmu.gapwise.ca` |
+| **University of California, Berkeley** | Main Campus, Richmond Field Station | Supported | `ucberkeley.gapwise.ca` |
+| **New York University** | Washington Square Campus, Brooklyn Campus | Supported | `nyu.gapwise.ca` |
+| **Massachusetts Institute of Technology** | Cambridge Campus, Lincoln Laboratory Campus | Supported | `mit.gapwise.ca` |
+| **Stanford University** | Main Campus, Redwood City Campus | Supported | `stanford.gapwise.ca` |
+| **University of Pennsylvania** | Philadelphia Campus, Pennovation Works, New Bolton Center | Supported | `upenn.gapwise.ca` |
+| **Cornell University** | Ithaca Campus, Cornell Tech Campus, Weill Cornell Medicine | Supported | `cornell.gapwise.ca` |
+| **Dartmouth College** | Hanover Campus, Dartmouth Health Lebanon | Supported | `dartmouth.gapwise.ca` |
+| **Brown University** | College Hill Campus, Jewelry District Campus | Supported | `brown.gapwise.ca` |
+| **Columbia University** | Morningside Campus, Manhattanville Campus, CUIMC Campus | Supported | `columbia.gapwise.ca` |
+| **Princeton University** | Main Campus, Forrestal Campus, Meadows Campus | Supported | `princeton.gapwise.ca` |
+| **Yale University** | Central Campus, School of Medicine, West Campus | Supported | `yale.gapwise.ca` |
+| **Harvard University** | Cambridge Campus, Allston Campus, Longwood Medical Area | Supported | `harvard.gapwise.ca` |
 
 ---
 

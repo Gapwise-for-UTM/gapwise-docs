@@ -25,22 +25,35 @@
 
 This repository is the canonical public developer-documentation surface for **Gapwise**, a free and open-source multi-university timetable and campus-intelligence platform created and engineered by **Andrew Muratov**.
 
-Gapwise currently supports **14 universities across 16 campus models in Canada**:
+Gapwise currently supports **27 universities across 67 campus models in Canada and the United States**:
 
-1. **University of Toronto** (`gapwise.ca`) — Mississauga, St. George, and Scarborough
-2. **Carleton University** (`carleton.gapwise.ca`) — Ottawa campus
-3. **Toronto Metropolitan University** (`tmu.gapwise.ca`) — Downtown Toronto campus
-4. **Queen's University** (`queens.gapwise.ca`) — Kingston campus
-5. **Wilfrid Laurier University** (`laurier.gapwise.ca`) — Waterloo campus
-6. **York University** (`york.gapwise.ca`) — Keele campus
-7. **McMaster University** (`mcmaster.gapwise.ca`) — Hamilton campus
-8. **Western University** (`western.gapwise.ca`) — London campus
-9. **University of Guelph** (`guelph.gapwise.ca`) — Guelph campus
-10. **University of Ottawa** (`uottawa.gapwise.ca`) — Downtown Ottawa campus
-11. **Brock University** (`brock.gapwise.ca`) — St. Catharines campus
-12. **University of British Columbia** (`ubc.gapwise.ca`) — Vancouver / Point Grey campus
-13. **University of Waterloo** (`waterloo.gapwise.ca`) — Main campus
-14. **McGill University** (`mcgill.gapwise.ca`) — Downtown Montreal campus
+1. **University of Toronto** (`uoft.gapwise.ca`, also `gapwise.ca`) — Mississauga, St. George, and Scarborough
+2. **Carleton University** (`carleton.gapwise.ca`) — Ottawa Campus, Dominion-Chalmers Centre
+3. **Toronto Metropolitan University** (`tmu.gapwise.ca`) — Downtown Toronto Campus, Brampton Campus
+4. **Queen's University** (`queens.gapwise.ca`) — Kingston Campus, West Campus
+5. **Wilfrid Laurier University** (`laurier.gapwise.ca`) — Waterloo Campus, Brantford Campus, Milton Campus
+6. **York University** (`york.gapwise.ca`) — Keele Campus, Glendon Campus, Markham Campus
+7. **McMaster University** (`mcmaster.gapwise.ca`) — Hamilton Campus, Ron Joyce Centre
+8. **Western University** (`western.gapwise.ca`) — London Campus, Huron University College, King's University College
+9. **University of Guelph** (`guelph.gapwise.ca`) — Main Campus, Ridgetown Campus, Guelph-Humber Campus
+10. **University of Ottawa** (`uottawa.gapwise.ca`) — Downtown Campus, Alta Vista Campus
+11. **Brock University** (`brock.gapwise.ca`) — St. Catharines Campus, Marilyn I. Walker School
+12. **University of British Columbia** (`ubc.gapwise.ca`) — Vancouver Point Grey, Okanagan Campus
+13. **University of Waterloo** (`waterloo.gapwise.ca`) — Main Campus, Cambridge Campus, Kitchener Campus, Stratford School
+14. **McGill University** (`mcgill.gapwise.ca`) — Downtown Campus, Macdonald Campus
+15. **Carnegie Mellon University** (`cmu.gapwise.ca`) — Pittsburgh Campus, Silicon Valley Campus
+16. **University of California, Berkeley** (`ucberkeley.gapwise.ca`) — Main Campus, Richmond Field Station
+17. **New York University** (`nyu.gapwise.ca`) — Washington Square Campus, Brooklyn Campus
+18. **Massachusetts Institute of Technology** (`mit.gapwise.ca`) — Cambridge Campus, Lincoln Laboratory Campus
+19. **Stanford University** (`stanford.gapwise.ca`) — Main Campus, Redwood City Campus
+20. **University of Pennsylvania** (`upenn.gapwise.ca`) — Philadelphia Campus, Pennovation Works, New Bolton Center
+21. **Cornell University** (`cornell.gapwise.ca`) — Ithaca Campus, Cornell Tech Campus, Weill Cornell Medicine
+22. **Dartmouth College** (`dartmouth.gapwise.ca`) — Hanover Campus, Dartmouth Health Lebanon
+23. **Brown University** (`brown.gapwise.ca`) — College Hill Campus, Jewelry District Campus
+24. **Columbia University** (`columbia.gapwise.ca`) — Morningside Campus, Manhattanville Campus, CUIMC Campus
+25. **Princeton University** (`princeton.gapwise.ca`) — Main Campus, Forrestal Campus, Meadows Campus
+26. **Yale University** (`yale.gapwise.ca`) — Central Campus, School of Medicine, West Campus
+27. **Harvard University** (`harvard.gapwise.ca`) — Cambridge Campus, Allston Campus, Longwood Medical Area
 
 The documentation describes the multi-university architecture, public campus API, SDKs, data layers, and permissioned AI/MCP integration without presenting Gapwise as a single-institution product.
 
