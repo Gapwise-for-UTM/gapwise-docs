@@ -12,7 +12,7 @@ All first-party product repositories are owned by the **Gapwise** GitHub organiz
 | `GapwiseHQ/android` | native Android implementation, Android device integration, persistence adapters, and Android distribution behavior |
 | `GapwiseHQ/ios` | native iOS implementation, Apple-platform integration, persistence adapters, and iOS distribution behavior |
 | `GapwiseHQ/ai` | OAuth/MCP delegation, tool schemas, permissions, bounded mutations, AI compatibility evidence |
-| `GapwiseHQ/data` | **canonical public campus facts and geometry across 14 supported universities (16 campus models)**, entrances, routing graph data, provenance, schemas, evidence, attribution, validation, and reuse |
+| `GapwiseHQ/data` | **canonical public campus facts and geometry across 27 supported universities (67 campus models)**, entrances, routing graph data, provenance, schemas, evidence, attribution, validation, and reuse |
 | `GapwiseHQ/docs` | released public developer documentation and documentation information architecture |
 | `GapwiseHQ/status` | operational health and incident communication |
 
@@ -20,7 +20,7 @@ All first-party product repositories are owned by the **Gapwise** GitHub organiz
 
 ## Product scope
 
-Gapwise supports 14 Canadian universities across 16 campus models. The first-party public campus API, reviewed building/entrance and pedestrian route graph, places, and production data support multi-university discovery and campus models. Documentation must preserve specific campus provenance, entrance, and accessibility depth instead of implying identical evidence across all campuses.
+Gapwise supports 27 universities across 67 campus models in Canada and the United States. The first-party public campus API, reviewed building/entrance and pedestrian route graph, places, and production data support multi-university discovery and campus models. Documentation must preserve specific campus provenance, entrance, and accessibility depth instead of implying identical evidence across all campuses.
 
 ## Current developer-platform state
 

@@ -3,7 +3,7 @@ title: API overview
 description: The public Gapwise campus intelligence API v1.
 ---
 
-Gapwise exposes public campus primitives across 14 supported Canadian universities (and 16 campus models) over HTTPS. The canonical production base URL is `https://api.gapwise.ca/v1`. The API is intentionally unauthenticated and preserves provenance, verification state, and uncertainty instead of fabricating missing facts.
+Gapwise exposes public campus primitives across 27 supported universities (and 67 campus models) across Canada and the United States over HTTPS. The canonical production base URL is `https://api.gapwise.ca/v1`. The API is intentionally unauthenticated and preserves provenance, verification state, and uncertainty instead of fabricating missing facts.
 
 ## Public API or AI & MCP?
 
