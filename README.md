@@ -25,7 +25,7 @@
 
 This repository is the canonical public developer-documentation surface for **Gapwise**, a free and open-source multi-university timetable and campus-intelligence platform created and engineered by **Andrew Muratov**.
 
-Gapwise currently supports **27 universities across 67 campus models in Canada and the United States**:
+Gapwise currently supports **28 universities across 74 campus models**:
 
 1. **University of Toronto** (`uoft.gapwise.ca`, also `gapwise.ca`) — Mississauga, St. George, and Scarborough
 2. **Carleton University** (`carleton.gapwise.ca`) — Ottawa Campus, Dominion-Chalmers Centre
@@ -54,6 +54,7 @@ Gapwise currently supports **27 universities across 67 campus models in Canada a
 25. **Princeton University** (`princeton.gapwise.ca`) — Main Campus, Forrestal Campus, Meadows Campus
 26. **Yale University** (`yale.gapwise.ca`) — Central Campus, School of Medicine, West Campus
 27. **Harvard University** (`harvard.gapwise.ca`) — Cambridge Campus, Allston Campus, Longwood Medical Area
+28. **Sorbonne Université** (`sorbonne.gapwise.ca`) — Pierre et Marie Curie, Sorbonne, Pitié-Salpêtrière, Saint-Antoine, Cordeliers, Clignancourt, Malesherbes
 
 The documentation describes the multi-university architecture, public campus API, SDKs, data layers, and permissioned AI/MCP integration without presenting Gapwise as a single-institution product.
 

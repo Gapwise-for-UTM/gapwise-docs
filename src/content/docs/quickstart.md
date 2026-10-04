@@ -20,7 +20,7 @@ Use the public platform when you need canonical campus data or deterministic cam
 
 ### Gapwise AI & MCP
 
-Use Gapwise AI when a compatible remote MCP client needs deterministic public campus intelligence across 14 supported universities, **explicitly delegated private Gapwise context**, or bounded personal actions.
+Use Gapwise AI when a compatible remote MCP client needs deterministic public campus intelligence across supported universities, **explicitly delegated private Gapwise context**, or bounded personal actions.
 
 - Remote MCP resource: `https://ai.gapwise.ca/api/mcp`
 - OAuth protected-resource metadata: `https://ai.gapwise.ca/.well-known/oauth-protected-resource`
@@ -55,7 +55,7 @@ curl https://api.gapwise.ca/v1/universities
 curl https://api.gapwise.ca/v1/campuses
 ```
 
-Gapwise supports 27 universities and 67 campus models across Canada and the United States. Query parameters `university` (default `uoft`) and `campus` (default `utm`) scope building and routing calls.
+Gapwise supports 28 universities and 74 campus models. Query parameters `university` (default `uoft`) and `campus` (default `utm`) scope building and routing calls.
 
 ### List campus buildings
 
